@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CircularProgressButton">
+        <attr name="spinning_bar_width" format="dimension"/>
+        <attr name="spinning_bar_color" format="color"/>
+    </declare-styleable>
+</resources>
