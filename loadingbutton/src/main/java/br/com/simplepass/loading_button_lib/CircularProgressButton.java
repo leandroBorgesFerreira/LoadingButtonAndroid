@@ -8,8 +8,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -57,12 +56,12 @@ public class CircularProgressButton extends Button {
     }
 
     public CircularProgressButton(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+        super(context, attrs, defStyleAttr);
 
         init(context, attrs);
     }
 
-    private void init(Context context, @Nullable AttributeSet attrs){
+    private void init(Context context, AttributeSet attrs){
         mPaddingProgress = 0;
 
         if(attrs == null) {
@@ -70,16 +69,18 @@ public class CircularProgressButton extends Button {
         } else{
             int[] attrsArray = new int[] {
                     android.R.attr.background, // 0
-                    R.attr.spinning_bar_width,  // 1
-                    R.attr.spinning_bar_color  // 2
             };
 
-            TypedArray typedArray =  context.obtainStyledAttributes(attrs, attrsArray);
-            mDrawable = typedArray.getDrawable(0);
-            mSpinningBarWidth = typedArray.getDimension(1, 10);
-            mSpinningBarColor = typedArray.getColor(2, ContextCompat.getColor(context, android.R.color.black));
+            TypedArray typedArray =  context.obtainStyledAttributes(attrs, R.styleable.CircularProgressButton);
+            TypedArray typedArrayBG = context.obtainStyledAttributes(attrs, attrsArray);
+            mDrawable = typedArrayBG.getDrawable(0);
+            mSpinningBarWidth = typedArray.getDimension(
+                    R.styleable.CircularProgressButton_spinning_bar_width, 10);
+            mSpinningBarColor = typedArray.getColor(R.styleable.CircularProgressButton_spinning_bar_color,
+                    getResources().getColor(android.R.color.black));
 
             typedArray.recycle();
+            typedArrayBG.recycle();
         }
 
         mState = State.IDLE;

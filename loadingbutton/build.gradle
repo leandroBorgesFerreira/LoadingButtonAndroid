@@ -1,11 +1,18 @@
 apply plugin: 'com.android.library'
 
+
+ext {
+    PUBLISH_GROUP_ID='br.com.simplepass'
+    PUBLISH_ARTIFACT_ID='loading-button-android'
+    PUBLISH_VERSION='1.0.0'
+}
+
 android {
     compileSdkVersion 24
     buildToolsVersion "24.0.1"
 
     defaultConfig {
-        minSdkVersion 11
+        minSdkVersion 16
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
@@ -23,3 +30,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:24.1.1'
 }
+
+apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'
