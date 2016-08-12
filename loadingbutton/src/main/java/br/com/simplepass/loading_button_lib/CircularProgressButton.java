@@ -9,6 +9,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -23,7 +24,7 @@ public class CircularProgressButton extends Button {
     }
 
     //private CircularAnimatedDrawable mAnimatedDrawable;
-    Drawable mDrawable;
+    private Drawable mDrawable;
     private boolean mIsMorphingInProgress;
     private State mState;
     private CircularAnimatedDrawable mAnimatedDrawable;
@@ -33,9 +34,7 @@ public class CircularProgressButton extends Button {
     private AnimatorSet mAnimatorSet;
     private float mSpinningBarWidth;
     private int mSpinningBarColor;
-    
-
-    private int mPaddingProgress; //ToDo: Colocar em attr depois!
+    private Float mPaddingProgress; //ToDo: Colocar em attr depois!
 
 
     public CircularProgressButton(Context context) {
@@ -62,7 +61,7 @@ public class CircularProgressButton extends Button {
     }
 
     private void init(Context context, AttributeSet attrs){
-        mPaddingProgress = 0;
+        mPaddingProgress = 0f;
 
         if(attrs == null) {
             //mDrawable = ResourcesCompat.getDrawable(getResources(), R.drawable.button_shape_login, null);
@@ -78,6 +77,7 @@ public class CircularProgressButton extends Button {
                     R.styleable.CircularProgressButton_spinning_bar_width, 10);
             mSpinningBarColor = typedArray.getColor(R.styleable.CircularProgressButton_spinning_bar_color,
                     getResources().getColor(android.R.color.black));
+            mPaddingProgress = typedArray.getDimension(R.styleable.CircularProgressButton_spinning_bar_padding, 0);
 
             typedArray.recycle();
             typedArrayBG.recycle();
@@ -107,10 +107,10 @@ public class CircularProgressButton extends Button {
                     mSpinningBarWidth,
                     mSpinningBarColor);
 
-            int left = offset + mPaddingProgress;
-            int right = getWidth() - offset - mPaddingProgress;
-            int bottom = getHeight() - mPaddingProgress;
-            int top = mPaddingProgress;
+            int left = offset + mPaddingProgress.intValue();
+            int right = getWidth() - offset - mPaddingProgress.intValue();
+            int bottom = getHeight() - mPaddingProgress.intValue();
+            int top = mPaddingProgress.intValue();
 
             mAnimatedDrawable.setBounds(left, top, right, bottom);
             mAnimatedDrawable.setCallback(this);
