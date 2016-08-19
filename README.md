@@ -1,3 +1,4 @@
+
 # Progress Button Android
 
 Android Button that morphs into a loading progress bar. 
@@ -19,7 +20,7 @@ Add the button in your layout file and customize it the way you like it.
     	    android:id="@+id/btn_id"
     	    android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFF"
+            android:background="@drawable/circular_border_shape"
             app:spinning_bar_width="4dp" <!-- Optional -->
             app:spinning_bar_color="#FFF" <!-- Optional -->
             app:spinning_bar_padding="6dp" <!-- Optional -->
@@ -59,3 +60,5 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+    
