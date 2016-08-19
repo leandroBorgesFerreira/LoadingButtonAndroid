@@ -21,7 +21,7 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="50dp"
-        android:background="@drawable/button_shape_default"
+        android:background="@drawable/shape_default"
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
         app:spinning_bar_padding="10dp"

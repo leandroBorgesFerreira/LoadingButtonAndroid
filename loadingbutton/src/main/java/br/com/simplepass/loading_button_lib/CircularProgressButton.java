@@ -8,15 +8,15 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 
 /**
- * Created by leandro on 5/31/16.
+ * Classe botão
  */
 public class CircularProgressButton extends Button {
     private enum State {
@@ -64,7 +64,7 @@ public class CircularProgressButton extends Button {
         mPaddingProgress = 0f;
 
         if(attrs == null) {
-            //mDrawable = ResourcesCompat.getDrawable(getResources(), R.drawable.button_shape_login, null);
+            mDrawable = ResourcesCompat.getDrawable(getResources(), R.drawable.shape_default, null);
         } else{
             int[] attrsArray = new int[] {
                     android.R.attr.background, // 0
@@ -76,7 +76,7 @@ public class CircularProgressButton extends Button {
             mSpinningBarWidth = typedArray.getDimension(
                     R.styleable.CircularProgressButton_spinning_bar_width, 10);
             mSpinningBarColor = typedArray.getColor(R.styleable.CircularProgressButton_spinning_bar_color,
-                    getResources().getColor(android.R.color.black));
+                    ContextCompat.getColor(context, android.R.color.black));
             mPaddingProgress = typedArray.getDimension(R.styleable.CircularProgressButton_spinning_bar_padding, 0);
 
             typedArray.recycle();
