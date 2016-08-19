@@ -37,3 +37,8 @@ gradle/
 # Local configuration file (sdk path, etc)
 local.properties
 
+## File-based project format
+*.ipr
+*.iws
+*.iml
+
