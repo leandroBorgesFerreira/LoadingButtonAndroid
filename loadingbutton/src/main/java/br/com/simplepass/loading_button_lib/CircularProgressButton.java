@@ -174,7 +174,10 @@ public class CircularProgressButton extends Button {
         mState = State.IDLE;
 
         ObjectAnimator cornerAnimation =
-                ObjectAnimator.ofFloat(mGradientDrawable, "cornerRadius", mParams.getInitialHeight(), 0);
+                ObjectAnimator.ofFloat(mGradientDrawable,
+                        "cornerRadius",
+                        mParams.getFinalCornerRadius(),
+                        mParams.getInitialCornerRadius());
 
         ValueAnimator widthAnimation = ValueAnimator.ofInt(fromWidth, toWidth);
         widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {

@@ -1,5 +1,3 @@
-
-
 # Progress Button Android
 
 ![enter image description here](https://lh3.googleusercontent.com/-XCTHZzK7PKk/V8Tpuu443hI/AAAAAAAAJ6s/LLwMgLeRfo8Dc4zGGRV6ZdT15FQhWotBACLcB/s0/loading_btn.gif "loading_btn.gif")
@@ -12,7 +10,7 @@ Android Button that morphs into a loading progress bar.
 
 ## Installation
 
-    compile 'br.com.simplepass:loading-button-android:1.1.0'
+    compile 'br.com.simplepass:loading-button-android:1.2.2'
 
 ## How to Use / Sample
 Add the button in your layout file and customize it the way you like it.
@@ -65,7 +63,3 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
     
-
-
-
-		
