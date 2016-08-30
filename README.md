@@ -1,5 +1,8 @@
 
+
 # Progress Button Android
+
+![enter image description here](https://lh3.googleusercontent.com/-XCTHZzK7PKk/V8Tpuu443hI/AAAAAAAAJ6s/LLwMgLeRfo8Dc4zGGRV6ZdT15FQhWotBACLcB/s0/loading_btn.gif "loading_btn.gif")
 
 Android Button that morphs into a loading progress bar. 
 
@@ -52,7 +55,7 @@ This libs was inspired in this repo: https://github.com/dmytrodanylyk/android-mo
 ## License
 The MIT License (MIT)
 
-Copyright (c) 2016 Leandro Ferreira
+Copyright (c) 2015 Leandro Ferreira
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
@@ -62,3 +65,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
     
+
+
+
+		
