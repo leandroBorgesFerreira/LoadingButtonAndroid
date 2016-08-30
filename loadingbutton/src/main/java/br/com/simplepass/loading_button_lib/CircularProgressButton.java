@@ -98,9 +98,10 @@ public class CircularProgressButton extends Button {
             }
 
             /* Todo: fix this! */
-            mParams.setInitialCornerRadius(0);
-            mParams.setFinalCornerRadius(100);
-            /* ---- */
+            mParams.setInitialCornerRadius(typedArray.getDimension(
+                    R.styleable.CircularProgressButton_initialCornerAngle, 0));
+            mParams.setFinalCornerRadius(typedArray.getDimension(
+                    R.styleable.CircularProgressButton_finalCornerAngle, 100));
             mParams.setSpinningBarWidth(typedArray.getDimension(
                     R.styleable.CircularProgressButton_spinning_bar_width, 10));
             mParams.setSpinningBarColor(typedArray.getColor(R.styleable.CircularProgressButton_spinning_bar_color,
