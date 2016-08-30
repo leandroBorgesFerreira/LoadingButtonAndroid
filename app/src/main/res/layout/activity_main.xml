@@ -4,27 +4,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:gravity="center_horizontal"
     tools:context="br.com.simplepass.loadingbutton.MainActivity">
 
-    <EditText
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content" />
-
     <br.com.simplepass.loading_button_lib.CircularProgressButton
-        android:id="@+id/progress_edit_text"
-        android:layout_width="0dp"
-        android:layout_weight="1"
+        android:id="@+id/progress_btn"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/shape_default"
-        android:paddingLeft="12dp"
-        android:paddingRight="12dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
         app:spinning_bar_padding="10dp"
         app:spinning_bar_color="@android:color/white"
-        app:spinning_bar_width="4dp"/>
+        app:spinning_bar_width="4dp"
+        android:text="Send"
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="20dp"/>
+
+    <br.com.simplepass.loading_button_lib.CircularProgressButton
+        android:id="@+id/progress_btn_no_padding"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/shape_default"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        app:spinning_bar_color="@android:color/white"
+        app:spinning_bar_width="4dp"
+        android:text="Send"
+        android:textColor="@android:color/white"/>
+
 </LinearLayout>
