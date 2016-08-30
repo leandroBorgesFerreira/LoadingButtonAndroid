@@ -69,6 +69,7 @@ public class CircularAnimatedDrawable extends Drawable implements Animatable {
         if (isRunning()) {
             return;
         }
+
         mRunning = true;
         mValueAnimatorAngle.start();
         mValueAnimatorSweep.start();
