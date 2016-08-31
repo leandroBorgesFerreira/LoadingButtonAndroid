@@ -4,7 +4,7 @@ apply plugin: 'com.android.library'
 ext {
     PUBLISH_GROUP_ID='br.com.simplepass'
     PUBLISH_ARTIFACT_ID='loading-button-android'
-    PUBLISH_VERSION='1.1.0'
+    PUBLISH_VERSION='1.2.2'
 }
 
 android {
@@ -14,8 +14,8 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 24
-        versionCode 2
-        versionName "1.1.0"
+        versionCode 4
+        versionName "1.2.2"
     }
     buildTypes {
         release {
@@ -28,7 +28,8 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:24.1.1'
+    compile 'com.android.support:appcompat-v7:24.2.0'
 }
+
 
 apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'

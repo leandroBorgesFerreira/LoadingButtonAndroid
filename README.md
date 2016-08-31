@@ -1,3 +1,6 @@
+
+
+
 # Progress Button Android
 
 ![enter image description here](https://lh3.googleusercontent.com/-XCTHZzK7PKk/V8Tpuu443hI/AAAAAAAAJ6s/LLwMgLeRfo8Dc4zGGRV6ZdT15FQhWotBACLcB/s0/loading_btn.gif "loading_btn.gif")
@@ -21,10 +24,14 @@ Add the button in your layout file and customize it the way you like it.
     	    android:id="@+id/btn_id"
     	    android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/circular_border_shape"
+            android:background="@color/colorAccent"
+	    android:background="@drawable/circular_border_shape"
+	    app:initialCornerAngle="0dp"
+	    app:finalCornerAngle="50dp"
             app:spinning_bar_width="4dp" <!-- Optional -->
             app:spinning_bar_color="#FFF" <!-- Optional -->
             app:spinning_bar_padding="6dp" <!-- Optional -->
+            
 
 Then, instanciate the button
 
