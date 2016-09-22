@@ -1,1 +1,1 @@
-include ':app', ':loadingbuttonlib', ':loadingbutton'
+include ':app', ':loadingbutton'

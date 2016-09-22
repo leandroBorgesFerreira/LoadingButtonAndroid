@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
                 animateButton(progressButtonNoPadding);
             }
         });
+
     }
 
 
@@ -42,7 +43,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 circularProgressButton.stopAnimation();
-                circularProgressButton.revertAnimation();
+                circularProgressButton.setText("\u2713");
+                circularProgressButton.setTextSize(18);
+                //circularProgressButton.revertAnimation();
             }
         };
 
