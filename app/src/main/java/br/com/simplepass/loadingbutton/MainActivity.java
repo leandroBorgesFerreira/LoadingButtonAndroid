@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
                 animateButton(progressButtonNoPadding);
             }
         });
-
     }
 
 
@@ -42,9 +41,9 @@ public class MainActivity extends AppCompatActivity {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                circularProgressButton.stopAnimation();
-                circularProgressButton.setText("\u2713");
-                circularProgressButton.setTextSize(18);
+                circularProgressButton.doneLoagingAnimation();
+
+                //circularProgressButton.stopAnimation();
                 //circularProgressButton.revertAnimation();
             }
         };

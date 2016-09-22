@@ -7,6 +7,8 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -24,8 +26,10 @@ import android.widget.Button;
  */
 public class CircularProgressButton extends Button {
     private enum State {
-        PROGRESS, IDLE
+        PROGRESS, IDLE, DONE
     }
+
+    private Context mContext;
 
     //private CircularAnimatedDrawable mAnimatedDrawable;
     private GradientDrawable mGradientDrawable;
@@ -33,7 +37,9 @@ public class CircularProgressButton extends Button {
     private boolean mIsMorphingInProgress;
     private State mState;
     private CircularAnimatedDrawable mAnimatedDrawable;
+    private CircularRevealAnimatedDrawable mRevealDrawable;
     private AnimatorSet mAnimatorSet;
+    private Bitmap mReadyImage;
 
     private Params mParams;
 
@@ -61,6 +67,8 @@ public class CircularProgressButton extends Button {
     }
 
     private void init(Context context, AttributeSet attrs){
+        mContext = context;
+
         mParams = new Params();
 
         mParams.setPaddingProgress(0f);
@@ -97,7 +105,6 @@ public class CircularProgressButton extends Button {
                 }
             }
 
-            /* Todo: fix this! */
             mParams.setInitialCornerRadius(typedArray.getDimension(
                     R.styleable.CircularProgressButton_initialCornerAngle, 0));
             mParams.setFinalCornerRadius(typedArray.getDimension(
@@ -107,6 +114,9 @@ public class CircularProgressButton extends Button {
             mParams.setSpinningBarColor(typedArray.getColor(R.styleable.CircularProgressButton_spinning_bar_color,
                     ContextCompat.getColor(context, android.R.color.black)));
             mParams.setPaddingProgress(typedArray.getDimension(R.styleable.CircularProgressButton_spinning_bar_padding, 0));
+            mParams.setDoneColorColor(ContextCompat.getColor(mContext, R.color.green));
+
+            mReadyImage = BitmapFactory.decodeResource(getResources(), R.drawable.ic_done_white_48dp);
 
             typedArray.recycle();
             typedArrayBG.recycle();
@@ -124,11 +134,14 @@ public class CircularProgressButton extends Button {
 
         if (mState == State.PROGRESS && !mIsMorphingInProgress) {
             drawIndeterminateProgress(canvas);
+        } else if(mState == State.DONE){
+            drawDoneAnimation(canvas);
         }
     }
 
 
     private void drawIndeterminateProgress(Canvas canvas) {
+        //Todo: Init this animatedDrawable in the onCreate.
         if (mAnimatedDrawable == null || !mAnimatedDrawable.isRunning()) {
             int offset = (getWidth() - getHeight()) / 2;
             mAnimatedDrawable = new CircularAnimatedDrawable(this,
@@ -152,6 +165,30 @@ public class CircularProgressButton extends Button {
         if(mState == State.PROGRESS && !mIsMorphingInProgress) {
             mAnimatedDrawable.stop();
         }
+    }
+
+    public void doneLoagingAnimation(){
+        if(mState != State.PROGRESS) {
+            return;
+        }
+
+        mState = State.DONE;
+        mAnimatedDrawable.stop();
+
+        mRevealDrawable = new CircularRevealAnimatedDrawable(this, mParams.getDoneColorColor(), mReadyImage);
+
+        int left = mParams.getPaddingProgress().intValue();
+        int right = getWidth()  - mParams.getPaddingProgress().intValue();
+        int bottom = getHeight() - mParams.getPaddingProgress().intValue();
+        int top = mParams.getPaddingProgress().intValue();
+
+        mRevealDrawable.setBounds(left, top, right, bottom);
+        mRevealDrawable.setCallback(this);
+        mRevealDrawable.start();
+    }
+
+    public void drawDoneAnimation(Canvas canvas){
+        mRevealDrawable.draw(canvas);
     }
 
     public void revertAnimation(){
@@ -241,13 +278,13 @@ public class CircularProgressButton extends Button {
             mAnimatorSet.cancel();
         }
 
+        mState = State.PROGRESS;
+
         mParams.setInitialWidth(getWidth());
         mParams.setInitialHeight(getHeight());
 
         int toHeight =  (int) (mParams.getInitialHeight() * 1.2);
         int toWidth = toHeight; //Largura igual altura faz um circulo perfeito
-
-        mState = State.PROGRESS;
 
         ObjectAnimator cornerAnimation =
                 ObjectAnimator.ofFloat(mGradientDrawable,
@@ -307,6 +344,7 @@ public class CircularProgressButton extends Button {
     private class Params{
         private float mSpinningBarWidth;
         private int mSpinningBarColor;
+        private int mDoneColorColor;
         private Float mPaddingProgress;
         private Integer mInitialHeight;
         private int mInitialWidth;
@@ -315,6 +353,14 @@ public class CircularProgressButton extends Button {
         private float mFinalCornerRadius;
 
         public Params() {}
+
+        public int getDoneColorColor() {
+            return mDoneColorColor;
+        }
+
+        public void setDoneColorColor(int mDoneColorColor) {
+            this.mDoneColorColor = mDoneColorColor;
+        }
 
         public float getSpinningBarWidth() {
             return mSpinningBarWidth;
@@ -381,3 +427,37 @@ public class CircularProgressButton extends Button {
         }
     }
 }
+
+
+/*
+* ObjectAnimator colorAnimator = ObjectAnimator.ofArgb(
+                mGradientDrawable,
+                "color",
+                ContextCompat.getColor(mContext, R.color.white),
+                ContextCompat.getColor(mContext, R.color.black));
+
+        colorAnimator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                setText("\u2713");
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+
+        colorAnimator.setDuration(300);
+        colorAnimator.start();
+* */

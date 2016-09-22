@@ -40,6 +40,7 @@ public class CircularAnimatedDrawable extends Drawable implements Animatable {
     private boolean mModeAppearing;
     private boolean mRunning;
 
+
     public CircularAnimatedDrawable(View view, float borderWidth, int arcColor) {
         mAnimatedView = view;
 
@@ -54,7 +55,6 @@ public class CircularAnimatedDrawable extends Drawable implements Animatable {
         setupAnimations();
     }
 
-    //Ver se é necessário essa classe
     @Override
     protected void onBoundsChange(Rect bounds) {
         super.onBoundsChange(bounds);
@@ -62,6 +62,9 @@ public class CircularAnimatedDrawable extends Drawable implements Animatable {
         fBounds.right = bounds.right - mBorderWidth / 2f - .5f;
         fBounds.top = bounds.top + mBorderWidth / 2f + .5f;
         fBounds.bottom = bounds.bottom - mBorderWidth / 2f - .5f;
+
+
+
     }
 
     @Override
@@ -80,6 +83,7 @@ public class CircularAnimatedDrawable extends Drawable implements Animatable {
         if (!isRunning()) {
             return;
         }
+
         mRunning = false;
         mValueAnimatorAngle.cancel();
         mValueAnimatorSweep.cancel();
