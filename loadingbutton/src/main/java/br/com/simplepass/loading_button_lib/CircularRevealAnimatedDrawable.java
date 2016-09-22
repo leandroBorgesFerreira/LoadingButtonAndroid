@@ -78,7 +78,7 @@ public class CircularRevealAnimatedDrawable extends Drawable implements Animatab
 
     private void setupAnimations(){
         final ValueAnimator alphaAnimator = ValueAnimator.ofInt(0, 255);
-        alphaAnimator.setDuration(120);
+        alphaAnimator.setDuration(80);
         alphaAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
