@@ -29,17 +29,50 @@
         android:layout_marginBottom="20dp"/>
 
     <br.com.simplepass.loading_button_lib.CircularProgressButton
+        android:id="@+id/progress_btn2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimaryDark"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        app:spinning_bar_padding="10dp"
+        app:spinning_bar_color="@color/blue"
+        app:spinning_bar_width="4dp"
+        app:initialCornerAngle="0dp"
+        app:finalCornerAngle="50dp"
+        android:text="Send"
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="20dp"/>
+
+    <br.com.simplepass.loading_button_lib.CircularProgressButton
         android:id="@+id/progress_btn_no_padding"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/button_shape_default_rounded"
         android:layout_marginLeft="18dp"
         android:layout_marginRight="18dp"
-        app:spinning_bar_color="@android:color/white"
+        app:spinning_bar_color="@android:color/black"
         app:spinning_bar_width="4dp"
         app:initialCornerAngle="50dp"
         app:finalCornerAngle="50dp"
         android:text="Send"
-        android:textColor="@android:color/white"/>
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="20dp"/>
+
+    <br.com.simplepass.loading_button_lib.CircularProgressButton
+        android:id="@+id/progress_btn_no_padding2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/button_shape_no_fill"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        app:spinning_bar_color="@color/black"
+        app:spinning_bar_width="4dp"
+        app:initialCornerAngle="50dp"
+        app:finalCornerAngle="50dp"
+        android:text="Send"
+        android:textColor="@android:color/black"/>
+
+
 
 </LinearLayout>

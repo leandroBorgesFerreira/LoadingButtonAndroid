@@ -3,7 +3,7 @@
 
 # Progress Button Android
 
-![enter image description here](https://lh3.googleusercontent.com/-XCTHZzK7PKk/V8Tpuu443hI/AAAAAAAAJ6s/LLwMgLeRfo8Dc4zGGRV6ZdT15FQhWotBACLcB/s0/loading_btn.gif "loading_btn.gif")
+![enter image description here](https://lh3.googleusercontent.com/STg_dkW-6BgqC4hDif0AROh407Gtlwxwr64_MFieP2WRbP7ayAAPKKq2eCY837-uA2mSA1jo=s0 "loadingButtons.gif")
 
 Android Button that morphs into a loading progress bar. 
 
@@ -13,7 +13,7 @@ Android Button that morphs into a loading progress bar.
 
 ## Installation
 
-    compile 'br.com.simplepass:loading-button-android:1.2.2'
+    compile 'br.com.simplepass:loading-button-android:1.1.0'
 
 ## How to Use / Sample
 Add the button in your layout file and customize it the way you like it.
@@ -24,14 +24,10 @@ Add the button in your layout file and customize it the way you like it.
     	    android:id="@+id/btn_id"
     	    android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
-	    android:background="@drawable/circular_border_shape"
-	    app:initialCornerAngle="0dp"
-	    app:finalCornerAngle="50dp"
+            android:background="@drawable/circular_border_shape"
             app:spinning_bar_width="4dp" <!-- Optional -->
             app:spinning_bar_color="#FFF" <!-- Optional -->
             app:spinning_bar_padding="6dp" <!-- Optional -->
-            
 
 Then, instanciate the button
 
@@ -40,8 +36,9 @@ Then, instanciate the button
         btn.startAnimation();
         
     [do some async task. When it finishes]
-
-		btn.stopAnimation(); 
+    //You can choose the color and the image after the loading is finished
+		btn.doneLoagingAnimation(fillColor, bitmap); 
+		[or just revert de animation]
 		btn.revertAnimation();
 
 And that's it! Enjoy!
@@ -70,3 +67,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
     
+
+
+
+		

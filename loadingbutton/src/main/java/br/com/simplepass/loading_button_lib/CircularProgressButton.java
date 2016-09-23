@@ -10,6 +10,7 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -26,7 +27,7 @@ import android.widget.Button;
  */
 public class CircularProgressButton extends Button {
     private enum State {
-        PROGRESS, IDLE, DONE
+        PROGRESS, IDLE, DONE, STOPED
     }
 
     private Context mContext;
@@ -114,9 +115,6 @@ public class CircularProgressButton extends Button {
             mParams.setSpinningBarColor(typedArray.getColor(R.styleable.CircularProgressButton_spinning_bar_color,
                     ContextCompat.getColor(context, android.R.color.black)));
             mParams.setPaddingProgress(typedArray.getDimension(R.styleable.CircularProgressButton_spinning_bar_padding, 0));
-            mParams.setDoneColorColor(ContextCompat.getColor(mContext, R.color.green));
-
-            mReadyImage = BitmapFactory.decodeResource(getResources(), R.drawable.ic_done_white_48dp);
 
             typedArray.recycle();
             typedArrayBG.recycle();
@@ -163,11 +161,12 @@ public class CircularProgressButton extends Button {
 
     public void stopAnimation(){
         if(mState == State.PROGRESS && !mIsMorphingInProgress) {
+            mState = State.STOPED;
             mAnimatedDrawable.stop();
         }
     }
 
-    public void doneLoagingAnimation(){
+    public void doneLoagingAnimation(int fillColor, Bitmap bitmap){
         if(mState != State.PROGRESS) {
             return;
         }
@@ -175,12 +174,12 @@ public class CircularProgressButton extends Button {
         mState = State.DONE;
         mAnimatedDrawable.stop();
 
-        mRevealDrawable = new CircularRevealAnimatedDrawable(this, mParams.getDoneColorColor(), mReadyImage);
+        mRevealDrawable = new CircularRevealAnimatedDrawable(this, fillColor, bitmap);
 
-        int left = mParams.getPaddingProgress().intValue();
-        int right = getWidth()  - mParams.getPaddingProgress().intValue();
-        int bottom = getHeight() - mParams.getPaddingProgress().intValue();
-        int top = mParams.getPaddingProgress().intValue();
+        int left = 0;
+        int right = getWidth() ;
+        int bottom = getHeight();
+        int top = 0;
 
         mRevealDrawable.setBounds(left, top, right, bottom);
         mRevealDrawable.setCallback(this);
@@ -192,6 +191,8 @@ public class CircularProgressButton extends Button {
     }
 
     public void revertAnimation(){
+        mState = State.IDLE;
+
         if(mAnimatedDrawable != null && mAnimatedDrawable.isRunning()){
             stopAnimation();
         }
@@ -207,8 +208,6 @@ public class CircularProgressButton extends Button {
 
         int toHeight =  mParams.getInitialHeight();
         int toWidth = mParams.getInitialWidth();
-
-        mState = State.IDLE;
 
         ObjectAnimator cornerAnimation =
                 ObjectAnimator.ofFloat(mGradientDrawable,

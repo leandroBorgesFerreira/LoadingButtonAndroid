@@ -37,7 +37,8 @@ public class CircularRevealAnimatedDrawable extends Drawable implements Animatab
     private float mCenterHeith;
     private Bitmap mReadyImage;
     private int mImageReadyAlpha;
-    private Rect mBounds;
+    private float bitMapXOffset;
+    private float bitMapYOffset;
 
     private Context mContext;
 
@@ -55,7 +56,6 @@ public class CircularRevealAnimatedDrawable extends Drawable implements Animatab
         mPaintImageReady.setStyle(Paint.Style.FILL);
         mPaintImageReady.setColor(Color.TRANSPARENT);
 
-
         mReadyImage = bitmap;
         mImageReadyAlpha = 0;
 
@@ -70,10 +70,17 @@ public class CircularRevealAnimatedDrawable extends Drawable implements Animatab
     protected void onBoundsChange(Rect bounds) {
         super.onBoundsChange(bounds);
 
-        mBounds = bounds;
+        int bitMapWidth = (int) ((bounds.right - bounds.left) * 0.6);
+        int bitMapHeight = (int) ((bounds.bottom - bounds.top) * 0.6);
+
+        bitMapXOffset =(float) (((bounds.right - bounds.left) - bitMapWidth)/2);
+        bitMapYOffset =(float) (((bounds.bottom - bounds.top) - bitMapHeight)/2);
+
+        mReadyImage = Bitmap.createScaledBitmap(mReadyImage, bitMapWidth, bitMapHeight, false);
+
         mFinalRadius = (bounds.right - bounds.left)/2;
-        mCenterWidth = (bounds.right - bounds.left)/2;
-        mCenterHeith = (bounds.bottom - bounds.top)/2;
+        mCenterWidth = (bounds.right + bounds.left)/2;
+        mCenterHeith = (bounds.bottom + bounds.top)/2;
     }
 
     private void setupAnimations(){
@@ -87,7 +94,6 @@ public class CircularRevealAnimatedDrawable extends Drawable implements Animatab
                 mAnimatedView.invalidate();
             }
         });
-
 
         mRevealInAnimation = ValueAnimator.ofFloat(0, mFinalRadius);
         mRevealInAnimation.setInterpolator(new DecelerateInterpolator());
@@ -109,8 +115,6 @@ public class CircularRevealAnimatedDrawable extends Drawable implements Animatab
                 alphaAnimator.start();
             }
         });
-
-
     }
 
     @Override
@@ -120,9 +124,7 @@ public class CircularRevealAnimatedDrawable extends Drawable implements Animatab
         }
 
         setupAnimations();
-
         isRunning = true;
-
         mRevealInAnimation.start();
     }
 
@@ -133,7 +135,6 @@ public class CircularRevealAnimatedDrawable extends Drawable implements Animatab
         }
 
         isRunning = false;
-
         mRevealInAnimation.cancel();
     }
 
@@ -148,19 +149,15 @@ public class CircularRevealAnimatedDrawable extends Drawable implements Animatab
 
         if(mIsFilled) {
             mPaintImageReady.setAlpha(mImageReadyAlpha);
-            canvas.drawBitmap(mReadyImage, null, mBounds, mPaintImageReady);
+            canvas.drawBitmap(mReadyImage, bitMapXOffset, bitMapYOffset, mPaintImageReady);
         }
     }
 
     @Override
-    public void setAlpha(int alpha) {
-
-    }
+    public void setAlpha(int alpha) {}
 
     @Override
-    public void setColorFilter(ColorFilter colorFilter) {
-
-    }
+    public void setColorFilter(ColorFilter colorFilter) {}
 
     @Override
     public int getOpacity() {
