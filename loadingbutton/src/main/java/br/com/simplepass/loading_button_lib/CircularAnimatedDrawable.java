@@ -63,8 +63,6 @@ public class CircularAnimatedDrawable extends Drawable implements Animatable {
         fBounds.top = bounds.top + mBorderWidth / 2f + .5f;
         fBounds.bottom = bounds.bottom - mBorderWidth / 2f - .5f;
 
-
-
     }
 
     @Override
