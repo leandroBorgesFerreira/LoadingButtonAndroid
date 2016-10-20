@@ -24,14 +24,13 @@ import android.widget.Button;
 
 
 /**
- * Classe botão
+ * Made by Leandro Ferreira.
+ *
  */
 public class CircularProgressButton extends Button {
     private enum State {
         PROGRESS, IDLE, DONE, STOPED
     }
-
-    private Context mContext;
 
     //private CircularAnimatedDrawable mAnimatedDrawable;
     private GradientDrawable mGradientDrawable;
@@ -45,23 +44,45 @@ public class CircularProgressButton extends Button {
 
     private Params mParams;
 
+    /**
+     *
+     * @param context
+     */
     public CircularProgressButton(Context context) {
         super(context);
         init(context, null);
     }
 
+    /**
+     *
+     * @param context
+     * @param attrs
+     */
     public CircularProgressButton(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         init(context, attrs);
     }
 
+    /**
+     *
+     * @param context
+     * @param attrs
+     * @param defStyleAttr
+     */
     public CircularProgressButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         init(context, attrs);
     }
 
+    /**
+     *
+     * @param context
+     * @param attrs
+     * @param defStyleAttr
+     * @param defStyleRes
+     */
     @TargetApi(23)
     public CircularProgressButton(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
@@ -69,9 +90,13 @@ public class CircularProgressButton extends Button {
         init(context, attrs);
     }
 
+    /**
+     * Commom initializer method.
+     *
+     * @param context Context
+     * @param attrs Atributes passed in the XML
+     */
     private void init(Context context, AttributeSet attrs){
-        mContext = context;
-
         mParams = new Params();
 
         mParams.setPaddingProgress(0f);
@@ -128,6 +153,11 @@ public class CircularProgressButton extends Button {
         setBackground(mGradientDrawable);
     }
 
+    /**
+     * This method is called when the button and its dependencies are going to draw it selves.
+     *
+     * @param canvas
+     */
     @Override
     protected void onDraw(Canvas canvas){
         super.onDraw(canvas);
@@ -139,7 +169,12 @@ public class CircularProgressButton extends Button {
         }
     }
 
-
+    /**
+     * If the mAnimatedDrawable is null or its not running, it get created. Otherwise it' draw method is
+     * called here.
+     *
+     * @param canvas
+     */
     private void drawIndeterminateProgress(Canvas canvas) {
         //Todo: Init this animatedDrawable in the onCreate.
         if (mAnimatedDrawable == null || !mAnimatedDrawable.isRunning()) {
@@ -161,6 +196,9 @@ public class CircularProgressButton extends Button {
         }
     }
 
+    /**
+     * Stops the animation and sets the button in the STOPED state.
+     */
     public void stopAnimation(){
         if(mState == State.PROGRESS && !mIsMorphingInProgress) {
             mState = State.STOPED;
@@ -168,6 +206,15 @@ public class CircularProgressButton extends Button {
         }
     }
 
+    /**
+     * Call this method when you want to show a 'completed' or a 'done' status. You have to choose the
+     * color and the image to be shown. If your loading progress ended with a success status you probrably
+     * want to put a icon for "sucess" and a blue color, otherwise red and a failure icon. You can also
+     * show that a music is completed... or show some status on a game... be creative!
+     *
+     * @param fillColor The color of the background of the button
+     * @param bitmap The image that will be shown
+     */
     public void doneLoagingAnimation(int fillColor, Bitmap bitmap){
         if(mState != State.PROGRESS) {
             return;
@@ -188,7 +235,12 @@ public class CircularProgressButton extends Button {
         mRevealDrawable.start();
     }
 
-    public void drawDoneAnimation(Canvas canvas){
+    /**
+     * Method called on the onDraw when the button is on DONE status
+     *
+     * @param canvas
+     */
+    private void drawDoneAnimation(Canvas canvas){
         mRevealDrawable.draw(canvas);
     }
 
@@ -267,6 +319,9 @@ public class CircularProgressButton extends Button {
         mAnimatorSet.start();
     }
 
+    /**
+     * Method called to start the animation. Morphs in to a ball and then starts a loading spinner.
+     */
     public void startAnimation(){
         if(mState != State.IDLE){
             return;
@@ -428,37 +483,3 @@ public class CircularProgressButton extends Button {
         }
     }
 }
-
-
-/*
-* ObjectAnimator colorAnimator = ObjectAnimator.ofArgb(
-                mGradientDrawable,
-                "color",
-                ContextCompat.getColor(mContext, R.color.white),
-                ContextCompat.getColor(mContext, R.color.black));
-
-        colorAnimator.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                setText("\u2713");
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-
-            }
-        });
-
-        colorAnimator.setDuration(300);
-        colorAnimator.start();
-* */

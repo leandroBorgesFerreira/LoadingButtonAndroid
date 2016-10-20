@@ -41,6 +41,12 @@ public class CircularAnimatedDrawable extends Drawable implements Animatable {
     private boolean mRunning;
 
 
+    /**
+     *
+     * @param view View to be animated
+     * @param borderWidth The width of the spinning bar
+     * @param arcColor The color of the spinning bar
+     */
     public CircularAnimatedDrawable(View view, float borderWidth, int arcColor) {
         mAnimatedView = view;
 
@@ -65,6 +71,9 @@ public class CircularAnimatedDrawable extends Drawable implements Animatable {
 
     }
 
+    /**
+     * Start the animation
+     */
     @Override
     public void start() {
         if (isRunning()) {
@@ -76,6 +85,9 @@ public class CircularAnimatedDrawable extends Drawable implements Animatable {
         mValueAnimatorSweep.start();
     }
 
+    /**
+     * Stops the animation
+     */
     @Override
     public void stop() {
         if (!isRunning()) {
@@ -92,6 +104,10 @@ public class CircularAnimatedDrawable extends Drawable implements Animatable {
         return mRunning;
     }
 
+    /**
+     * Method called when the drawable is going to draw itself.
+     * @param canvas
+     */
     @Override
     public void draw(Canvas canvas) {
         float startAngle = mCurrentGlobalAngle - mCurrentGlobalAngleOffset;
@@ -121,6 +137,10 @@ public class CircularAnimatedDrawable extends Drawable implements Animatable {
         return PixelFormat.TRANSPARENT;
     }
 
+    /**
+     * Set the Global angle of the spinning bar.
+     * @param currentGlobalAngle
+     */
     public void setCurrentGlobalAngle(float currentGlobalAngle) {
         mCurrentGlobalAngle = currentGlobalAngle;
         invalidateSelf();
