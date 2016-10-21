@@ -21,7 +21,10 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.ScaleAnimation;
 
 /**
- * Created by hinovamobile on 22/09/16.
+ * Created by Leandro Ferreira on 22/09/16.
+ *
+ * An animation of the 'Done' status. It makes a circular reveal of a background color and the
+ * than show the image passed in the constructor.
  */
 public class CircularRevealAnimatedDrawable extends Drawable implements Animatable {
 
@@ -42,6 +45,12 @@ public class CircularRevealAnimatedDrawable extends Drawable implements Animatab
 
     private Context mContext;
 
+    /**
+     *
+     * @param view The view that if being animated
+     * @param fillColor The color of the background that will the revealed
+     * @param bitmap The animage that will be shown in the end of the animation.
+     */
     public CircularRevealAnimatedDrawable(View view, int fillColor, Bitmap bitmap) {
         mAnimatedView = view;
         isRunning = false;
@@ -66,6 +75,11 @@ public class CircularRevealAnimatedDrawable extends Drawable implements Animatab
         return mIsFilled;
     }
 
+    /**
+     * The method is called when bounds change
+     *
+     * @param bounds
+     */
     @Override
     protected void onBoundsChange(Rect bounds) {
         super.onBoundsChange(bounds);
@@ -83,6 +97,10 @@ public class CircularRevealAnimatedDrawable extends Drawable implements Animatab
         mCenterHeith = (bounds.bottom + bounds.top)/2;
     }
 
+    /**
+     * Setup all the animations. There are a reveal animation to show the button background
+     * and a alpha animation to show the bitmap.
+     */
     private void setupAnimations(){
         final ValueAnimator alphaAnimator = ValueAnimator.ofInt(0, 255);
         alphaAnimator.setDuration(80);
@@ -117,6 +135,9 @@ public class CircularRevealAnimatedDrawable extends Drawable implements Animatab
         });
     }
 
+    /**
+     * Starts the animation
+     */
     @Override
     public void start() {
         if (isRunning()) {
@@ -128,6 +149,9 @@ public class CircularRevealAnimatedDrawable extends Drawable implements Animatab
         mRevealInAnimation.start();
     }
 
+    /**
+     * Stops the animation
+     */
     @Override
     public void stop() {
         if (!isRunning()) {
@@ -138,6 +162,10 @@ public class CircularRevealAnimatedDrawable extends Drawable implements Animatab
         mRevealInAnimation.cancel();
     }
 
+    /**
+     *
+     * @return Return if its running or not.
+     */
     @Override
     public boolean isRunning() {
         return isRunning;

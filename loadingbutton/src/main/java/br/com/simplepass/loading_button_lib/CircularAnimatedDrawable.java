@@ -99,6 +99,11 @@ public class CircularAnimatedDrawable extends Drawable implements Animatable {
         mValueAnimatorSweep.cancel();
     }
 
+    /**
+     * Method the inform if the animation is in process
+     *
+     * @return
+     */
     @Override
     public boolean isRunning() {
         return mRunning;
@@ -146,19 +151,19 @@ public class CircularAnimatedDrawable extends Drawable implements Animatable {
         invalidateSelf();
     }
 
-    public float getCurrentGlobalAngle() {
-        return mCurrentGlobalAngle;
-    }
-
+    /**
+     * Sets the current sweep angle, so the fancy loading animation can happen
+     *
+     * @param currentSweepAngle
+     */
     public void setCurrentSweepAngle(float currentSweepAngle) {
         mCurrentSweepAngle = currentSweepAngle;
         invalidateSelf();
     }
 
-    public float getCurrentSweepAngle() {
-        return mCurrentSweepAngle;
-    }
-
+    /**
+     * Set up all the animations. There are two animation: Global angle animation and sweep animation.
+     */
     private void setupAnimations() {
         mValueAnimatorAngle = ValueAnimator.ofFloat(0, 360f);
         mValueAnimatorAngle.setInterpolator(ANGLE_INTERPOLATOR);
@@ -192,6 +197,10 @@ public class CircularAnimatedDrawable extends Drawable implements Animatable {
 
     }
 
+    /**
+     * This method is called in every repetition of the animation, so the animation make the sweep
+     * growing and then make it shirinking.
+     */
     private void toggleAppearingMode() {
         mModeAppearing = !mModeAppearing;
         if (mModeAppearing) {

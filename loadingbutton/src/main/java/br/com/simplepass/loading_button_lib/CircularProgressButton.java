@@ -397,6 +397,9 @@ public class CircularProgressButton extends Button {
 
     }
 
+    /**
+     * Class with all the params to configure the button.
+     */
     private class Params{
         private float mSpinningBarWidth;
         private int mSpinningBarColor;
