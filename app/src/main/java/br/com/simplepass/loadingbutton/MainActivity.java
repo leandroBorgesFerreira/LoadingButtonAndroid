@@ -18,9 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
         CircularProgressButton progressButton = (CircularProgressButton) findViewById(R.id.progress_btn);
 
-        progressButton.setOnClickListener((view) -> animateButtonAndRevert(progressButton,
-                ContextCompat.getColor(MainActivity.this, R.color.colorPrimaryDark),
-                BitmapFactory.decodeResource(getResources(), R.drawable.ic_done_white_48dp)));
+        progressButton.setOnClickListener(view -> animateTwice(progressButton));
 
         CircularProgressButton progressButtonNoPadding =
                 (CircularProgressButton) findViewById(R.id.progress_btn_no_padding);
@@ -50,6 +48,20 @@ public class MainActivity extends AppCompatActivity {
             circularProgressButton.doneLoagingAnimation(
                     fillColor,
                     bitmap);
+
+            new Handler().postDelayed(circularProgressButton::revertAnimation, 2000);
+        };
+
+        circularProgressButton.startAnimation();
+        handler.postDelayed(runnable, 3000);
+    }
+
+    private void animateTwice(final CircularProgressButton circularProgressButton){
+        Handler handler = new Handler();
+
+        Runnable runnable = () -> {
+            circularProgressButton.revertAnimation();
+            circularProgressButton.startAnimation();
 
             new Handler().postDelayed(circularProgressButton::revertAnimation, 2000);
         };
