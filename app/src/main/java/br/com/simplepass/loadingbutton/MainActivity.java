@@ -1,11 +1,15 @@
 package br.com.simplepass.loadingbutton;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Pair;
 
 import br.com.simplepass.loading_button_lib.CircularProgressButton;
 
@@ -39,6 +43,30 @@ public class MainActivity extends AppCompatActivity {
         progressButtonNoPadding2.setOnClickListener((view) -> animateButtonAndRevert(progressButtonNoPadding2,
                 ContextCompat.getColor(MainActivity.this, R.color.colorAccent),
                 BitmapFactory.decodeResource(getResources(), R.drawable.ic_pregnant_woman_white_48dp)));
+
+        CircularProgressButton progressButtonChangeActivity =
+                (CircularProgressButton) findViewById(R.id.progress_btn_change_activity);
+        progressButtonChangeActivity.setOnClickListener(view -> {
+            Intent intent = new Intent(this, SecondActivity.class);
+
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+                progressButtonChangeActivity.startAnimation();
+
+                Runnable runnable = () -> {
+                    progressButtonChangeActivity.stopAnimation();
+
+                    ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(
+                            this,
+                            new Pair<>(findViewById(R.id.progress_btn_change_activity), "transition"));
+
+                    startActivity(intent, activityOptions.toBundle());
+
+                };
+
+                new Handler().postDelayed(runnable, 3000);
+            }
+        });
     }
 
     private void animateButtonAndRevert(final CircularProgressButton circularProgressButton, int fillColor, Bitmap bitmap){
