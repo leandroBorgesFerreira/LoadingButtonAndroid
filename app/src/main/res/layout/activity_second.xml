@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/color_button_default"
         tools:context="br.com.simplepass.loadingbutton.SecondActivity">
 
         <EditText

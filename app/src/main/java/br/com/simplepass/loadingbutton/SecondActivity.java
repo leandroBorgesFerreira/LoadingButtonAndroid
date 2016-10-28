@@ -14,14 +14,11 @@ public class SecondActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
 
-        ObjectAnimator animator = ObjectAnimator.ofInt(findViewById(R.id.mask),
-                "backgroundColor",
-                ContextCompat.getColor(this, R.color.color_button_default),
-                Color.TRANSPARENT)
-                .setDuration(700);
+        ObjectAnimator animator = ObjectAnimator.ofFloat(findViewById(R.id.mask),
+                "alpha",
+                0f).setDuration(600);
 
-        animator.setEvaluator(new ArgbEvaluator());
-        animator.setStartDelay(800);
+        animator.setStartDelay(400);
         animator.start();
     }
 }
