@@ -41,6 +41,14 @@ Then, instanciate the button
 		[or just revert de animation]
 		btn.revertAnimation();
 
+##Be creative!
+
+You can do a lot of fun stuff with this lib. Check this example:
+
+![enter image description here](https://lh3.googleusercontent.com/-jJeS1G1mrBY/WBNosRmWSqI/AAAAAAAAKbM/NxWA09f0XqcutIO2VW8RDPhwW1CPRebWQCLcB/s0/out-28-2016+12-55-20.gif "out-28-2016 12-55-20.gif")
+
+You can find the code for the animation inside this repo.
+
 And that's it! Enjoy!
 
 ## Bugs and Feedback
