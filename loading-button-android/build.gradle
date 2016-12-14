@@ -99,7 +99,7 @@ bintray {
 
     pkg {
         repo = 'maven'
-        name = 'loading-button-android'
+        name = 'loading-button'
         userOrg = 'lehen01'
         licenses = ['Apache-2.0']
         labels = ['customview', 'fragment', 'map']
