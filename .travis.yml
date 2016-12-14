@@ -9,8 +9,8 @@ android:
   components:
   - platform-tools
   - tools
-  - build-tools-23.0.1
-  - android-23
+  - build-tools-24.0.1
+  - android-24
   - extra-android-m2repository
 script:
 - ./gradlew -PbintrayUser="${bintrayUser}" -PbintrayKey="${bintrayKey}" build bintrayUpload
