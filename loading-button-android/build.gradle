@@ -98,8 +98,8 @@ bintray {
     publish = true
 
     pkg {
-        repo = 'loading-button-android'
-        name = 'br.com.simplepass'
+        repo = 'maven'
+        name = 'loading-button-android'
         userOrg = 'lehen01'
         licenses = ['Apache-2.0']
         labels = ['customview', 'fragment', 'map']
