@@ -8,4 +8,11 @@
         <attr name="finalCornerAngle" format="dimension"/>
 
     </declare-styleable>
+
+    <declare-styleable name="CircularProgressImageView">
+        <attr name="loading_spinning_bar_width" format="dimension"/>
+        <attr name="loading_spinning_bar_color" format="color"/>
+        <attr name="loading_spinning_bar_padding" format="dimension"/>
+
+    </declare-styleable>
 </resources>

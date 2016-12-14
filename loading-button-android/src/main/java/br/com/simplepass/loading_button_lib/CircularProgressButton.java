@@ -170,7 +170,7 @@ public class CircularProgressButton extends Button {
     }
 
     /**
-     * If the mAnimatedDrawable is null or its not running, it get created. Otherwise it' draw method is
+     * If the mAnimatedDrawable is null or its not running, it get created. Otherwise its draw method is
      * called here.
      *
      * @param canvas

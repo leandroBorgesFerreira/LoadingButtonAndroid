@@ -1,0 +1,119 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
+
+//Bintray depends on this global variable to set the library version!
+version = '1.4.0'
+group = 'br.com.simplepass'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.1"
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 23
+        versionCode 6
+        versionName "1.4.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+if (project.hasProperty("android")) { // Android libraries
+    task sourcesJar(type: Jar) {
+        classifier = 'sources'
+        from android.sourceSets.main.java.srcDirs
+    }
+
+    task javadoc(type: Javadoc) {
+        source = android.sourceSets.main.java.srcDirs
+        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    }
+} else { // Java libraries
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+install {
+    repositories.mavenInstaller {
+        pom.project {
+            name 'LoadingButtonAndroid'
+            description 'A button to substitute the ProgressDialog'
+            url 'https://github.com/leandroBorgesFerreira/LoadingButtonAndroid'
+            inceptionYear '2016'
+
+            packaging 'aar'
+            groupId 'br.com.simplepass'
+            artifactId 'loading-button-android'
+            version '1.4.0'
+
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    distribution 'repo'
+                }
+            }
+            scm {
+                connection 'https://github.com/leandroBorgesFerreira/LoadingButtonAndroid.git'
+                url 'https://github.com/leandroBorgesFerreira/LoadingButtonAndroid'
+
+            }
+            developers {
+                developer {
+                    name 'Leandro Borges Ferreira'
+                }
+            }
+        }
+    }
+}
+
+// Configure gradle-bintray-plugin (for publishing releases)
+bintray {
+    configurations = ['archives']
+
+    publish = true
+
+    pkg {
+        repo = 'loading-button-android'
+        name = 'br.com.simplepass'
+        userOrg = 'lehen01'
+        licenses = ['Apache-2.0']
+        labels = ['customview', 'fragment', 'map']
+        websiteUrl = 'https://github.com/leandroBorgesFerreira/LoadingButtonAndroid'
+        issueTrackerUrl = 'https://github.com/leandroBorgesFerreira/LoadingButtonAndroid/issues'
+        vcsUrl = 'https://github.com/leandroBorgesFerreira/LoadingButtonAndroid.git'
+        publicDownloadNumbers = true
+    }
+
+}
+
+if (project.hasProperty('bintrayUser') && project.hasProperty('bintrayKey')) {
+    bintray.user = project.bintrayUser
+    bintray.key = project.bintrayKey
+}
+
+
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.0.1'
+}

@@ -27,13 +27,18 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        subprojects {
+            tasks.withType(Javadoc).all { enabled = false }
+        }
     }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
     compile 'com.android.support:appcompat-v7:24.1.1'
     //compile 'br.com.simplepass:location-progress-bar:0.8.0'
-    compile project(':loadingbutton')
+    compile project(':loading-button-android')
 }

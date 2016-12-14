@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Pair;
 
 import br.com.simplepass.loading_button_lib.CircularProgressButton;
+import br.com.simplepass.loading_button_lib.CircularProgressImageView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -67,6 +68,9 @@ public class MainActivity extends AppCompatActivity {
                 new Handler().postDelayed(runnable, 3000);
             }
         });
+
+        CircularProgressImageView progressImageView = (CircularProgressImageView) findViewById(R.id.progress_image);
+        progressImageView.setOnClickListener(view -> progressImageView.startAnimation());
     }
 
     private void animateButtonAndRevert(final CircularProgressButton circularProgressButton, int fillColor, Bitmap bitmap){

@@ -73,6 +73,14 @@
         android:text="Send"
         android:textColor="@android:color/black"/>
 
+    <br.com.simplepass.loading_button_lib.CircularProgressImageView
+        android:id="@+id/progress_image"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@mipmap/ic_launcher"
+        />
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
