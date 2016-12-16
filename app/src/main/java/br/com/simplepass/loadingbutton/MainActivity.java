@@ -80,19 +80,22 @@ public class MainActivity extends AppCompatActivity {
             circularProgressButton.doneLoagingAnimation(
                     fillColor,
                     bitmap);
+        };
 
-            new Handler().postDelayed(circularProgressButton::revertAnimation, 2000);
+        Runnable runnableRevert = () -> {
+            circularProgressButton.revertAnimation(() -> circularProgressButton.setText("Animation reverted"));
         };
 
         circularProgressButton.startAnimation();
         handler.postDelayed(runnable, 3000);
+        handler.postDelayed(runnableRevert, 5000);
     }
 
     private void animateTwice(final CircularProgressButton circularProgressButton){
         Handler handler = new Handler();
 
         Runnable runnable = () -> {
-            circularProgressButton.revertAnimation();
+            circularProgressButton.revertAnimation(() -> circularProgressButton.setText("Animation reverted"));
             circularProgressButton.startAnimation();
 
             new Handler().postDelayed(circularProgressButton::revertAnimation, 2000);
