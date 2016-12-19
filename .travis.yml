@@ -12,9 +12,7 @@ android:
   - build-tools-24.0.1
   - android-24
   - extra-android-m2repository
-script:
-- ./gradlew -PbintrayUser="${bintrayUser}" -PbintrayKey="${bintrayKey}" build bintrayUpload
-  --stacktrace --info
+script: gradle/buildViaTravis.sh
 env:
   global:
   - secure: YFo+HowkRNFOLsJJY0PN7M9LqKoxdlt087jsAVm2vwXajqoXYL/r1lLZCry2bUw0hTi+AYKr1etuLgAc+NHb7Zi2LaTWh47nzqWwGLb1IYCBT7xFqVjLkbMdtf5v0OiNE4Psm68opQ9AkxOASAos7Hv+sg0AZCVLtw8WIsUPsHraq2A7YtFUKHmk0g2afEVZ4GJMHYQaPjYIyNLqFhkG6judt+4x64my8iEBvCyBqYPL1iKeNLeHqpt6S03eGa7dtWyudo+UFPKTZdVOhFbFbeaOKvp3UbvoaC6dqVSro6X1LbbCV/h8JNHIcDNd02eVBdhOPJrKwIvMJ63O6KlNkz7aVe1u7CHNKdSBFY7iP7ytvEpdWFO/lNqU2o02CUmRLfT5RTpNHvfLZ75HHBmbrd4EwIC8S8KcOVAdLevIQKyh9Im5TaeTpdbqvucbaeZocE3//9RaVNlxPPfPh5PZVc37buYtbWjVWvVT7A/1JBMcMWsmzW8Z9jLkEBkipnhWn7YbQTewPckwFiGuuDOBKZ24SU2xd0lFt1pRt4W0p5wosvpCudK60zn3CSEwKP4mSEX6pt6XS6dLI+/O53WH8XpBbcbHmlRytTRclUdsyU/OE5EzF9G39egSBkqszzazbkm9xyz93o+0hT1EdKld2b+E3lwa8QSpSG0JhoSoRWs=

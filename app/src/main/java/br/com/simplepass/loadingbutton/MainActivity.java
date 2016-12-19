@@ -13,6 +13,7 @@ import android.util.Pair;
 
 import br.com.simplepass.loading_button_lib.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.CircularProgressImageView;
+import br.com.simplepass.loading_button_lib.OnAnimationEndListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -83,7 +84,12 @@ public class MainActivity extends AppCompatActivity {
         };
 
         Runnable runnableRevert = () -> {
-            circularProgressButton.revertAnimation(() -> circularProgressButton.setText("Animation reverted"));
+            circularProgressButton.revertAnimation(new OnAnimationEndListener() {
+                @Override
+                public void onAnimationEnd() {
+                    circularProgressButton.setText("Seu texto aqui!");
+                }
+            });
         };
 
         circularProgressButton.startAnimation();
