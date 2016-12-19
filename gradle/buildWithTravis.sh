@@ -6,3 +6,4 @@ elif [ "$TRAVIS_TAG" != "" ]; then
   ./gradlew -PbintrayUser="${bintrayUser}" -PbintrayKey="${bintrayKey}" build bintrayUpload --stacktrace --info
 else
   echo -e 'WARN: Should not be here ./gradlew clean
+fi
