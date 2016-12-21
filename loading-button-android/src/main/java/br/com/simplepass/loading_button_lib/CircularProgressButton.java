@@ -99,6 +99,10 @@ public class CircularProgressButton extends Button {
 
         mParams.setPaddingProgress(0f);
 
+        mAnimatedDrawable = new CircularAnimatedDrawable(this,
+                mParams.mSpinningBarWidth,
+                mParams.mSpinningBarColor);
+
         if(attrs == null) {
             mGradientDrawable = (GradientDrawable) ResourcesCompat.getDrawable(getResources(), R.drawable.shape_default, null);
         } else{
@@ -174,12 +178,8 @@ public class CircularProgressButton extends Button {
      * @param canvas
      */
     private void drawIndeterminateProgress(Canvas canvas) {
-        //Todo: Init this animatedDrawable in the onCreate.
         if (mAnimatedDrawable == null || !mAnimatedDrawable.isRunning()) {
             int offset = (getWidth() - getHeight()) / 2;
-            mAnimatedDrawable = new CircularAnimatedDrawable(this,
-                    mParams.mSpinningBarWidth,
-                    mParams.mSpinningBarColor);
 
             int left = offset + mParams.mPaddingProgress.intValue();
             int right = getWidth() - offset - mParams.mPaddingProgress.intValue();

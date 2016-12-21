@@ -47,7 +47,7 @@ public class CircularAnimatedDrawable extends Drawable implements Animatable {
      * @param borderWidth The width of the spinning bar
      * @param arcColor The color of the spinning bar
      */
-    public CircularAnimatedDrawable(View view, float borderWidth, int arcColor) {
+    CircularAnimatedDrawable(View view, float borderWidth, int arcColor) {
         mAnimatedView = view;
 
         mBorderWidth = borderWidth;
