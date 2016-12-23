@@ -11,7 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Pair;
 
+import br.com.simplepass.loading_button_lib.AnimatableButton;
 import br.com.simplepass.loading_button_lib.CircularProgressButton;
+import br.com.simplepass.loading_button_lib.CircularProgressImageButton;
 import br.com.simplepass.loading_button_lib.OnAnimationEndListener;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,9 +23,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        CircularProgressButton progressButton = (CircularProgressButton) findViewById(R.id.progress_btn);
+        CircularProgressImageButton progressButton = (CircularProgressImageButton) findViewById(R.id.progress_btn);
 
-        progressButton.setOnClickListener(view -> animateTwice(progressButton));
+        progressButton.setOnClickListener(view -> animateAndRevert(progressButton));
 
         CircularProgressButton progressButtonNoPadding =
                 (CircularProgressButton) findViewById(R.id.progress_btn_no_padding);
@@ -100,11 +102,18 @@ public class MainActivity extends AppCompatActivity {
             circularProgressButton.revertAnimation(() -> circularProgressButton.setText("Animation reverted"));
             circularProgressButton.startAnimation();
 
-            new Handler().postDelayed(circularProgressButton::revertAnimation, 2000);
+           // new Handler().postDelayed(circularProgressButton::revertAnimation, 2000);
         };
 
         circularProgressButton.startAnimation();
         handler.postDelayed(runnable, 3000);
+    }
+
+    private void animateAndRevert(final AnimatableButton animatableButton){
+        Handler handler = new Handler();
+
+        animatableButton.startAnimation();
+        handler.postDelayed(animatableButton::revertAnimation, 3000);
     }
 
     /*private void animateButton(final CircularProgressButton circularProgressButton){

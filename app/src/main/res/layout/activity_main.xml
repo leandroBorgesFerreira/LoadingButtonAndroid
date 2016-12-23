@@ -12,20 +12,20 @@
     android:gravity="center_horizontal"
     tools:context="br.com.simplepass.loadingbutton.MainActivity">
 
-    <br.com.simplepass.loading_button_lib.CircularProgressButton
+    <br.com.simplepass.loading_button_lib.CircularProgressImageButton
+        android:scaleType="fitCenter"
         android:id="@+id/progress_btn"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/colorAccent"
         android:layout_marginLeft="18dp"
         android:layout_marginRight="18dp"
-        app:spinning_bar_padding="10dp"
-        app:spinning_bar_color="@android:color/white"
+        android:src="@drawable/ic_cloud_upload_white_24dp"
+        app:spinning_bar_padding="0dp"
+        app:spinning_bar_color="@android:color/black"
         app:spinning_bar_width="3dp"
         app:initialCornerAngle="0dp"
         app:finalCornerAngle="50dp"
-        android:text="Send"
-        android:textColor="@android:color/white"
         android:layout_marginBottom="20dp"/>
 
     <br.com.simplepass.loading_button_lib.CircularProgressButton
