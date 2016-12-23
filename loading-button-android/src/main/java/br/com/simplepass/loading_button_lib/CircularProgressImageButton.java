@@ -39,7 +39,7 @@ public class CircularProgressImageButton extends ImageButton implements Animatab
     private CircularAnimatedDrawable mAnimatedDrawable;
     private CircularRevealAnimatedDrawable mRevealDrawable;
     private AnimatorSet mAnimatorSet;
-    private Bitmap mReadyImage;
+    private Drawable mSrc;
 
     private Params mParams;
 
@@ -100,15 +100,12 @@ public class CircularProgressImageButton extends ImageButton implements Animatab
 
         mParams.setPaddingProgress(0f);
 
-        mAnimatedDrawable = new CircularAnimatedDrawable(this,
-                mParams.mSpinningBarWidth,
-                mParams.mSpinningBarColor);
-
         if(attrs == null) {
             mGradientDrawable = (GradientDrawable) ResourcesCompat.getDrawable(getResources(), R.drawable.shape_default, null);
         } else{
             int[] attrsArray = new int[] {
                     android.R.attr.background, // 0
+                    android.R.attr.src
             };
 
             TypedArray typedArray =  context.obtainStyledAttributes(attrs, R.styleable.CircularProgressButton);
@@ -116,6 +113,7 @@ public class CircularProgressImageButton extends ImageButton implements Animatab
 
             try {
                 mGradientDrawable = (GradientDrawable) typedArrayBG.getDrawable(0);
+                mSrc = typedArrayBG.getDrawable(1);
 
             } catch (ClassCastException e) {
                 Drawable drawable = typedArrayBG.getDrawable(0);
@@ -178,6 +176,10 @@ public class CircularProgressImageButton extends ImageButton implements Animatab
      */
     private void drawIndeterminateProgress(Canvas canvas) {
         if (mAnimatedDrawable == null || !mAnimatedDrawable.isRunning()) {
+            mAnimatedDrawable = new CircularAnimatedDrawable(this,
+                    mParams.mSpinningBarWidth,
+                    mParams.mSpinningBarColor);
+
             int offset = (getWidth() - getHeight()) / 2;
 
             int left = offset + mParams.mPaddingProgress.intValue();
@@ -384,6 +386,7 @@ public class CircularProgressImageButton extends ImageButton implements Animatab
                 setClickable(true);
                 mIsMorphingInProgress = false;
                 onAnimationEndListener.onAnimationEnd();
+                setImageDrawable(mSrc);
             }
         });
 
@@ -408,7 +411,7 @@ public class CircularProgressImageButton extends ImageButton implements Animatab
 
         mState = State.PROGRESS;
 
-        this.setImageAlpha(0);
+        this.setImageDrawable(null);
         this.setClickable(false);
 
         int toHeight =  mParams.mInitialHeight;
