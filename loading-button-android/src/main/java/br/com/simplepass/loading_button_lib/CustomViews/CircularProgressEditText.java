@@ -1,4 +1,4 @@
-package br.com.simplepass.loading_button_lib;
+package br.com.simplepass.loading_button_lib.CustomViews;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -10,8 +10,10 @@ import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
+
+import br.com.simplepass.loading_button_lib.AnimatedDrawables.CircularAnimatedDrawable;
+import br.com.simplepass.loading_button_lib.R;
 
 
 /**

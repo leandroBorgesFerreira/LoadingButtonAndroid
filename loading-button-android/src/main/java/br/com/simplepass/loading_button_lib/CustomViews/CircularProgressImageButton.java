@@ -1,4 +1,4 @@
-package br.com.simplepass.loading_button_lib;
+package br.com.simplepass.loading_button_lib.CustomViews;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -18,14 +18,20 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
+
+import br.com.simplepass.loading_button_lib.AnimatedDrawables.CircularAnimatedDrawable;
+import br.com.simplepass.loading_button_lib.AnimatedDrawables.CircularRevealAnimatedDrawable;
+import br.com.simplepass.loading_button_lib.R;
+import br.com.simplepass.loading_button_lib.interfaces.AnimatableButton;
+import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 
 
 /**
  * Made by Leandro Ferreira.
  *
  */
-public class CircularProgressButton extends Button implements AnimatableButton{
+public class CircularProgressImageButton extends ImageButton implements AnimatableButton {
     private enum State {
         PROGRESS, IDLE, DONE, STOPED
     }
@@ -38,7 +44,7 @@ public class CircularProgressButton extends Button implements AnimatableButton{
     private CircularAnimatedDrawable mAnimatedDrawable;
     private CircularRevealAnimatedDrawable mRevealDrawable;
     private AnimatorSet mAnimatorSet;
-    private Bitmap mReadyImage;
+    private Drawable mSrc;
 
     private Params mParams;
 
@@ -46,7 +52,7 @@ public class CircularProgressButton extends Button implements AnimatableButton{
      *
      * @param context
      */
-    public CircularProgressButton(Context context) {
+    public CircularProgressImageButton(Context context) {
         super(context);
         init(context, null);
     }
@@ -56,7 +62,7 @@ public class CircularProgressButton extends Button implements AnimatableButton{
      * @param context
      * @param attrs
      */
-    public CircularProgressButton(Context context, AttributeSet attrs) {
+    public CircularProgressImageButton(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         init(context, attrs);
@@ -68,7 +74,7 @@ public class CircularProgressButton extends Button implements AnimatableButton{
      * @param attrs
      * @param defStyleAttr
      */
-    public CircularProgressButton(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CircularProgressImageButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         init(context, attrs);
@@ -82,7 +88,7 @@ public class CircularProgressButton extends Button implements AnimatableButton{
      * @param defStyleRes
      */
     @TargetApi(23)
-    public CircularProgressButton(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public CircularProgressImageButton(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
 
         init(context, attrs);
@@ -97,7 +103,7 @@ public class CircularProgressButton extends Button implements AnimatableButton{
     private void init(Context context, AttributeSet attrs){
         mParams = new Params();
 
-        mParams.setPaddingProgress(0f);
+        mParams.mPaddingProgress = 0f;
 
         if(attrs == null) {
             mGradientDrawable = (GradientDrawable) ResourcesCompat.getDrawable(getResources(), R.drawable.shape_default, null);
@@ -146,15 +152,13 @@ public class CircularProgressButton extends Button implements AnimatableButton{
         }
 
         mState = State.IDLE;
-
-        mParams.mText = this.getText().toString();
         setBackground(mGradientDrawable);
     }
 
     /**
      * This method is called when the button and its dependencies are going to draw it selves.
      *
-     * @param canvas
+     * @param canvas Canvas
      */
     @Override
     protected void onDraw(Canvas canvas){
@@ -171,7 +175,7 @@ public class CircularProgressButton extends Button implements AnimatableButton{
      * If the mAnimatedDrawable is null or its not running, it get created. Otherwise its draw method is
      * called here.
      *
-     * @param canvas
+     * @param canvas Canvas
      */
     private void drawIndeterminateProgress(Canvas canvas) {
         if (mAnimatedDrawable == null || !mAnimatedDrawable.isRunning()) {
@@ -236,7 +240,7 @@ public class CircularProgressButton extends Button implements AnimatableButton{
     /**
      * Method called on the onDraw when the button is on DONE status
      *
-     * @param canvas
+     * @param canvas Canvas
      */
     private void drawDoneAnimation(Canvas canvas){
         mRevealDrawable.draw(canvas);
@@ -307,9 +311,9 @@ public class CircularProgressButton extends Button implements AnimatableButton{
         mAnimatorSet.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                setClickable(true);
                 mIsMorphingInProgress = false;
-                setText(mParams.mText);
+                setImageDrawable(mSrc);
+                setClickable(true);
             }
         });
 
@@ -384,8 +388,8 @@ public class CircularProgressButton extends Button implements AnimatableButton{
             public void onAnimationEnd(Animator animation) {
                 setClickable(true);
                 mIsMorphingInProgress = false;
-                setText(mParams.mText);
                 onAnimationEndListener.onAnimationEnd();
+                setImageDrawable(mSrc);
             }
         });
 
@@ -410,11 +414,12 @@ public class CircularProgressButton extends Button implements AnimatableButton{
 
         mState = State.PROGRESS;
 
-        this.setText(null);
-        setClickable(false);
+        mSrc = this.getDrawable();
+        this.setImageDrawable(null);
+        this.setClickable(false);
 
         int toHeight =  mParams.mInitialHeight;
-        int toWidth = toHeight; //Largura igual altura faz um circulo perfeito
+        int toWidth = toHeight;
 
         ObjectAnimator cornerAnimation =
                 ObjectAnimator.ofFloat(mGradientDrawable,
@@ -476,86 +481,11 @@ public class CircularProgressButton extends Button implements AnimatableButton{
     private class Params{
         private float mSpinningBarWidth;
         private int mSpinningBarColor;
-        private int mDoneColorColor;
+        private int mDoneColor;
         private Float mPaddingProgress;
         private Integer mInitialHeight;
         private int mInitialWidth;
-        private String mText;
         private float mInitialCornerRadius;
         private float mFinalCornerRadius;
-
-        public Params() {}
-
-        public int getDoneColorColor() {
-            return mDoneColorColor;
-        }
-
-        public void setDoneColorColor(int mDoneColorColor) {
-            this.mDoneColorColor = mDoneColorColor;
-        }
-
-        public float getSpinningBarWidth() {
-            return mSpinningBarWidth;
-        }
-
-        public void setSpinningBarWidth(float mSpinningBarWidth) {
-            this.mSpinningBarWidth = mSpinningBarWidth;
-        }
-
-        public int getSpinningBarColor() {
-            return mSpinningBarColor;
-        }
-
-        public void setSpinningBarColor(int mSpinningBarColor) {
-            this.mSpinningBarColor = mSpinningBarColor;
-        }
-
-        public Float getPaddingProgress() {
-            return mPaddingProgress;
-        }
-
-        public void setPaddingProgress(Float mPaddingProgress) {
-            this.mPaddingProgress = mPaddingProgress;
-        }
-
-        public Integer getInitialHeight() {
-            return mInitialHeight;
-        }
-
-        public void setInitialHeight(Integer mInitialHeight) {
-            this.mInitialHeight = mInitialHeight;
-        }
-
-        public int getInitialWidth() {
-            return mInitialWidth;
-        }
-
-        public void setInitialWidth(int mInitialWidth) {
-            this.mInitialWidth = mInitialWidth;
-        }
-
-        public String getText() {
-            return mText;
-        }
-
-        public void setText(String text) {
-            this.mText = text;
-        }
-
-        public float getInitialCornerRadius() {
-            return mInitialCornerRadius;
-        }
-
-        public void setInitialCornerRadius(float mInitialCornerRadius) {
-            this.mInitialCornerRadius = mInitialCornerRadius;
-        }
-
-        public float getFinalCornerRadius() {
-            return mFinalCornerRadius;
-        }
-
-        public void setFinalCornerRadius(float mFinalCornerRadius) {
-            this.mFinalCornerRadius = mFinalCornerRadius;
-        }
     }
 }

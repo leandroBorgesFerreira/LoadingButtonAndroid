@@ -1,4 +1,4 @@
-package br.com.simplepass.loading_button_lib;
+package br.com.simplepass.loading_button_lib.AnimatedDrawables;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

@@ -11,10 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Pair;
 
-import br.com.simplepass.loading_button_lib.AnimatableButton;
-import br.com.simplepass.loading_button_lib.CircularProgressButton;
-import br.com.simplepass.loading_button_lib.CircularProgressImageButton;
-import br.com.simplepass.loading_button_lib.OnAnimationEndListener;
+import br.com.simplepass.loading_button_lib.interfaces.AnimatableButton;
+import br.com.simplepass.loading_button_lib.CustomViews.CircularProgressButton;
+import br.com.simplepass.loading_button_lib.CustomViews.CircularProgressImageButton;
+import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package br.com.simplepass.loading_button_lib;
+package br.com.simplepass.loading_button_lib.AnimatedDrawables;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -47,7 +47,7 @@ public class CircularAnimatedDrawable extends Drawable implements Animatable {
      * @param borderWidth The width of the spinning bar
      * @param arcColor The color of the spinning bar
      */
-    CircularAnimatedDrawable(View view, float borderWidth, int arcColor) {
+    public CircularAnimatedDrawable(View view, float borderWidth, int arcColor) {
         mAnimatedView = view;
 
         mBorderWidth = borderWidth;

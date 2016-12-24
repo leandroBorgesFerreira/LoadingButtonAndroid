@@ -1,4 +1,4 @@
-package br.com.simplepass.loading_button_lib
+package br.com.simplepass.loading_button_lib.AnimatedDrawables
 
 import android.graphics.Canvas
 import android.graphics.ColorFilter
@@ -8,7 +8,7 @@ import android.graphics.drawable.Drawable
 /**
  * Created by hinovamobile on 21/12/16.
  */
-class BallsAnimatedDrawable : Animatable, Drawable{
+class BallsAnimatedDrawable : Animatable, Drawable {
 
 
     constructor() : super()

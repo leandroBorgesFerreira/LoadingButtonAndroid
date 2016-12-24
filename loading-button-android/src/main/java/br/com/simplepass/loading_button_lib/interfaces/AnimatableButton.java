@@ -1,4 +1,4 @@
-package br.com.simplepass.loading_button_lib;
+package br.com.simplepass.loading_button_lib.interfaces;
 
 /**
  * Created by hinovamobile on 23/12/16.

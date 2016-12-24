@@ -11,11 +11,26 @@ Android Button that morphs into a loading progress bar.
   - Really simple to use.
   - Makes your app looks cooler =D
 
-## Installation
+
+
+##Contents
+
+ - [Installation](#installation)
+ - [How to use / Sample](#how-to-use)
+	 -  [Show done animation](#show-done-animation)
+	 - [Revert the loading animation with different text or image](#revert-the-loading-animation-with-different-text-or-image)
+ - [Configure XML](#configure-xml)
+ - [Be Creative](#be-creative)
+ - [Wanna Contribute?](#wanna-contribute)
+ - [Bugs and feedback](#bugs-and-feedback)
+ - [Credits](#credits)
+
+##Installation
 
     compile 'br.com.simplepass:loading-button-android:1.5.2'
 
-## How to Use / Sample
+##How to use
+
 
 Add the button in your layout file and customize it the way you like it.
 
@@ -40,13 +55,14 @@ Then, instanciate the button
 		[or just revert de animation]
 		btn.revertAnimation();
 
-#### - Show 'done' animation
+###- Show 'done' animation
+
 When the loading animation is running, call:
 
     //Choose the color and the image that will be show
     circularProgressButton.doneLoagingAnimation(fillColor, bitmap);
 		
-#### - Revert the loading animation with different text
+### - Revert the loading animation with different text or image
 
     circularProgressButton.revertAnimation(new OnAnimationEndListener() {
                     @Override
@@ -54,8 +70,23 @@ When the loading animation is running, call:
                         circularProgressButton.setText("Seu texto aqui!");
                     }
                 });
+or
 
+    circularProgressImageButton.revertAnimation(new OnAnimationEndListener() {
+            @Override
+            public void onAnimationEnd() {
+                progressButton.setImageDrawable(R.drawable.image);
+            }
+        });
 
+##Configure XML
+
+ - app:spinning_bar_width : Changes the width of the spinning bar inside the button
+ - app:spinning_bar_color: Changes the color of the spinning bar inside the button
+ - app:spinning_bar_padding: Changes the padding of the spinning bar in relation of the button bounds. 
+ - app:initialCornerAngle: The initial corner angle of the animation. Insert 0 if you have a square button. 
+ - app:finalCornerAngle: The final corner angle of the animation.
+ - 
 ##Be creative!
 
 You can do a lot of fun stuff with this lib. Check this example:
@@ -64,13 +95,6 @@ You can do a lot of fun stuff with this lib. Check this example:
 
 You can find the code for the animation inside this repo.
 
-##Configure xml
-
- - app:spinning_bar_width : Changes the width of the spinning bar inside the button
- - app:spinning_bar_color: Changes the color of the spinning bar inside the button
- - app:spinning_bar_padding: Changes the padding of the spinning bar in relation of the button bounds. 
- - app:initialCornerAngle: The initial corner angle of the animation. Insert 0 if you have a square button. 
- - app:finalCornerAngle: The final corner angle of the animation.
 
 ##Wanna contribute?
 
@@ -85,8 +109,3 @@ For bugs, feature requests, and discussion please use [GitHub Issues](https://gi
 This libs was inspired in this repo: https://github.com/dmytrodanylyk/android-morphing-button
     
 ###And that's it! Enjoy!
-
-
-
-		
-
