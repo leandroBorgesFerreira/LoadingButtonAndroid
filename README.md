@@ -17,6 +17,7 @@ Android Button that morphs into a loading progress bar.
 
  - [Installation](#installation)
  - [How to use / Sample](#how-to-use)
+	 - [Animate and revert animation](#animate-and-revert-animation)
 	 -  [Show done animation](#show-done-animation)
 	 - [Revert the loading animation with different text or image](#revert-the-loading-animation-with-different-text-or-image)
  - [Configure XML](#configure-xml)
@@ -31,6 +32,7 @@ Android Button that morphs into a loading progress bar.
 
 ##How to use
 
+###Animate and revert animation
 
 Add the button in your layout file and customize it the way you like it.
 
@@ -86,7 +88,8 @@ or
  - app:spinning_bar_padding: Changes the padding of the spinning bar in relation of the button bounds. 
  - app:initialCornerAngle: The initial corner angle of the animation. Insert 0 if you have a square button. 
  - app:finalCornerAngle: The final corner angle of the animation.
- - 
+
+
 ##Be creative!
 
 You can do a lot of fun stuff with this lib. Check this example:
