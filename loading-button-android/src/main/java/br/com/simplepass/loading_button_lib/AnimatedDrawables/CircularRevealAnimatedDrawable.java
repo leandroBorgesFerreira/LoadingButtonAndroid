@@ -1,12 +1,10 @@
-package br.com.simplepass.loading_button_lib.AnimatedDrawables;
+package br.com.simplepass.loading_button_lib.animatedDrawables;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
@@ -15,10 +13,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.view.View;
-import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.ScaleAnimation;
 
 /**
  * Created by Leandro Ferreira on 22/09/16.

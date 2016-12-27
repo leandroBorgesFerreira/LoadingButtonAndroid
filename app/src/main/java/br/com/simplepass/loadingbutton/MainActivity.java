@@ -12,8 +12,8 @@ import android.os.Bundle;
 import android.util.Pair;
 
 import br.com.simplepass.loading_button_lib.interfaces.AnimatableButton;
-import br.com.simplepass.loading_button_lib.CustomViews.CircularProgressButton;
-import br.com.simplepass.loading_button_lib.CustomViews.CircularProgressImageButton;
+import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
+import br.com.simplepass.loading_button_lib.customViews.CircularProgressImageButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 
 public class MainActivity extends AppCompatActivity {

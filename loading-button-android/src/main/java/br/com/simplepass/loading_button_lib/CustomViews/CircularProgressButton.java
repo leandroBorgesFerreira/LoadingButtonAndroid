@@ -1,4 +1,4 @@
-package br.com.simplepass.loading_button_lib.CustomViews;
+package br.com.simplepass.loading_button_lib.customViews;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -14,14 +14,14 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import br.com.simplepass.loading_button_lib.AnimatedDrawables.CircularAnimatedDrawable;
-import br.com.simplepass.loading_button_lib.AnimatedDrawables.CircularRevealAnimatedDrawable;
+import br.com.simplepass.loading_button_lib.Utils;
+import br.com.simplepass.loading_button_lib.UtilsJava;
+import br.com.simplepass.loading_button_lib.animatedDrawables.CircularAnimatedDrawable;
+import br.com.simplepass.loading_button_lib.animatedDrawables.CircularRevealAnimatedDrawable;
 import br.com.simplepass.loading_button_lib.R;
 import br.com.simplepass.loading_button_lib.interfaces.AnimatableButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
@@ -106,7 +106,7 @@ public class CircularProgressButton extends Button implements AnimatableButton {
         mParams.mPaddingProgress = 0f;
 
         if(attrs == null) {
-            mGradientDrawable = (GradientDrawable) ResourcesCompat.getDrawable(getResources(), R.drawable.shape_default, null);
+            mGradientDrawable = (GradientDrawable) UtilsJava.getDrawable(getContext(), R.drawable.shape_default);
         } else{
             int[] attrsArray = new int[] {
                     android.R.attr.background, // 0
@@ -144,7 +144,7 @@ public class CircularProgressButton extends Button implements AnimatableButton {
             mParams.mSpinningBarWidth = typedArray.getDimension(
                     R.styleable.CircularProgressButton_spinning_bar_width, 10);
             mParams.mSpinningBarColor = typedArray.getColor(R.styleable.CircularProgressButton_spinning_bar_color,
-                    ContextCompat.getColor(context, android.R.color.black));
+                    Utils.Companion.getColorWrapper(context, android.R.color.black));
             mParams.mPaddingProgress = typedArray.getDimension(R.styleable.CircularProgressButton_spinning_bar_padding, 0);
 
             typedArray.recycle();

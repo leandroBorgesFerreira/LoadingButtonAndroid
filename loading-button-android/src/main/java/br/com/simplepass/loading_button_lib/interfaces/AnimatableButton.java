@@ -7,5 +7,5 @@ package br.com.simplepass.loading_button_lib.interfaces;
 public interface AnimatableButton {
     void startAnimation();
     void revertAnimation();
-    public void revertAnimation(final OnAnimationEndListener onAnimationEndListener);
+    void revertAnimation(final OnAnimationEndListener onAnimationEndListener);
 }

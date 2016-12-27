@@ -1,4 +1,4 @@
-package br.com.simplepass.loading_button_lib.AnimatedDrawables
+package br.com.simplepass.loading_button_lib.animatedDrawables
 
 import android.graphics.Canvas
 import android.graphics.ColorFilter
