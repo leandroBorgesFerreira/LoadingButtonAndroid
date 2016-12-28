@@ -36,7 +36,7 @@ Android Button that morphs into a loading progress bar.
 
 Add the button in your layout file and customize it the way you like it.
 
-      <br.com.simplepass.loading_button_lib.CircularProgressButton
+      <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
         	    android:id="@+id/btn_id"
         	    android:layout_width="match_parent"
                 android:layout_height="wrap_content"
