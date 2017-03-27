@@ -3,7 +3,7 @@
 
 # Progress Button Android
 
-![enter image description here](https://lh3.googleusercontent.com/STg_dkW-6BgqC4hDif0AROh407Gtlwxwr64_MFieP2WRbP7ayAAPKKq2eCY837-uA2mSA1jo=s0 "loadingButtons.gif")
+![enter image description here](https://i.stack.imgur.com/8SHR1.gif)
 
 Android Button that morphs into a loading progress bar. 
 
