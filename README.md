@@ -57,7 +57,7 @@ Then, instanciate the button
 		[or just revert de animation]
 		btn.revertAnimation();
 
-###- Show 'done' animation
+### - Show 'done' animation
 
 When the loading animation is running, call:
 
