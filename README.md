@@ -26,13 +26,13 @@ Android Button that morphs into a loading progress bar.
  - [Bugs and feedback](#bugs-and-feedback)
  - [Credits](#credits)
 
-##Installation
+## Installation
 
     compile 'br.com.simplepass:loading-button-android:1.6.1'
 
-##How to use
+## How to use
 
-###Animate and revert animation
+### Animate and revert animation
 
 Add the button in your layout file and customize it the way you like it.
 
@@ -81,7 +81,7 @@ or
             }
         });
 
-##Configure XML
+## Configure XML
 
  - app:spinning_bar_width : Changes the width of the spinning bar inside the button
  - app:spinning_bar_color: Changes the color of the spinning bar inside the button
@@ -90,7 +90,7 @@ or
  - app:finalCornerAngle: The final corner angle of the animation.
 
 
-##Be creative!
+## Be creative!
 
 You can do a lot of fun stuff with this lib. Check this example:
 
@@ -99,7 +99,7 @@ You can do a lot of fun stuff with this lib. Check this example:
 You can find the code for the animation inside this repo.
 
 
-##Wanna contribute?
+## Wanna contribute?
 
 If you had some idea for this library and want you contribute, please send me an email: lehen01@gmail.com
 
@@ -111,4 +111,4 @@ For bugs, feature requests, and discussion please use [GitHub Issues](https://gi
 
 This libs was inspired in this repo: https://github.com/dmytrodanylyk/android-morphing-button
     
-###And that's it! Enjoy!
+### And that's it! Enjoy!
