@@ -13,7 +13,7 @@ Android Button that morphs into a loading progress bar.
 
 
 
-##Contents
+## Contents
 
  - [Installation](#installation)
  - [How to use / Sample](#how-to-use)
