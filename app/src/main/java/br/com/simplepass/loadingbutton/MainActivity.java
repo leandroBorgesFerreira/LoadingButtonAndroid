@@ -11,7 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Pair;
 
-import br.com.simplepass.loading_button_lib.interfaces.AnimatableButton;
+import br.com.simplepass.loading_button_lib.interfaces.AnimatedButton;
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressImageButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
         CircularProgressImageButton progressButton = (CircularProgressImageButton) findViewById(R.id.progress_btn);
 
-        progressButton.setOnClickListener(view -> animateAndRevert(progressButton));
+        progressButton.setOnClickListener(view -> animateAndDoneFast((CircularProgressImageButton) view));
 
         CircularProgressButton progressButtonNoPadding =
                 (CircularProgressButton) findViewById(R.id.progress_btn_no_padding);
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         Handler handler = new Handler();
 
         Runnable runnable = () -> {
-            circularProgressButton.doneLoagingAnimation(
+            circularProgressButton.doneLoadingAnimation(
                     fillColor,
                     bitmap);
         };
@@ -91,8 +91,8 @@ public class MainActivity extends AppCompatActivity {
         };
 
         circularProgressButton.startAnimation();
-        handler.postDelayed(runnable, 3000);
-        handler.postDelayed(runnableRevert, 5000);
+        handler.postDelayed(runnable, 100);
+        handler.postDelayed(runnableRevert, 3000);
     }
 
     private void animateTwice(final CircularProgressButton circularProgressButton){
@@ -109,17 +109,28 @@ public class MainActivity extends AppCompatActivity {
         handler.postDelayed(runnable, 3000);
     }
 
-    private void animateAndRevert(final AnimatableButton animatableButton){
+    private void animateAndRevert(final AnimatedButton animatedButton){
         Handler handler = new Handler();
 
-        animatableButton.startAnimation();
-        handler.postDelayed(animatableButton::revertAnimation, 3000);
+        animatedButton.startAnimation();
+        handler.postDelayed(animatedButton::revertAnimation, 3000);
+    }
+
+    private void animateAndDoneFast(final CircularProgressImageButton animatedButton){
+        Handler handler = new Handler();
+
+        animatedButton.startAnimation();
+        handler.postDelayed(() -> animatedButton.doneLoadingAnimation(
+                ContextCompat.getColor(MainActivity.this, R.color.black),
+                BitmapFactory.decodeResource(getResources(), R.drawable.ic_alarm_on_white_48dp)),
+                100);
+
     }
 
     /*private void animateButton(final CircularProgressButton circularProgressButton){
         Handler handler = new Handler();
 
-        Runnable runnable = () -> circularProgressButton.doneLoagingAnimation(
+        Runnable runnable = () -> circularProgressButton.doneLoadingAnimation(
                     ContextCompat.getColor(MainActivity.this, R.color.colorPrimaryDark),
                     BitmapFactory.decodeResource(getResources(), R.drawable.ic_done_white_48dp));
 

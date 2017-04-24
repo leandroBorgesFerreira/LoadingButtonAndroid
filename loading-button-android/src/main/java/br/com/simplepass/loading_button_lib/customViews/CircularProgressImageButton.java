@@ -10,10 +10,12 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -23,7 +25,7 @@ import br.com.simplepass.loading_button_lib.UtilsJava;
 import br.com.simplepass.loading_button_lib.animatedDrawables.CircularAnimatedDrawable;
 import br.com.simplepass.loading_button_lib.animatedDrawables.CircularRevealAnimatedDrawable;
 import br.com.simplepass.loading_button_lib.R;
-import br.com.simplepass.loading_button_lib.interfaces.AnimatableButton;
+import br.com.simplepass.loading_button_lib.interfaces.AnimatedButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 
 
@@ -31,7 +33,7 @@ import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
  * Made by Leandro Ferreira.
  *
  */
-public class CircularProgressImageButton extends ImageButton implements AnimatableButton {
+public class CircularProgressImageButton extends ImageButton implements AnimatedButton {
     private enum State {
         PROGRESS, IDLE, DONE, STOPED
     }
@@ -43,10 +45,14 @@ public class CircularProgressImageButton extends ImageButton implements Animatab
     private State mState;
     private CircularAnimatedDrawable mAnimatedDrawable;
     private CircularRevealAnimatedDrawable mRevealDrawable;
-    private AnimatorSet mAnimatorSet;
+    private AnimatorSet mMorphingAnimatorSet;
     private Drawable mSrc;
 
+    private int mFillColorDone;
+    private Bitmap mBitmapDone;
+
     private Params mParams;
+    private boolean doneWhileMorphing;
 
     /**
      *
@@ -217,13 +223,23 @@ public class CircularProgressImageButton extends ImageButton implements Animatab
      * @param fillColor The color of the background of the button
      * @param bitmap The image that will be shown
      */
-    public void doneLoagingAnimation(int fillColor, Bitmap bitmap){
+    public void doneLoadingAnimation(int fillColor, Bitmap bitmap) {
         if(mState != State.PROGRESS) {
             return;
         }
 
+        if(mIsMorphingInProgress) {
+            doneWhileMorphing = true;
+            mFillColorDone = fillColor;
+            mBitmapDone = bitmap;
+            return;
+        }
+
         mState = State.DONE;
-        mAnimatedDrawable.stop();
+
+        if (mAnimatedDrawable != null) {
+            mAnimatedDrawable.stop();
+        }
 
         mRevealDrawable = new CircularRevealAnimatedDrawable(this, fillColor, bitmap);
 
@@ -234,6 +250,8 @@ public class CircularProgressImageButton extends ImageButton implements Animatab
 
         mRevealDrawable.setBounds(left, top, right, bottom);
         mRevealDrawable.setCallback(this);
+
+
         mRevealDrawable.start();
     }
 
@@ -254,7 +272,7 @@ public class CircularProgressImageButton extends ImageButton implements Animatab
         }
 
         if(mIsMorphingInProgress){
-            mAnimatorSet.cancel();
+            mMorphingAnimatorSet.cancel();
         }
 
         setClickable(false);
@@ -305,10 +323,10 @@ public class CircularProgressImageButton extends ImageButton implements Animatab
             }
         });*/
 
-        mAnimatorSet = new AnimatorSet();
-        mAnimatorSet.setDuration(300);
-        mAnimatorSet.playTogether(cornerAnimation, widthAnimation, heightAnimation);
-        mAnimatorSet.addListener(new AnimatorListenerAdapter() {
+        mMorphingAnimatorSet = new AnimatorSet();
+        mMorphingAnimatorSet.setDuration(300);
+        mMorphingAnimatorSet.playTogether(cornerAnimation, widthAnimation, heightAnimation);
+        mMorphingAnimatorSet.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 mIsMorphingInProgress = false;
@@ -318,7 +336,7 @@ public class CircularProgressImageButton extends ImageButton implements Animatab
         });
 
         mIsMorphingInProgress = true;
-        mAnimatorSet.start();
+        mMorphingAnimatorSet.start();
     }
 
     public void revertAnimation(final OnAnimationEndListener onAnimationEndListener){
@@ -329,7 +347,7 @@ public class CircularProgressImageButton extends ImageButton implements Animatab
         }
 
         if(mIsMorphingInProgress){
-            mAnimatorSet.cancel();
+            mMorphingAnimatorSet.cancel();
         }
 
         setClickable(false);
@@ -380,10 +398,10 @@ public class CircularProgressImageButton extends ImageButton implements Animatab
             }
         });*/
 
-        mAnimatorSet = new AnimatorSet();
-        mAnimatorSet.setDuration(300);
-        mAnimatorSet.playTogether(cornerAnimation, widthAnimation, heightAnimation);
-        mAnimatorSet.addListener(new AnimatorListenerAdapter() {
+        mMorphingAnimatorSet = new AnimatorSet();
+        mMorphingAnimatorSet.setDuration(300);
+        mMorphingAnimatorSet.playTogether(cornerAnimation, widthAnimation, heightAnimation);
+        mMorphingAnimatorSet.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 setClickable(true);
@@ -394,7 +412,7 @@ public class CircularProgressImageButton extends ImageButton implements Animatab
         });
 
         mIsMorphingInProgress = true;
-        mAnimatorSet.start();
+        mMorphingAnimatorSet.start();
     }
 
     /**
@@ -406,7 +424,7 @@ public class CircularProgressImageButton extends ImageButton implements Animatab
         }
 
         if(mIsMorphingInProgress){
-            mAnimatorSet.cancel();
+            mMorphingAnimatorSet.cancel();
         } else{
             mParams.mInitialWidth = getWidth();
             mParams.mInitialHeight = getHeight();
@@ -461,18 +479,31 @@ public class CircularProgressImageButton extends ImageButton implements Animatab
             }
         });*/
 
-        mAnimatorSet = new AnimatorSet();
-        mAnimatorSet.setDuration(300);
-        mAnimatorSet.playTogether(cornerAnimation, widthAnimation, heightAnimation);
-        mAnimatorSet.addListener(new AnimatorListenerAdapter() {
+        mMorphingAnimatorSet = new AnimatorSet();
+        mMorphingAnimatorSet.setDuration(300);
+        mMorphingAnimatorSet.playTogether(cornerAnimation, widthAnimation, heightAnimation);
+        mMorphingAnimatorSet.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 mIsMorphingInProgress = false;
+
+                if (doneWhileMorphing) {
+                    doneWhileMorphing = false;
+
+                    Runnable runnable = new Runnable() {
+                        @Override
+                        public void run() {
+                            doneLoadingAnimation(mFillColorDone, mBitmapDone);
+                        }
+                    };
+
+                    new Handler().postDelayed(runnable, 50);
+                }
             }
         });
 
         mIsMorphingInProgress = true;
-        mAnimatorSet.start();
+        mMorphingAnimatorSet.start();
     }
 
     /**

@@ -14,6 +14,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -23,7 +24,7 @@ import br.com.simplepass.loading_button_lib.UtilsJava;
 import br.com.simplepass.loading_button_lib.animatedDrawables.CircularAnimatedDrawable;
 import br.com.simplepass.loading_button_lib.animatedDrawables.CircularRevealAnimatedDrawable;
 import br.com.simplepass.loading_button_lib.R;
-import br.com.simplepass.loading_button_lib.interfaces.AnimatableButton;
+import br.com.simplepass.loading_button_lib.interfaces.AnimatedButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 
 
@@ -31,7 +32,7 @@ import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
  * Made by Leandro Ferreira.
  *
  */
-public class CircularProgressButton extends Button implements AnimatableButton {
+public class CircularProgressButton extends Button implements AnimatedButton {
     private enum State {
         PROGRESS, IDLE, DONE, STOPED
     }
@@ -44,9 +45,13 @@ public class CircularProgressButton extends Button implements AnimatableButton {
     private CircularAnimatedDrawable mAnimatedDrawable;
     private CircularRevealAnimatedDrawable mRevealDrawable;
     private AnimatorSet mAnimatorSet;
-    private Bitmap mReadyImage;
+
+    private int mFillColorDone;
+    private Bitmap mBitmapDone;
 
     private Params mParams;
+
+    private boolean doneWhileMorphing;
 
     /**
      *
@@ -219,8 +224,15 @@ public class CircularProgressButton extends Button implements AnimatableButton {
      * @param fillColor The color of the background of the button
      * @param bitmap The image that will be shown
      */
-    public void doneLoagingAnimation(int fillColor, Bitmap bitmap){
+    public void doneLoadingAnimation(int fillColor, Bitmap bitmap){
         if(mState != State.PROGRESS) {
+            return;
+        }
+
+        if(mIsMorphingInProgress) {
+            doneWhileMorphing = true;
+            mFillColorDone = fillColor;
+            mBitmapDone = bitmap;
             return;
         }
 
@@ -469,6 +481,19 @@ public class CircularProgressButton extends Button implements AnimatableButton {
             @Override
             public void onAnimationEnd(Animator animation) {
                 mIsMorphingInProgress = false;
+
+                if (doneWhileMorphing) {
+                    doneWhileMorphing = false;
+
+                    Runnable runnable = new Runnable() {
+                        @Override
+                        public void run() {
+                            doneLoadingAnimation(mFillColorDone, mBitmapDone);
+                        }
+                    };
+
+                    new Handler().postDelayed(runnable, 50);
+                }
             }
         });
 
