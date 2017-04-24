@@ -38,5 +38,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:25.3.0'
-    compile project(':loading-button-android')
+//    compile project(':loading-button-android')
+
+    compile 'br.com.simplepass:loading-button-android:1.6.5'
 }

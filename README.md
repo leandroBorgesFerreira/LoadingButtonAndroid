@@ -3,7 +3,7 @@
 
 # Progress Button Android
 
-![enter image description here](https://i.stack.imgur.com/8SHR1.gif)
+
 
 Android Button that morphs into a loading progress bar. 
 
@@ -28,7 +28,7 @@ Android Button that morphs into a loading progress bar.
 
 ## Installation
 
-    compile 'br.com.simplepass:loading-button-android:1.6.1'
+    compile 'br.com.simplepass:loading-button-android:1.6.5'
 
 ## How to use
 
