@@ -8,12 +8,12 @@ version = '1.6.1'
 group = 'br.com.simplepass'
 
 android {
-    compileSdkVersion 24
+    compileSdkVersion 25
     buildToolsVersion '25.0.0'
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 24
+        targetSdkVersion 25
         versionCode 6
         versionName "1.6.0"
     }
