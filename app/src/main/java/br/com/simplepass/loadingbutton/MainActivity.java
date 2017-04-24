@@ -81,14 +81,9 @@ public class MainActivity extends AppCompatActivity {
                     bitmap);
         };
 
-        Runnable runnableRevert = () -> {
-            circularProgressButton.revertAnimation(new OnAnimationEndListener() {
-                @Override
-                public void onAnimationEnd() {
-                    circularProgressButton.setText("Seu texto aqui!");
-                }
-            });
-        };
+        Runnable runnableRevert = () ->
+            circularProgressButton.revertAnimation(() -> circularProgressButton.setText("Seu texto aqui!"));
+
 
         circularProgressButton.startAnimation();
         handler.postDelayed(runnable, 100);
