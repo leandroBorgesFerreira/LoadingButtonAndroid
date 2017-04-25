@@ -3,9 +3,9 @@
 
 # Progress Button Android
 
-Android Button that morphs into a loading progress bar. 
-
 ![enter image description here](https://i.stack.imgur.com/8SHR1.gif)
+
+Android Button that morphs into a loading progress bar. 
 
   - Fully customizable in the XML
   - Really simple to use.
