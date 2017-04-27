@@ -11,7 +11,7 @@ Android Button that morphs into a loading progress bar.
   - Really simple to use.
   - Makes your app looks cooler =D
 
-
+You can check how this library was implemented here: https://medium.com/p/9efee6e39711/
 
 ## Contents
 
