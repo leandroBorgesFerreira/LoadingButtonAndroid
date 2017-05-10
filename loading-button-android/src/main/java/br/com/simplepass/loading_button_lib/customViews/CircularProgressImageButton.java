@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -20,11 +19,11 @@ import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
+import br.com.simplepass.loading_button_lib.R;
 import br.com.simplepass.loading_button_lib.Utils;
 import br.com.simplepass.loading_button_lib.UtilsJava;
 import br.com.simplepass.loading_button_lib.animatedDrawables.CircularAnimatedDrawable;
 import br.com.simplepass.loading_button_lib.animatedDrawables.CircularRevealAnimatedDrawable;
-import br.com.simplepass.loading_button_lib.R;
 import br.com.simplepass.loading_button_lib.interfaces.AnimatedButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 
@@ -413,6 +412,18 @@ public class CircularProgressImageButton extends ImageButton implements Animated
 
         mIsMorphingInProgress = true;
         mMorphingAnimatorSet.start();
+    }
+
+    @Override
+    public void dispose()
+    {
+        if (mMorphingAnimatorSet != null)
+        {
+            mMorphingAnimatorSet.end();
+            mMorphingAnimatorSet.removeAllListeners();
+            mMorphingAnimatorSet.cancel();
+        }
+        mMorphingAnimatorSet = null;
     }
 
     /**
