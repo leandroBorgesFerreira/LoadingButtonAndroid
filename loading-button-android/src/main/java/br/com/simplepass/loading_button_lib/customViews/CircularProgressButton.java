@@ -19,11 +19,11 @@ import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import br.com.simplepass.loading_button_lib.R;
 import br.com.simplepass.loading_button_lib.Utils;
 import br.com.simplepass.loading_button_lib.UtilsJava;
 import br.com.simplepass.loading_button_lib.animatedDrawables.CircularAnimatedDrawable;
 import br.com.simplepass.loading_button_lib.animatedDrawables.CircularRevealAnimatedDrawable;
-import br.com.simplepass.loading_button_lib.R;
 import br.com.simplepass.loading_button_lib.interfaces.AnimatedButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 
@@ -409,6 +409,15 @@ public class CircularProgressButton extends Button implements AnimatedButton {
 
         mIsMorphingInProgress = true;
         mAnimatorSet.start();
+    }
+
+    @Override
+    public void dispose()
+    {
+        if (mAnimatedDrawable != null)
+            mAnimatedDrawable.dispose();
+        if (mRevealDrawable != null)
+            mRevealDrawable.dispose();
     }
 
     /**

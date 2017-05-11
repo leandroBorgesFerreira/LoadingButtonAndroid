@@ -186,4 +186,15 @@ public class CircularRevealAnimatedDrawable extends Drawable implements Animatab
     public int getOpacity() {
         return 0;
     }
+
+    public void dispose()
+    {
+        if (mRevealInAnimation != null)
+        {
+            mRevealInAnimation.end();
+            mRevealInAnimation.removeAllUpdateListeners();
+            mRevealInAnimation.cancel();
+        }
+        mRevealInAnimation = null;
+    }
 }
