@@ -209,21 +209,21 @@ public class CircularAnimatedDrawable extends Drawable implements Animatable {
     }
 
 
-    public void dispose()
-    {
-        if (mValueAnimatorAngle != null)
-        {
+    public void dispose() {
+        if (mValueAnimatorAngle != null) {
             mValueAnimatorAngle.end();
             mValueAnimatorAngle.removeAllUpdateListeners();
             mValueAnimatorAngle.cancel();
         }
+
         mValueAnimatorAngle = null;
-        if (mValueAnimatorSweep != null)
-        {
+
+        if (mValueAnimatorSweep != null) {
             mValueAnimatorSweep.end();
             mValueAnimatorSweep.removeAllUpdateListeners();
             mValueAnimatorSweep.cancel();
         }
+
         mValueAnimatorSweep = null;
     }
 }

@@ -197,15 +197,15 @@ public class CircularProgressEditText extends EditText {
         mAnimatorSet.start();
     }
 
-    public void startAnimation(){
-        if(mState != State.IDLE){
+    public void startAnimation() {
+        if(mState != State.IDLE) {
             return;
         }
 
         this.setText(null);
         setClickable(false);
 
-        if(mIsMorphingInProgress){
+        if(mIsMorphingInProgress ){
             mAnimatorSet.cancel();
         }
 

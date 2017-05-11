@@ -105,7 +105,7 @@ public class CircularProgressImageButton extends ImageButton implements Animated
      * @param context Context
      * @param attrs Atributes passed in the XML
      */
-    private void init(Context context, AttributeSet attrs){
+    private void init(Context context, AttributeSet attrs) {
         mParams = new Params();
 
         mParams.mPaddingProgress = 0f;
@@ -166,12 +166,12 @@ public class CircularProgressImageButton extends ImageButton implements Animated
      * @param canvas Canvas
      */
     @Override
-    protected void onDraw(Canvas canvas){
+    protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
         if (mState == State.PROGRESS && !mIsMorphingInProgress) {
             drawIndeterminateProgress(canvas);
-        } else if(mState == State.DONE){
+        } else if(mState == State.DONE) {
             drawDoneAnimation(canvas);
         }
     }
@@ -206,7 +206,7 @@ public class CircularProgressImageButton extends ImageButton implements Animated
     /**
      * Stops the animation and sets the button in the STOPED state.
      */
-    public void stopAnimation(){
+    public void stopAnimation() {
         if(mState == State.PROGRESS && !mIsMorphingInProgress) {
             mState = State.STOPED;
             mAnimatedDrawable.stop();
@@ -259,14 +259,14 @@ public class CircularProgressImageButton extends ImageButton implements Animated
      *
      * @param canvas Canvas
      */
-    private void drawDoneAnimation(Canvas canvas){
+    private void drawDoneAnimation(Canvas canvas) {
         mRevealDrawable.draw(canvas);
     }
 
     public void revertAnimation(){
         mState = State.IDLE;
 
-        if(mAnimatedDrawable != null && mAnimatedDrawable.isRunning()){
+        if(mAnimatedDrawable != null && mAnimatedDrawable.isRunning()) {
             stopAnimation();
         }
 
@@ -338,7 +338,7 @@ public class CircularProgressImageButton extends ImageButton implements Animated
         mMorphingAnimatorSet.start();
     }
 
-    public void revertAnimation(final OnAnimationEndListener onAnimationEndListener){
+    public void revertAnimation(final OnAnimationEndListener onAnimationEndListener) {
         mState = State.IDLE;
 
         if(mAnimatedDrawable != null && mAnimatedDrawable.isRunning()){
@@ -415,28 +415,27 @@ public class CircularProgressImageButton extends ImageButton implements Animated
     }
 
     @Override
-    public void dispose()
-    {
-        if (mMorphingAnimatorSet != null)
-        {
+    public void dispose() {
+        if (mMorphingAnimatorSet != null) {
             mMorphingAnimatorSet.end();
             mMorphingAnimatorSet.removeAllListeners();
             mMorphingAnimatorSet.cancel();
         }
+
         mMorphingAnimatorSet = null;
     }
 
     /**
      * Method called to start the animation. Morphs in to a ball and then starts a loading spinner.
      */
-    public void startAnimation(){
-        if(mState != State.IDLE){
+    public void startAnimation() {
+        if(mState != State.IDLE) {
             return;
         }
 
-        if(mIsMorphingInProgress){
+        if (mIsMorphingInProgress) {
             mMorphingAnimatorSet.cancel();
-        } else{
+        } else {
             mParams.mInitialWidth = getWidth();
             mParams.mInitialHeight = getHeight();
         }
@@ -520,7 +519,7 @@ public class CircularProgressImageButton extends ImageButton implements Animated
     /**
      * Class with all the params to configure the button.
      */
-    private class Params{
+    private class Params {
         private float mSpinningBarWidth;
         private int mSpinningBarColor;
         private int mDoneColor;

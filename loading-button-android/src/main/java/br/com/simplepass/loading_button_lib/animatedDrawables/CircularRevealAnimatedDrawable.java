@@ -3,12 +3,12 @@ package br.com.simplepass.loading_button_lib.animatedDrawables;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.Paint;
+import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
@@ -37,8 +37,6 @@ public class CircularRevealAnimatedDrawable extends Drawable implements Animatab
     private int mImageReadyAlpha;
     private float bitMapXOffset;
     private float bitMapYOffset;
-
-    private Context mContext;
 
     /**
      *
@@ -184,17 +182,16 @@ public class CircularRevealAnimatedDrawable extends Drawable implements Animatab
 
     @Override
     public int getOpacity() {
-        return 0;
+        return PixelFormat.OPAQUE;
     }
 
-    public void dispose()
-    {
-        if (mRevealInAnimation != null)
-        {
+    public void dispose() {
+        if (mRevealInAnimation != null) {
             mRevealInAnimation.end();
             mRevealInAnimation.removeAllUpdateListeners();
             mRevealInAnimation.cancel();
         }
+
         mRevealInAnimation = null;
     }
 }

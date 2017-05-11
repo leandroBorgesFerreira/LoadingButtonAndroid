@@ -168,7 +168,7 @@ public class CircularProgressButton extends Button implements AnimatedButton {
      * @param canvas Canvas
      */
     @Override
-    protected void onDraw(Canvas canvas){
+    protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
         if (mState == State.PROGRESS && !mIsMorphingInProgress) {
@@ -208,7 +208,7 @@ public class CircularProgressButton extends Button implements AnimatedButton {
     /**
      * Stops the animation and sets the button in the STOPED state.
      */
-    public void stopAnimation(){
+    public void stopAnimation() {
         if(mState == State.PROGRESS && !mIsMorphingInProgress) {
             mState = State.STOPED;
             mAnimatedDrawable.stop();
@@ -224,7 +224,7 @@ public class CircularProgressButton extends Button implements AnimatedButton {
      * @param fillColor The color of the background of the button
      * @param bitmap The image that will be shown
      */
-    public void doneLoadingAnimation(int fillColor, Bitmap bitmap){
+    public void doneLoadingAnimation(int fillColor, Bitmap bitmap) {
         if(mState != State.PROGRESS) {
             return;
         }
@@ -412,25 +412,27 @@ public class CircularProgressButton extends Button implements AnimatedButton {
     }
 
     @Override
-    public void dispose()
-    {
-        if (mAnimatedDrawable != null)
+    public void dispose() {
+        if (mAnimatedDrawable != null) {
             mAnimatedDrawable.dispose();
-        if (mRevealDrawable != null)
+        }
+
+        if (mRevealDrawable != null) {
             mRevealDrawable.dispose();
+        }
     }
 
     /**
      * Method called to start the animation. Morphs in to a ball and then starts a loading spinner.
      */
-    public void startAnimation(){
-        if(mState != State.IDLE){
+    public void startAnimation() {
+        if(mState != State.IDLE) {
             return;
         }
 
-        if(mIsMorphingInProgress){
+        if(mIsMorphingInProgress) {
             mAnimatorSet.cancel();
-        } else{
+        } else {
             mParams.mInitialWidth = getWidth();
             mParams.mInitialHeight = getHeight();
         }
@@ -513,7 +515,7 @@ public class CircularProgressButton extends Button implements AnimatedButton {
     /**
      * Class with all the params to configure the button.
      */
-    private class Params{
+    private class Params {
         private float mSpinningBarWidth;
         private int mSpinningBarColor;
         private int mDoneColor;
