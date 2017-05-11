@@ -53,7 +53,7 @@ Then, instanciate the button
         
     [do some async task. When it finishes]
     //You can choose the color and the image after the loading is finished
-		btn.doneLoagingAnimation(fillColor, bitmap); 
+		btn.doneLoadingAnimation(fillColor, bitmap); 
 		[or just revert de animation]
 		btn.revertAnimation();
 
@@ -62,7 +62,7 @@ Then, instanciate the button
 When the loading animation is running, call:
 
     //Choose the color and the image that will be show
-    circularProgressButton.doneLoagingAnimation(fillColor, bitmap);
+    circularProgressButton.doneLoadingAnimation(fillColor, bitmap);
 		
 ### - Revert the loading animation with different text or image
 
