@@ -28,7 +28,7 @@ You can check how this library was implemented here: https://medium.com/p/9efee6
 
 ## Installation
 
-    compile 'br.com.simplepass:loading-button-android:1.6.6'
+    compile 'br.com.simplepass:loading-button-android:1.7.0'
 
 ## How to use
 
