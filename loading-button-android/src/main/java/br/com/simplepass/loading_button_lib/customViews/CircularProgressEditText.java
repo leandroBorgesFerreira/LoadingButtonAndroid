@@ -42,28 +42,29 @@ public class CircularProgressEditText extends EditText {
 
     public CircularProgressEditText(Context context) {
         super(context);
-        init(context, null);
+
+        init(context, null, 0, 0);
     }
 
     public CircularProgressEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        init(context, attrs);
+        init(context, attrs, 0, 0);
     }
 
     public CircularProgressEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        init(context, attrs);
+        init(context, attrs, defStyleAttr, 0);
     }
 
     public CircularProgressEditText(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr);
 
-        init(context, attrs);
+        init(context, attrs, defStyleAttr, defStyleRes);
     }
 
-    private void init(Context context, AttributeSet attrs){
+    private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes){
         mPaddingProgress = 0;
 
         if(attrs == null) {
@@ -73,8 +74,8 @@ public class CircularProgressEditText extends EditText {
                     android.R.attr.background, // 0
             };
 
-            TypedArray typedArray =  context.obtainStyledAttributes(attrs, R.styleable.CircularProgressButton);
-            TypedArray typedArrayBG = context.obtainStyledAttributes(attrs, attrsArray);
+            TypedArray typedArray =  context.obtainStyledAttributes(attrs, R.styleable.CircularProgressButton, defStyleAttr, defStyleRes);
+            TypedArray typedArrayBG = context.obtainStyledAttributes(attrs, attrsArray, defStyleAttr, defStyleRes);
             mDrawable = typedArrayBG.getDrawable(0);
             mSpinningBarWidth = typedArray.getDimension(
                     R.styleable.CircularProgressButton_spinning_bar_width, 10);
