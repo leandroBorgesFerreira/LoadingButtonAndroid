@@ -59,7 +59,8 @@ public class CircularProgressImageButton extends ImageButton implements Animated
      */
     public CircularProgressImageButton(Context context) {
         super(context);
-        init(context, null);
+
+        init(context, null, 0, 0);
     }
 
     /**
@@ -70,7 +71,7 @@ public class CircularProgressImageButton extends ImageButton implements Animated
     public CircularProgressImageButton(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        init(context, attrs);
+        init(context, attrs, 0, 0);
     }
 
     /**
@@ -82,7 +83,7 @@ public class CircularProgressImageButton extends ImageButton implements Animated
     public CircularProgressImageButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        init(context, attrs);
+        init(context, attrs, defStyleAttr, 0);
     }
 
     /**
@@ -96,7 +97,7 @@ public class CircularProgressImageButton extends ImageButton implements Animated
     public CircularProgressImageButton(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
 
-        init(context, attrs);
+        init(context, attrs, defStyleAttr, defStyleRes);
     }
 
     /**
@@ -105,7 +106,7 @@ public class CircularProgressImageButton extends ImageButton implements Animated
      * @param context Context
      * @param attrs Atributes passed in the XML
      */
-    private void init(Context context, AttributeSet attrs) {
+    private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         mParams = new Params();
 
         mParams.mPaddingProgress = 0f;
@@ -117,8 +118,8 @@ public class CircularProgressImageButton extends ImageButton implements Animated
                     android.R.attr.background, // 0
             };
 
-            TypedArray typedArray =  context.obtainStyledAttributes(attrs, R.styleable.CircularProgressButton);
-            TypedArray typedArrayBG = context.obtainStyledAttributes(attrs, attrsArray);
+            TypedArray typedArray =  context.obtainStyledAttributes(attrs, R.styleable.CircularProgressButton, defStyleAttr, defStyleRes);
+            TypedArray typedArrayBG = context.obtainStyledAttributes(attrs, attrsArray, defStyleAttr, defStyleRes);
 
             try {
                 mGradientDrawable = (GradientDrawable) typedArrayBG.getDrawable(0);
