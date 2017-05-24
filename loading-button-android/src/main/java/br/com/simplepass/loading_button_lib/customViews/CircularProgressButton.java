@@ -341,6 +341,10 @@ public class CircularProgressButton extends Button implements AnimatedButton {
     }
 
     public void revertAnimation(final OnAnimationEndListener onAnimationEndListener){
+        if (mState == State.IDLE) {
+            return;
+        }
+
         mState = State.IDLE;
 
         if(mAnimatedDrawable != null && mAnimatedDrawable.isRunning()){

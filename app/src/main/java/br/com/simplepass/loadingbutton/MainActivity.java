@@ -85,8 +85,8 @@ public class MainActivity extends AppCompatActivity {
 
         circularProgressButton.revertAnimation();
 
-//        circularProgressButton.startAnimation();
-//        handler.postDelayed(runnable, 2000);
+        circularProgressButton.startAnimation();
+        handler.postDelayed(runnable, 2000);
         handler.postDelayed(runnableRevert, 3000);
         handler.postDelayed(runnableRevert, 3100);
     }
