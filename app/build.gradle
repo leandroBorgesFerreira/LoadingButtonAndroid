@@ -40,5 +40,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.3.1'
 //    compile project(':loading-button-android')
 
-    compile 'br.com.simplepass:loading-button-android:1.6.5'
+    compile 'br.com.simplepass:loading-button-android:1.7.0'
 }

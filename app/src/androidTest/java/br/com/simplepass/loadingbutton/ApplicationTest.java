@@ -21,7 +21,6 @@ public class ApplicationTest{
     @Before
     public void initValidString() {
         // Specify a valid string.
-        mStringToBetyped = "Espresso";
     }
 
 }

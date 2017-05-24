@@ -75,19 +75,20 @@ public class MainActivity extends AppCompatActivity {
     private void animateButtonAndRevert(final CircularProgressButton circularProgressButton, int fillColor, Bitmap bitmap){
         Handler handler = new Handler();
 
-        Runnable runnable = () -> {
+        Runnable runnable = () ->
             circularProgressButton.doneLoadingAnimation(
                     fillColor,
                     bitmap);
-        };
 
         Runnable runnableRevert = () ->
             circularProgressButton.revertAnimation(() -> circularProgressButton.setText("Seu texto aqui!"));
 
+        circularProgressButton.revertAnimation();
 
-        circularProgressButton.startAnimation();
-        handler.postDelayed(runnable, 100);
+//        circularProgressButton.startAnimation();
+//        handler.postDelayed(runnable, 2000);
         handler.postDelayed(runnableRevert, 3000);
+        handler.postDelayed(runnableRevert, 3100);
     }
 
     private void animateTwice(final CircularProgressButton circularProgressButton){
