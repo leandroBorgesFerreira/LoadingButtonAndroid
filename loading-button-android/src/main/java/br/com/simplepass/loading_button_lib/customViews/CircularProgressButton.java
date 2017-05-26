@@ -448,6 +448,7 @@ public class CircularProgressButton extends Button implements AnimatedButton {
 
         mState = State.PROGRESS;
 
+        this.setCompoundDrawables(null, null, null, null); 
         this.setText(null);
         setClickable(false);
 
