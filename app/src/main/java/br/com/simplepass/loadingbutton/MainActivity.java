@@ -86,9 +86,9 @@ public class MainActivity extends AppCompatActivity {
         circularProgressButton.revertAnimation();
 
         circularProgressButton.startAnimation();
-        handler.postDelayed(runnable, 2000);
-        handler.postDelayed(runnableRevert, 3000);
-        handler.postDelayed(runnableRevert, 3100);
+        handler.postDelayed(runnable, 3000);
+        handler.postDelayed(runnableRevert, 4000);
+        handler.postDelayed(runnableRevert, 4100);
     }
 
     private void animateTwice(final CircularProgressButton circularProgressButton){

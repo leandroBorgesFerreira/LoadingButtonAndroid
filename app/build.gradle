@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '25.0.2'
+    compileSdkVersion 26
+    buildToolsVersion '26.0.0'
 
     defaultConfig {
         applicationId "br.com.simplepass.loadingbutton"
         minSdkVersion 19
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
 
@@ -38,7 +38,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:25.3.1'
-//    compile project(':loading-button-android')
+    compile project(':loading-button-android')
 
-    compile 'br.com.simplepass:loading-button-android:1.7.1'
+//    compile 'br.com.simplepass:loading-button-android:1.7.1'
 }

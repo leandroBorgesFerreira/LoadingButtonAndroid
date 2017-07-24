@@ -2,6 +2,7 @@ package br.com.simplepass.loading_button_lib.animatedDrawables;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
@@ -11,7 +12,9 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
@@ -22,11 +25,12 @@ import android.view.animation.LinearInterpolator;
 public class CircularAnimatedDrawable extends Drawable implements Animatable {
     private ValueAnimator mValueAnimatorAngle;
     private ValueAnimator mValueAnimatorSweep;
+    private AnimatorSet mAnimatorSet;
     private static final Interpolator ANGLE_INTERPOLATOR = new LinearInterpolator();
-    private static final Interpolator SWEEP_INTERPOLATOR = new DecelerateInterpolator();
+    private static final Interpolator SWEEP_INTERPOLATOR = new AccelerateDecelerateInterpolator();
     private static final int ANGLE_ANIMATOR_DURATION = 2000;
-    private static final int SWEEP_ANIMATOR_DURATION = 900;
-    private static final Float MIN_SWEEP_ANGLE = 30f;
+    private static final int SWEEP_ANIMATOR_DURATION = 700;
+    private static final Float MIN_SWEEP_ANGLE = 50f;
 
     private final RectF fBounds = new RectF();
     private Paint mPaint;
@@ -40,6 +44,7 @@ public class CircularAnimatedDrawable extends Drawable implements Animatable {
     private boolean mModeAppearing;
     private boolean mRunning;
 
+    private boolean shouldDraw;
 
     /**
      *
@@ -59,6 +64,10 @@ public class CircularAnimatedDrawable extends Drawable implements Animatable {
         mPaint.setColor(arcColor);
 
         setupAnimations();
+
+        shouldDraw = true;
+
+        mAnimatorSet = new AnimatorSet();
     }
 
     @Override
@@ -81,8 +90,9 @@ public class CircularAnimatedDrawable extends Drawable implements Animatable {
         }
 
         mRunning = true;
-        mValueAnimatorAngle.start();
-        mValueAnimatorSweep.start();
+
+        mAnimatorSet.playTogether(mValueAnimatorAngle, mValueAnimatorSweep);
+        mAnimatorSet.start();
     }
 
     /**
@@ -95,8 +105,7 @@ public class CircularAnimatedDrawable extends Drawable implements Animatable {
         }
 
         mRunning = false;
-        mValueAnimatorAngle.cancel();
-        mValueAnimatorSweep.cancel();
+        mAnimatorSet.cancel();
     }
 
     /**
@@ -117,6 +126,7 @@ public class CircularAnimatedDrawable extends Drawable implements Animatable {
     public void draw(Canvas canvas) {
         float startAngle = mCurrentGlobalAngle - mCurrentGlobalAngleOffset;
         float sweepAngle = mCurrentSweepAngle;
+
         if (!mModeAppearing) {
             startAngle = startAngle + sweepAngle;
             sweepAngle = 360 - sweepAngle - MIN_SWEEP_ANGLE;
@@ -143,25 +153,6 @@ public class CircularAnimatedDrawable extends Drawable implements Animatable {
     }
 
     /**
-     * Set the Global angle of the spinning bar.
-     * @param currentGlobalAngle
-     */
-    public void setCurrentGlobalAngle(float currentGlobalAngle) {
-        mCurrentGlobalAngle = currentGlobalAngle;
-        invalidateSelf();
-    }
-
-    /**
-     * Sets the current sweep angle, so the fancy loading animation can happen
-     *
-     * @param currentSweepAngle
-     */
-    public void setCurrentSweepAngle(float currentSweepAngle) {
-        mCurrentSweepAngle = currentSweepAngle;
-        invalidateSelf();
-    }
-
-    /**
      * Set up all the animations. There are two animation: Global angle animation and sweep animation.
      */
     private void setupAnimations() {
@@ -172,8 +163,7 @@ public class CircularAnimatedDrawable extends Drawable implements Animatable {
         mValueAnimatorAngle.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                setCurrentGlobalAngle((float)animation.getAnimatedValue());
-                mAnimatedView.invalidate();
+                mCurrentGlobalAngle = (float)animation.getAnimatedValue();
             }
         });
 
@@ -185,13 +175,22 @@ public class CircularAnimatedDrawable extends Drawable implements Animatable {
             @Override
             public void onAnimationRepeat(Animator animation) {
                 toggleAppearingMode();
+                shouldDraw = false;
             }
         });
+
         mValueAnimatorSweep.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                setCurrentSweepAngle((float)animation.getAnimatedValue());
-                mAnimatedView.invalidate();
+                mCurrentSweepAngle = (float) animation.getAnimatedValue();
+
+                if (mCurrentSweepAngle < 5) {
+                    shouldDraw = true;
+                }
+
+                if (shouldDraw) {
+                    mAnimatedView.invalidate();
+                }
             }
         });
 
@@ -203,6 +202,7 @@ public class CircularAnimatedDrawable extends Drawable implements Animatable {
      */
     private void toggleAppearingMode() {
         mModeAppearing = !mModeAppearing;
+
         if (mModeAppearing) {
             mCurrentGlobalAngleOffset = (mCurrentGlobalAngleOffset + MIN_SWEEP_ANGLE * 2) % 360;
         }
@@ -225,5 +225,10 @@ public class CircularAnimatedDrawable extends Drawable implements Animatable {
         }
 
         mValueAnimatorSweep = null;
+
+        if (mAnimatorSet != null) {
+            mAnimatorSet.end();
+            mAnimatorSet.cancel();
+        }
     }
 }
