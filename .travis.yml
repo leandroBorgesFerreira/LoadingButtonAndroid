@@ -10,7 +10,7 @@ android:
   - platform-tools
   - tools
   - build-tools-26.0.0
-  - android-25
+  - android-26
   - extra-android-m2repository
 before_install: chmod +x gradle/buildWithTravis.sh
 script: gradle/buildWithTravis.sh
