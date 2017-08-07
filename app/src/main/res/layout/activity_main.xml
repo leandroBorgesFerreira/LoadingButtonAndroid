@@ -14,7 +14,7 @@
 
     <br.com.simplepass.loading_button_lib.customViews.CircularProgressImageButton
         android:scaleType="fitCenter"
-        android:id="@+id/progress_btn"
+        android:id="@+id/progressButton"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/colorAccent"
@@ -29,7 +29,7 @@
         android:layout_marginBottom="20dp"/>
 
     <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
-        android:id="@+id/progress_btn2"
+        android:id="@+id/progressButton2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/colorPrimaryDark"
@@ -45,7 +45,7 @@
         android:layout_marginBottom="20dp"/>
 
     <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
-        android:id="@+id/progress_btn_no_padding"
+        android:id="@+id/progressButtonNoPadding"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/button_shape_default_rounded"
@@ -60,7 +60,7 @@
         android:layout_marginBottom="20dp"/>
 
     <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
-        android:id="@+id/progress_btn_no_padding2"
+        android:id="@+id/progressButtonNoPadding2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/button_shape_no_fill"
@@ -81,7 +81,7 @@
         android:gravity="center_horizontal">
 
         <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
-            android:id="@+id/progress_btn_change_activity"
+            android:id="@+id/progressButtonChangeActivity"
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:layout_height="50dp"
