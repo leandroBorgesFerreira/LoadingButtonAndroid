@@ -21,6 +21,7 @@ You can check how this library was implemented here: https://medium.com/p/9efee6
 	 -  [Show done animation](#show-done-animation)
 	 - [Revert the loading animation with different text or image](#revert-the-loading-animation-with-different-text-or-image)
  - [Configure XML](#configure-xml)
+ - [Avoid Memory Leaks](#avoid-memory-leaks)
  - [Be Creative](#be-creative)
  - [Wanna Contribute?](#wanna-contribute)
  - [Bugs and feedback](#bugs-and-feedback)
@@ -89,6 +90,14 @@ or
  - app:initialCornerAngle: The initial corner angle of the animation. Insert 0 if you have a square button. 
  - app:finalCornerAngle: The final corner angle of the animation.
 
+## Avoid Memory Leaks
+To avoid memory leaks is your code, you must dispose the buttons in the onDestroy method. Example:
+
+    override fun onDestroy() {
+            super.onDestroy()
+    
+            progressButton.dispose()
+     }
 
 ## Be creative!
 
