@@ -107,11 +107,6 @@ You can do a lot of fun stuff with this lib. Check this example:
 
 You can find the code for the animation inside this repo.
 
-
-## Wanna contribute?
-
-If you had some idea for this library and want you contribute, please send me an email: lehen01@gmail.com
-
 ## Bugs and Feedback
 
 For bugs, feature requests, and discussion please use [GitHub Issues](https://github.com/leandroBorgesFerreira/LoadingButtonAndroid/issues).
