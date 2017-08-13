@@ -113,6 +113,6 @@ For bugs, feature requests, and discussion please use [GitHub Issues](https://gi
 
 ## Credits
 
-This libs was inspired in this repo: https://github.com/dmytrodanylyk/android-morphing-button
+This library was inspired in this repo: https://github.com/dmytrodanylyk/android-morphing-button
     
 ### And that's it! Enjoy!
