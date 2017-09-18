@@ -160,6 +160,7 @@ public class CircularProgressButton extends Button implements AnimatedButton {
         mState = State.IDLE;
 
         mParams.mText = this.getText().toString();
+        mParams.mDrawables = this.getCompoundDrawablesRelative();
         setBackground(mGradientDrawable);
     }
 
@@ -262,82 +263,7 @@ public class CircularProgressButton extends Button implements AnimatedButton {
     }
 
     public void revertAnimation(){
-        if (mState == State.IDLE) {
-            return;
-        }
-
-        mState = State.IDLE;
-
-        if(mAnimatedDrawable != null && mAnimatedDrawable.isRunning()){
-            stopAnimation();
-        }
-
-        if(mIsMorphingInProgress){
-            mAnimatorSet.cancel();
-        }
-
-        setClickable(false);
-
-        int fromWidth = getWidth();
-        int fromHeight = getHeight();
-
-        int toHeight =  mParams.mInitialHeight;
-        int toWidth = mParams.mInitialWidth;
-
-        ObjectAnimator cornerAnimation =
-                ObjectAnimator.ofFloat(mGradientDrawable,
-                        "cornerRadius",
-                        mParams.mFinalCornerRadius,
-                        mParams.mInitialCornerRadius);
-
-        ValueAnimator widthAnimation = ValueAnimator.ofInt(fromWidth, toWidth);
-        widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                int val = (Integer) valueAnimator.getAnimatedValue();
-                ViewGroup.LayoutParams layoutParams = getLayoutParams();
-                layoutParams.width = val;
-                setLayoutParams(layoutParams);
-            }
-        });
-
-        ValueAnimator heightAnimation = ValueAnimator.ofInt(fromHeight, toHeight);
-        heightAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                int val = (Integer) valueAnimator.getAnimatedValue();
-                ViewGroup.LayoutParams layoutParams = getLayoutParams();
-                layoutParams.height = val;
-                setLayoutParams(layoutParams);
-            }
-        });
-
-        /*ValueAnimator strokeAnimation = ValueAnimator.ofFloat(
-                getResources().getDimension(R.dimen.stroke_login_button),
-                getResources().getDimension(R.dimen.stroke_login_button_loading));
-
-        strokeAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-
-                ((ShapeDrawable)mGradientDrawable).getPaint().setStrokeWidth((Float)animation.getAnimatedValue());
-            }
-        });*/
-
-        mAnimatorSet = new AnimatorSet();
-        mAnimatorSet.setDuration(300);
-        mAnimatorSet.playTogether(cornerAnimation, widthAnimation, heightAnimation);
-        mAnimatorSet.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                setClickable(true);
-                mIsMorphingInProgress = false;
-                setText(mParams.mText);
-            }
-        });
-
-        mIsMorphingInProgress = true;
-        mAnimatorSet.start();
+        revertAnimation(null);
     }
 
     public void revertAnimation(final OnAnimationEndListener onAnimationEndListener){
@@ -412,7 +338,10 @@ public class CircularProgressButton extends Button implements AnimatedButton {
                 setClickable(true);
                 mIsMorphingInProgress = false;
                 setText(mParams.mText);
-                onAnimationEndListener.onAnimationEnd();
+                setCompoundDrawablesRelative(mParams.mDrawables[0],mParams.mDrawables[1],mParams.mDrawables[2],mParams.mDrawables[3]);
+                if (onAnimationEndListener!=null) {
+                    onAnimationEndListener.onAnimationEnd();
+                }
             }
         });
 
@@ -448,7 +377,7 @@ public class CircularProgressButton extends Button implements AnimatedButton {
 
         mState = State.PROGRESS;
 
-        this.setCompoundDrawables(null, null, null, null); 
+        this.setCompoundDrawables(null, null, null, null);
         this.setText(null);
         setClickable(false);
 
@@ -535,5 +464,6 @@ public class CircularProgressButton extends Button implements AnimatedButton {
         private String mText;
         private float mInitialCornerRadius;
         private float mFinalCornerRadius;
+        private Drawable[] mDrawables;
     }
 }
