@@ -13,6 +13,7 @@ import android.graphics.Canvas;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Handler;
 import android.util.AttributeSet;
@@ -140,6 +141,8 @@ public class CircularProgressButton extends Button implements AnimatedButton {
                     } catch (ClassCastException e1) {
                         throw new RuntimeException("Error reading background... Use a shape or a color in xml!", e1.getCause());
                     }
+                } else if(drawable instanceof RippleDrawable) {
+                    setBackground(drawable);
                 }
             }
 
@@ -161,7 +164,9 @@ public class CircularProgressButton extends Button implements AnimatedButton {
 
         mParams.mText = this.getText().toString();
         mParams.mDrawables = this.getCompoundDrawablesRelative();
-        setBackground(mGradientDrawable);
+        if (mGradientDrawable != null) {
+            setBackground(mGradientDrawable);
+        }
     }
 
     /**
@@ -288,12 +293,13 @@ public class CircularProgressButton extends Button implements AnimatedButton {
 
         int toHeight =  mParams.mInitialHeight;
         int toWidth = mParams.mInitialWidth;
-
-        ObjectAnimator cornerAnimation =
-                ObjectAnimator.ofFloat(mGradientDrawable,
-                        "cornerRadius",
-                        mParams.mFinalCornerRadius,
-                        mParams.mInitialCornerRadius);
+        ObjectAnimator cornerAnimation = null;
+        if (mGradientDrawable != null) {
+            cornerAnimation = ObjectAnimator.ofFloat(mGradientDrawable,
+                            "cornerRadius",
+                            mParams.mFinalCornerRadius,
+                            mParams.mInitialCornerRadius);
+        }
 
         ValueAnimator widthAnimation = ValueAnimator.ofInt(fromWidth, toWidth);
         widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -331,7 +337,11 @@ public class CircularProgressButton extends Button implements AnimatedButton {
 
         mAnimatorSet = new AnimatorSet();
         mAnimatorSet.setDuration(300);
-        mAnimatorSet.playTogether(cornerAnimation, widthAnimation, heightAnimation);
+        if (mGradientDrawable != null) {
+            mAnimatorSet.playTogether(cornerAnimation, widthAnimation, heightAnimation);
+        } else {
+            mAnimatorSet.playTogether(widthAnimation, heightAnimation);
+        }
         mAnimatorSet.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
