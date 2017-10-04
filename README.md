@@ -103,7 +103,7 @@ To avoid memory leaks is your code, you must dispose the buttons in the onDestro
 
 You can do a lot of fun stuff with this lib. Check this example:
 
-![enter image description here](https://lh3.googleusercontent.com/-jJeS1G1mrBY/WBNosRmWSqI/AAAAAAAAKbM/NxWA09f0XqcutIO2VW8RDPhwW1CPRebWQCLcB/s0/out-28-2016+12-55-20.gif "out-28-2016 12-55-20.gif")
+![enter image description here](https://lh3.googleusercontent.com/-GhZNh9tt9rs/WdUAZ9DCRYI/AAAAAAAAMkc/w_HuR5HpErI6nHQSzPY8Flo2X7boVweSACLcBGAs/s500/loadingB.gif "loadingB.gif")
 
 You can find the code for the animation inside this repo.
 
