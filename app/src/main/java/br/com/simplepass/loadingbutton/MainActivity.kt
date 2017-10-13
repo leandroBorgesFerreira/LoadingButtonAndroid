@@ -24,19 +24,19 @@ class MainActivity : AppCompatActivity() {
 
         progressButton.setOnClickListener { view -> animateAndDoneFast(view as CircularProgressImageButton) }
 
-        progressButtonNoPadding.setOnClickListener { view ->
+        progressButtonNoPadding.setOnClickListener { _ ->
             animateButtonAndRevert(progressButtonNoPadding,
                     ContextCompat.getColor(this@MainActivity, R.color.black),
                     BitmapFactory.decodeResource(resources, R.drawable.ic_alarm_on_white_48dp))
         }
 
-        progressButton2.setOnClickListener { view ->
+        progressButton2.setOnClickListener { _ ->
             animateButtonAndRevert(progressButton2,
                     ContextCompat.getColor(this@MainActivity, R.color.transparent),
                     BitmapFactory.decodeResource(resources, R.drawable.ic_cloud_upload_white_24dp))
         }
 
-        progressButtonNoPadding2.setOnClickListener { view ->
+        progressButtonNoPadding2.setOnClickListener { _ ->
             animateButtonAndRevert(progressButtonNoPadding2,
                     ContextCompat.getColor(this@MainActivity, R.color.colorAccent),
                     BitmapFactory.decodeResource(resources, R.drawable.ic_pregnant_woman_white_48dp))

@@ -32,7 +32,7 @@ import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
  * Made by Leandro Ferreira.
  *
  */
-public class CircularProgressImageButton extends ImageButton implements AnimatedButton {
+public class CircularProgressImageButton extends ImageButton implements AnimatedButton, CustomizableByCode {
     private enum State {
         PROGRESS, IDLE, DONE, STOPED
     }
@@ -159,6 +159,41 @@ public class CircularProgressImageButton extends ImageButton implements Animated
 
         mState = State.IDLE;
         setBackground(mGradientDrawable);
+    }
+
+    @Override
+    public void setSpinningBarColor(int color) {
+        mParams.mSpinningBarColor = color;
+    }
+
+    @Override
+    public void setSpinningBarWidth(float width) {
+        mParams.mSpinningBarWidth = width;
+    }
+
+    @Override
+    public void setDoneColor(int color) {
+        mParams.mDoneColor = color;
+    }
+
+    @Override
+    public void setPaddingProgress(float padding) {
+        mParams.mPaddingProgress = padding;
+    }
+
+    @Override
+    public void setInitialHeight(int height) {
+        mParams.mInitialHeight = height;
+    }
+
+    @Override
+    public void setInitialCornerRadius(float radius) {
+        mParams.mInitialCornerRadius = radius;
+    }
+
+    @Override
+    public void setFinalCornerRadius(float radius) {
+        mParams.mFinalCornerRadius = radius;
     }
 
     /**

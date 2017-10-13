@@ -33,7 +33,7 @@ import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
  * Made by Leandro Ferreira.
  *
  */
-public class CircularProgressButton extends Button implements AnimatedButton {
+public class CircularProgressButton extends Button implements AnimatedButton, CustomizableByCodeWithText {
     private enum State {
         PROGRESS, IDLE, DONE, STOPED
     }
@@ -113,7 +113,7 @@ public class CircularProgressButton extends Button implements AnimatedButton {
         mParams.mPaddingProgress = 0f;
 
         if(attrs == null) {
-            mGradientDrawable = (GradientDrawable) UtilsJava.getDrawable(getContext(), R.drawable.shape_default);
+            loadGradientDrawable(UtilsJava.getDrawable(getContext(), R.drawable.shape_default));
         } else{
             int[] attrsArray = new int[] {
                     android.R.attr.background, // 0
@@ -122,29 +122,7 @@ public class CircularProgressButton extends Button implements AnimatedButton {
             TypedArray typedArray =  context.obtainStyledAttributes(attrs, R.styleable.CircularProgressButton, defStyleAttr, defStyleRes);
             TypedArray typedArrayBG = context.obtainStyledAttributes(attrs, attrsArray, defStyleAttr, defStyleRes);
 
-            try {
-                mGradientDrawable = (GradientDrawable) typedArrayBG.getDrawable(0);
-
-            } catch (ClassCastException e) {
-                Drawable drawable = typedArrayBG.getDrawable(0);
-
-                if(drawable instanceof ColorDrawable){
-                    ColorDrawable colorDrawable = (ColorDrawable) drawable;
-
-                    mGradientDrawable = new GradientDrawable();
-                    mGradientDrawable.setColor(colorDrawable.getColor());
-                } else if(drawable instanceof StateListDrawable){
-                    StateListDrawable stateListDrawable = (StateListDrawable) drawable;
-
-                    try {
-                        mGradientDrawable = (GradientDrawable) stateListDrawable.getCurrent();
-                    } catch (ClassCastException e1) {
-                        throw new RuntimeException("Error reading background... Use a shape or a color in xml!", e1.getCause());
-                    }
-                } else if(drawable instanceof RippleDrawable) {
-                    setBackground(drawable);
-                }
-            }
+            loadGradientDrawable(typedArrayBG.getDrawable(0));
 
             mParams.mInitialCornerRadius = typedArray.getDimension(
                     R.styleable.CircularProgressButton_initialCornerAngle, 0);
@@ -167,6 +145,67 @@ public class CircularProgressButton extends Button implements AnimatedButton {
         if (mGradientDrawable != null) {
             setBackground(mGradientDrawable);
         }
+    }
+
+    private void loadGradientDrawable(Drawable drawable) {
+        try {
+            mGradientDrawable = (GradientDrawable) drawable;
+        } catch (ClassCastException e) {
+            if(drawable instanceof ColorDrawable){
+                ColorDrawable colorDrawable = (ColorDrawable) drawable;
+
+                mGradientDrawable = new GradientDrawable();
+                mGradientDrawable.setColor(colorDrawable.getColor());
+            } else if(drawable instanceof StateListDrawable){
+                StateListDrawable stateListDrawable = (StateListDrawable) drawable;
+
+                try {
+                    mGradientDrawable = (GradientDrawable) stateListDrawable.getCurrent();
+                } catch (ClassCastException e1) {
+                    throw new RuntimeException("Error reading background... Use a shape or a color in xml!", e1.getCause());
+                }
+            }
+        }
+    }
+
+    @Override
+    public void setSpinningBarColor(int color) {
+        mParams.mSpinningBarColor = color;
+    }
+
+    @Override
+    public void setSpinningBarWidth(float width) {
+        mParams.mSpinningBarWidth = width;
+    }
+
+    @Override
+    public void setDoneColor(int color) {
+        mParams.mDoneColor = color;
+    }
+
+    @Override
+    public void setPaddingProgress(float padding) {
+        mParams.mPaddingProgress = padding;
+    }
+
+    @Override
+    public void setInitialHeight(int height) {
+        mParams.mInitialHeight = height;
+    }
+
+    @Override
+    public void setInitialCornerRadius(float radius) {
+        mParams.mInitialCornerRadius = radius;
+    }
+
+    @Override
+    public void setFinalCornerRadius(float radius) {
+        mParams.mFinalCornerRadius = radius;
+    }
+
+    @Override
+    public void setButtonText(String text) {
+        mParams.mText = text;
     }
 
     /**

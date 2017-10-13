@@ -70,9 +70,13 @@
         app:spinning_bar_width="6dp"
         app:initialCornerAngle="50dp"
         app:finalCornerAngle="50dp"
+        android:layout_marginBottom="20dp"
         android:text="Send"
         android:textColor="@android:color/black"/>
 
+    <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <RelativeLayout
         android:layout_width="match_parent"
