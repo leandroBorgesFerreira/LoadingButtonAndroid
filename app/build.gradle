@@ -34,9 +34,9 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:26.1.0'
-    compile "org.jetbrains.anko:anko:0.10.1"
-    compile project(':loading-button-android')
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation "org.jetbrains.anko:anko:0.10.1"
+    implementation project(path: ":loading-button-android")
 
-//    compile 'br.com.simplepass:loading-button-android:1.8.1'
+//    compile 'br.com.simplepass:loading-button-android:1.8.3'
 }

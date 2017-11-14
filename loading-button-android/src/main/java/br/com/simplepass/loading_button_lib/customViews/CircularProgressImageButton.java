@@ -368,12 +368,13 @@ public class CircularProgressImageButton extends ImageButton implements Animated
         mMorphingAnimatorSet.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
+                setImageDrawable(mSrc);
                 setClickable(true);
                 mIsMorphingInProgress = false;
-                if (onAnimationEndListener!=null) {
+
+                if (onAnimationEndListener != null) {
                     onAnimationEndListener.onAnimationEnd();
                 }
-                setImageDrawable(mSrc);
             }
         });
 

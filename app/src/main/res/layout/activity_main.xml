@@ -13,8 +13,8 @@
     tools:context="br.com.simplepass.loadingbutton.MainActivity">
 
     <br.com.simplepass.loading_button_lib.customViews.CircularProgressImageButton
-        android:scaleType="fitCenter"
         android:id="@+id/progressButton"
+        android:scaleType="fitCenter"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/colorAccent"
@@ -75,6 +75,7 @@
         android:textColor="@android:color/black"/>
 
     <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+        android:id="@+id/noBack"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

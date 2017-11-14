@@ -63,6 +63,10 @@ class MainActivity : AppCompatActivity() {
                 Handler().postDelayed(runnable, 3000)
             }
         }
+
+        noBack.setOnClickListener { view ->
+            animateAndRevert(view as AnimatedButton)
+        }
     }
 
     private fun animateButtonAndRevert(circularProgressButton: CircularProgressButton, fillColor: Int, bitmap: Bitmap) {
@@ -106,15 +110,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun animateAndDoneFast(animatedButton: CircularProgressImageButton) {
-        val handler = Handler()
-
         animatedButton.startAnimation()
-        handler.postDelayed({
+        Handler().postDelayed({
             animatedButton.doneLoadingAnimation(
                     ContextCompat.getColor(this@MainActivity, R.color.black),
                     BitmapFactory.decodeResource(resources, R.drawable.ic_alarm_on_white_48dp))
-        },
-                100)
+        }, 100)
+
+        Handler().postDelayed({ animatedButton.revertAnimation {
+            animatedButton.setImageBitmap(BitmapFactory.decodeResource(resources, R.drawable.ic_alarm_on_white_48dp))
+        } }, 700)
 
     }
 
