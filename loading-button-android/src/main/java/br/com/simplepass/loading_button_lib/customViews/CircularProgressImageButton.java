@@ -15,9 +15,11 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Handler;
+import android.support.annotation.ColorRes;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.AppCompatImageButton;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 
 import br.com.simplepass.loading_button_lib.R;
 import br.com.simplepass.loading_button_lib.Utils;
@@ -32,7 +34,7 @@ import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
  * Made by Leandro Ferreira.
  *
  */
-public class CircularProgressImageButton extends ImageButton implements AnimatedButton, CustomizableByCode {
+public class CircularProgressImageButton extends AppCompatImageButton implements AnimatedButton, CustomizableByCode {
     private enum State {
         PROGRESS, IDLE, DONE, STOPED
     }
@@ -95,7 +97,7 @@ public class CircularProgressImageButton extends ImageButton implements Animated
      */
     @TargetApi(23)
     public CircularProgressImageButton(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+        super(context, attrs, defStyleAttr);
 
         init(context, attrs, defStyleAttr, defStyleRes);
     }
@@ -159,6 +161,16 @@ public class CircularProgressImageButton extends ImageButton implements Animated
 
         mState = State.IDLE;
         setBackground(mGradientDrawable);
+    }
+
+    @Override
+    public void setBackgroundColor (int color) {
+        mGradientDrawable.setColor(color);
+    }
+
+    @Override
+    public void setBackgroundResource (@ColorRes int resid) {
+        mGradientDrawable.setColor(ContextCompat.getColor(getContext(), resid));
     }
 
     @Override

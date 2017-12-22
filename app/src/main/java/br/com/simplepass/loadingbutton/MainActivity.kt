@@ -4,6 +4,7 @@ import android.app.ActivityOptions
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -23,6 +24,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         progressButton.setOnClickListener { view -> animateAndDoneFast(view as CircularProgressImageButton) }
+
+        progressButtonNoPadding.setBackgroundColor(Color.GREEN)
 
         progressButtonNoPadding.setOnClickListener { _ ->
             animateButtonAndRevert(progressButtonNoPadding,

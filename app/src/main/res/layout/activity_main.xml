@@ -32,10 +32,9 @@
         android:id="@+id/progressButton2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/colorPrimaryDark"
         android:layout_marginLeft="18dp"
         android:layout_marginRight="18dp"
-        app:spinning_bar_padding="10dp"
+        app:spinning_bar_padding="@dimen/abc_button_padding_horizontal_material"
         app:spinning_bar_color="@color/blue"
         app:spinning_bar_width="4dp"
         app:initialCornerAngle="0dp"
@@ -51,7 +50,8 @@
         android:background="@drawable/button_shape_default_rounded"
         android:layout_marginLeft="18dp"
         android:layout_marginRight="18dp"
-        app:spinning_bar_color="@android:color/black"
+        app:spinning_bar_color="@android:color/holo_blue_bright"
+        app:spinning_bar_padding="8dp"
         app:spinning_bar_width="4dp"
         app:initialCornerAngle="50dp"
         app:finalCornerAngle="50dp"
@@ -66,10 +66,11 @@
         android:background="@drawable/button_shape_no_fill"
         android:layout_marginLeft="18dp"
         android:layout_marginRight="18dp"
-        app:spinning_bar_color="@color/black"
+        app:spinning_bar_color="@android:color/holo_blue_bright"
         app:spinning_bar_width="6dp"
         app:initialCornerAngle="50dp"
         app:finalCornerAngle="50dp"
+        app:spinning_bar_padding="8dp"
         android:layout_marginBottom="20dp"
         android:text="Send"
         android:textColor="@android:color/black"/>
@@ -77,7 +78,8 @@
     <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
         android:id="@+id/noBack"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="blah"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
