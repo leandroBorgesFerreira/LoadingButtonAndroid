@@ -68,7 +68,7 @@
         android:layout_marginRight="18dp"
         app:spinning_bar_color="@android:color/holo_blue_bright"
         app:spinning_bar_width="6dp"
-        app:initialCornerAngle="50dp"
+        app:initialCornerAngle="0dp"
         app:finalCornerAngle="50dp"
         app:spinning_bar_padding="8dp"
         android:layout_marginBottom="20dp"
@@ -76,10 +76,20 @@
         android:textColor="@android:color/black"/>
 
     <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
-        android:id="@+id/noBack"
+        android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="blah"/>
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        android:background="@drawable/rounded_corners_yellow"
+        android:text="login"
+        android:textColor="@color/black"
+        app:initialCornerAngle="2dp"
+        app:spinning_bar_color="@color/black"
+        app:spinning_bar_padding="6dp"
+        app:spinning_bar_width="4dp"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

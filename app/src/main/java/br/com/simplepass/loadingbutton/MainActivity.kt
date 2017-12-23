@@ -67,9 +67,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        noBack.setOnClickListener { view ->
-            animateAndRevert(view as AnimatedButton)
-        }
     }
 
     private fun animateButtonAndRevert(circularProgressButton: CircularProgressButton, fillColor: Int, bitmap: Bitmap) {
@@ -124,6 +121,15 @@ class MainActivity : AppCompatActivity() {
             animatedButton.setImageBitmap(BitmapFactory.decodeResource(resources, R.drawable.ic_alarm_on_white_48dp))
         } }, 700)
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        progressButtonNoPadding.dispose()
+        progressButton2.dispose()
+        progressButtonNoPadding2.dispose()
+        login.dispose()
     }
 
     /*private void animateButton(final CircularProgressButton circularProgressButton){
