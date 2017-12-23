@@ -12,10 +12,8 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 
@@ -77,7 +75,10 @@ public class CircularAnimatedDrawable extends Drawable implements Animatable {
         fBounds.right = bounds.right - mBorderWidth / 2f - .5f;
         fBounds.top = bounds.top + mBorderWidth / 2f + .5f;
         fBounds.bottom = bounds.bottom - mBorderWidth / 2f - .5f;
+    }
 
+    public void setLoadingBarColor(int color) {
+        mPaint.setColor(color);
     }
 
     /**

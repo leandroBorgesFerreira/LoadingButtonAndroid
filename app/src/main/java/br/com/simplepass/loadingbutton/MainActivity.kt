@@ -78,7 +78,11 @@ class MainActivity : AppCompatActivity() {
                     bitmap)
         }
 
-        val runnableRevert = { circularProgressButton.revertAnimation { circularProgressButton.text = "Seu texto aqui!" } }
+        val runnableRevert = { circularProgressButton.revertAnimation {
+                circularProgressButton.text = "Seu texto aqui!"
+                circularProgressButton.setSpinningBarColor(Color.MAGENTA)
+            }
+        }
 
         circularProgressButton.revertAnimation()
 

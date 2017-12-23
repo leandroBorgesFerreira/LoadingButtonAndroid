@@ -182,6 +182,9 @@ public class CircularProgressButton extends AppCompatButton implements AnimatedB
     @Override
     public void setSpinningBarColor(int color) {
         mParams.mSpinningBarColor = color;
+        if (mAnimatedDrawable != null) {
+            mAnimatedDrawable.setLoadingBarColor(color);
+        }
     }
 
     @Override
@@ -261,6 +264,7 @@ public class CircularProgressButton extends AppCompatButton implements AnimatedB
             mAnimatedDrawable.draw(canvas);
         }
     }
+
 
     /**
      * Stops the animation and sets the button in the STOPED state.

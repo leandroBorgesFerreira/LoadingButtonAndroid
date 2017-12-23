@@ -176,6 +176,9 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
     @Override
     public void setSpinningBarColor(int color) {
         mParams.mSpinningBarColor = color;
+        if (mAnimatedDrawable != null) {
+            mAnimatedDrawable.setLoadingBarColor(color);
+        }
     }
 
     @Override
