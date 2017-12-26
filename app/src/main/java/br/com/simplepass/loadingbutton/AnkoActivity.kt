@@ -32,7 +32,6 @@ class AnkoActivity : AppCompatActivity() {
                 setFinalCornerRadius(0F)
                 setFinalCornerRadius(1000F)
                 text = "Some text"
-                setButtonText("Some text")
             }
         }
     }
