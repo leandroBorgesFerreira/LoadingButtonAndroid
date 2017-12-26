@@ -34,7 +34,7 @@ import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
  * Made by Leandro Ferreira.
  *
  */
-public class CircularProgressButton extends AppCompatButton implements AnimatedButton, CustomizableByCodeWithText {
+public class CircularProgressButton extends AppCompatButton implements AnimatedButton, CustomizableByCode {
     private enum State {
         PROGRESS, IDLE, DONE, STOPED
     }
@@ -215,11 +215,6 @@ public class CircularProgressButton extends AppCompatButton implements AnimatedB
     @Override
     public void setFinalCornerRadius(float radius) {
         mParams.mFinalCornerRadius = radius;
-    }
-
-    @Override
-    public void setButtonText(String text) {
-        mParams.mText = text;
     }
 
     /**
@@ -440,6 +435,8 @@ public class CircularProgressButton extends AppCompatButton implements AnimatedB
         }
 
         mState = State.PROGRESS;
+
+        mParams.mText = getText().toString();
 
         this.setCompoundDrawables(null, null, null, null);
         this.setText(null);
