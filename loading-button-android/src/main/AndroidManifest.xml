@@ -1,9 +1,1 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="br.com.simplepass.loading_button_lib">
-
-    <application
-        android:label="@string/app_name"
-        android:supportsRtl="true">
-    </application>
-
-</manifest>
+<manifest package="br.com.simplepass.loading_button_lib"/>
