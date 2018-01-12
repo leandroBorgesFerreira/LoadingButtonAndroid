@@ -500,6 +500,13 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
     }
 
     /**
+     * Check if button is animating
+     */
+    public Boolean isAnimating() {
+        return mState == State.PROGRESS;
+    }
+
+    /**
      * Class with all the params to configure the button.
      */
     private class Params {
