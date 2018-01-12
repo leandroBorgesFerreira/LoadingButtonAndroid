@@ -49,6 +49,7 @@ public class CircularProgressButton extends AppCompatButton implements AnimatedB
     private AnimatorSet mAnimatorSet;
 
     private int mFillColorDone;
+
     private Bitmap mBitmapDone;
 
     private Params mParams;
@@ -510,6 +511,14 @@ public class CircularProgressButton extends AppCompatButton implements AnimatedB
 
         mIsMorphingInProgress = true;
         mAnimatorSet.start();
+    }
+
+
+    /**
+     * Check if button is animating
+     */
+    public Boolean isAnimating() {
+        return mState == State.PROGRESS;
     }
 
     /**
