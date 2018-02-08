@@ -96,6 +96,13 @@
         app:spinning_bar_padding="6dp"
         app:spinning_bar_width="4dp"/>
 
+    <fragment
+        android:id="@+id/frag"
+        android:name="br.com.simplepass.loadingbutton.TestFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
