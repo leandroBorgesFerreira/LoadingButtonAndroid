@@ -1,6 +1,7 @@
 package br.com.simplepass.loadingbutton
 
 import android.animation.ObjectAnimator
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_second.*
@@ -15,5 +16,9 @@ class SecondActivity : AppCompatActivity() {
 
         animator.startDelay = 400
         animator.start()
+
+        button.setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java))
+        }
     }
 }

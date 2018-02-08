@@ -36,9 +36,9 @@ dependencies {
     })
     implementation 'com.android.support:appcompat-v7:27.0.2'
     implementation "org.jetbrains.anko:anko:0.10.4"
-    implementation project(path: ":loading-button-android")
+//    implementation project(path: ":loading-button-android")
     
-//    compile 'br.com.simplepass:loading-button-android:1.8.4'
+    compile 'br.com.simplepass:loading-button-android:1.12.0'
 
     compile "io.reactivex.rxjava2:rxjava:2.1.7"
 }
