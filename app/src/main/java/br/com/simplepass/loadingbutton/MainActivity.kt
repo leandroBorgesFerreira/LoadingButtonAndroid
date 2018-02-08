@@ -33,8 +33,8 @@ class MainActivity : AppCompatActivity() {
                     BitmapFactory.decodeResource(resources, R.drawable.ic_alarm_on_white_48dp))
         }
 
-        progressButton2.setOnClickListener { _ ->
-            animateButtonAndRevert(progressButton2,
+        progressFix.setOnClickListener { _ ->
+            animateButtonAndRevert(progressFix,
                     ContextCompat.getColor(this@MainActivity, R.color.transparent),
                     BitmapFactory.decodeResource(resources, R.drawable.ic_cloud_upload_white_24dp))
         }
@@ -78,18 +78,17 @@ class MainActivity : AppCompatActivity() {
                     bitmap)
         }
 
-        val runnableRevert = { circularProgressButton.revertAnimation {
-                circularProgressButton.text = "Seu texto aqui!"
-                circularProgressButton.setSpinningBarColor(Color.MAGENTA)
-            }
+        val changeActivity = {
+            startActivity(Intent(this, SecondActivity::class.java))
+            finish()
         }
 
         circularProgressButton.revertAnimation()
 
         circularProgressButton.startAnimation()
         handler.postDelayed(runnable, 3000)
-        handler.postDelayed(runnableRevert, 4000)
-        handler.postDelayed(runnableRevert, 4100)
+        handler.postDelayed(changeActivity, 4000)
+        handler.postDelayed(changeActivity, 4100)
     }
 
     private fun animateTwice(circularProgressButton: CircularProgressButton) {
@@ -131,7 +130,7 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
 
         progressButtonNoPadding.dispose()
-        progressButton2.dispose()
+        progressFix.dispose()
         progressButtonNoPadding2.dispose()
         login.dispose()
     }
