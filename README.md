@@ -29,7 +29,7 @@ You can check how this library was implemented here: https://medium.com/p/9efee6
 
 ## Installation
 
-    compile 'br.com.simplepass:loading-button-android:[latest-version]'
+    implementation 'br.com.simplepass:loading-button-android:[latest-version]'
 
 ## How to use
 
