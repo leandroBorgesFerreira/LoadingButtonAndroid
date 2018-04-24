@@ -54,6 +54,7 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
 
     private Params mParams;
     private boolean doneWhileMorphing;
+    private int progress;
 
     /**
      *
@@ -161,6 +162,7 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
 
         mState = State.IDLE;
         setBackground(mGradientDrawable);
+        resetProgress();
     }
 
     @Override
@@ -221,7 +223,7 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
         super.onDraw(canvas);
 
         if (mState == State.PROGRESS && !mIsMorphingInProgress) {
-            drawIndeterminateProgress(canvas);
+            drawProgress(canvas);
         } else if(mState == State.DONE) {
             drawDoneAnimation(canvas);
         }
@@ -233,7 +235,7 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
      *
      * @param canvas Canvas
      */
-    private void drawIndeterminateProgress(Canvas canvas) {
+    private void drawProgress(Canvas canvas) {
         if (mAnimatedDrawable == null || !mAnimatedDrawable.isRunning()) {
             mAnimatedDrawable = new CircularAnimatedDrawable(this,
                     mParams.mSpinningBarWidth,
@@ -250,8 +252,25 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
             mAnimatedDrawable.setCallback(this);
             mAnimatedDrawable.start();
         } else {
+            mAnimatedDrawable.setProgress(progress);
             mAnimatedDrawable.draw(canvas);
         }
+    }
+
+    /**
+     * @param progress set a progress to switch displaying a determinate circular progress
+     */
+    public void setProgress(int progress) {
+        progress = Math.max(CircularAnimatedDrawable.MIN_PROGRESS,
+                Math.min(CircularAnimatedDrawable.MAX_PROGRESS, progress));
+        this.progress = progress;
+    }
+
+    /**
+     * resets a given progress and shows an indeterminate progress animation
+     */
+    public void resetProgress() {
+        this.progress = CircularAnimatedDrawable.MIN_PROGRESS - 1;
     }
 
     /**
@@ -320,6 +339,7 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
 
     public void revertAnimation(final OnAnimationEndListener onAnimationEndListener) {
         mState = State.IDLE;
+        resetProgress();
 
         if(mAnimatedDrawable != null && mAnimatedDrawable.isRunning()){
             stopAnimation();

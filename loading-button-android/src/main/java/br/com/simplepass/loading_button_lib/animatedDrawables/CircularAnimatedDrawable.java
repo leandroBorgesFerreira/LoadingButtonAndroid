@@ -21,13 +21,18 @@ import android.view.animation.LinearInterpolator;
  * Created by leandro on 5/31/16.
  */
 public class CircularAnimatedDrawable extends Drawable implements Animatable {
+    public static final int MIN_PROGRESS = 0;
+    public static final int MAX_PROGRESS = 100;
+
     private ValueAnimator mValueAnimatorAngle;
     private ValueAnimator mValueAnimatorSweep;
+    private ValueAnimator mValueAnimatorProgress;
     private AnimatorSet mAnimatorSet;
     private static final Interpolator ANGLE_INTERPOLATOR = new LinearInterpolator();
     private static final Interpolator SWEEP_INTERPOLATOR = new AccelerateDecelerateInterpolator();
     private static final int ANGLE_ANIMATOR_DURATION = 2000;
     private static final int SWEEP_ANIMATOR_DURATION = 700;
+    private static final int PROGRESS_ANIMATOR_DURATION = 200;
     private static final Float MIN_SWEEP_ANGLE = 50f;
 
     private final RectF fBounds = new RectF();
@@ -43,6 +48,8 @@ public class CircularAnimatedDrawable extends Drawable implements Animatable {
     private boolean mRunning;
 
     private boolean shouldDraw;
+	private int progress;
+    private float shownProgress;
 
     /**
      *
@@ -94,6 +101,9 @@ public class CircularAnimatedDrawable extends Drawable implements Animatable {
 
         mAnimatorSet.playTogether(mValueAnimatorAngle, mValueAnimatorSweep);
         mAnimatorSet.start();
+
+        if (mValueAnimatorProgress != null && !mValueAnimatorProgress.isRunning())
+            mValueAnimatorProgress.start();
     }
 
     /**
@@ -128,7 +138,10 @@ public class CircularAnimatedDrawable extends Drawable implements Animatable {
         float startAngle = mCurrentGlobalAngle - mCurrentGlobalAngleOffset;
         float sweepAngle = mCurrentSweepAngle;
 
-        if (!mModeAppearing) {
+		if (progress >= MIN_PROGRESS && progress <= MAX_PROGRESS) {
+			startAngle = -90;
+			sweepAngle = shownProgress;
+		} else if (!mModeAppearing) {
             startAngle = startAngle + sweepAngle;
             sweepAngle = 360 - sweepAngle - MIN_SWEEP_ANGLE;
         } else {
@@ -195,6 +208,7 @@ public class CircularAnimatedDrawable extends Drawable implements Animatable {
             }
         });
 
+        // progress animation is set up on each change of progress val
     }
 
     /**
@@ -227,9 +241,47 @@ public class CircularAnimatedDrawable extends Drawable implements Animatable {
 
         mValueAnimatorSweep = null;
 
+        if (mValueAnimatorProgress != null) {
+            if (mValueAnimatorProgress.isRunning())
+                mValueAnimatorProgress.end();
+            mValueAnimatorProgress.removeAllUpdateListeners();
+            mValueAnimatorProgress.cancel();
+        }
+
         if (mAnimatorSet != null) {
             mAnimatorSet.end();
             mAnimatorSet.cancel();
         }
+    }
+
+    public void setProgress(int progress) {
+        if (this.progress == progress)
+            return;
+
+        this.progress = progress;
+
+        if (progress < MIN_PROGRESS)
+            shownProgress = 0;
+
+        if (mValueAnimatorProgress == null) {
+            mValueAnimatorProgress = ValueAnimator.ofFloat(shownProgress, progress * 3.6f);
+            mValueAnimatorProgress.setInterpolator(SWEEP_INTERPOLATOR);
+            mValueAnimatorProgress.setDuration(PROGRESS_ANIMATOR_DURATION);
+            mValueAnimatorProgress.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    shownProgress = (float) animation.getAnimatedValue();
+                    mAnimatedView.invalidate();
+                }
+            });
+        } else {
+            if (mValueAnimatorProgress.isRunning())
+                mValueAnimatorProgress.cancel();
+            mValueAnimatorProgress.setFloatValues(shownProgress, progress * 3.6f);
+        }
+
+        if (isRunning() && progress >= MIN_PROGRESS)
+            mValueAnimatorProgress.start();
+
     }
 }

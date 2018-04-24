@@ -23,7 +23,6 @@ You can check how this library was implemented here: https://medium.com/p/9efee6
  - [Configure XML](#configure-xml)
  - [Avoid Memory Leaks](#avoid-memory-leaks)
  - [Be Creative](#be-creative)
- - [Wanna Contribute?](#wanna-contribute)
  - [Bugs and feedback](#bugs-and-feedback)
  - [Credits](#credits)
 
@@ -57,6 +56,15 @@ Then, instanciate the button
 		btn.doneLoadingAnimation(fillColor, bitmap); 
 		[or just revert de animation]
 		btn.revertAnimation();
+
+### Switch to determinant progress
+You can switch between indeterminant and determinant progress:
+
+    circularProgressButton.setProgress(10)
+    ...
+    circularProgressButton.setProgress(100)
+    ...
+    circularProgressButton.resetProgress()
 
 ### - Show 'done' animation
 
