@@ -13,9 +13,13 @@ import android.graphics.Canvas;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.InsetDrawable;
 import android.graphics.drawable.StateListDrawable;
+import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.ColorRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
@@ -115,8 +119,10 @@ public class CircularProgressButton extends AppCompatButton implements AnimatedB
 
         mParams.mPaddingProgress = 0f;
 
+        BackgroundAndMorphingDrawables drawables;
+
         if(attrs == null) {
-            loadGradientDrawable(UtilsJava.getDrawable(getContext(), R.drawable.shape_default));
+            drawables = loadGradientDrawable(UtilsJava.getDrawable(getContext(), R.drawable.shape_default));
         } else{
             int[] attrsArray = new int[] {
                     android.R.attr.background, // 0
@@ -125,7 +131,7 @@ public class CircularProgressButton extends AppCompatButton implements AnimatedB
             TypedArray typedArray =  context.obtainStyledAttributes(attrs, R.styleable.CircularProgressButton, defStyleAttr, defStyleRes);
             TypedArray typedArrayBG = context.obtainStyledAttributes(attrs, attrsArray, defStyleAttr, defStyleRes);
 
-            loadGradientDrawable(typedArrayBG.getDrawable(0));
+            drawables = loadGradientDrawable(typedArrayBG.getDrawable(0));
 
             mParams.mInitialCornerRadius = typedArray.getDimension(
                     R.styleable.CircularProgressButton_initialCornerAngle, 0);
@@ -145,8 +151,12 @@ public class CircularProgressButton extends AppCompatButton implements AnimatedB
 
         mParams.mText = this.getText().toString();
         mParams.mDrawables = this.getCompoundDrawablesRelative();
-        if (mGradientDrawable != null) {
-            setBackground(mGradientDrawable);
+
+        if (drawables != null) {
+            mGradientDrawable = drawables.morphingDrawable;
+            if (drawables.backGroundDrawable != null) {
+                setBackground(drawables.backGroundDrawable);
+            }
         }
 
         resetProgress();
@@ -162,26 +172,48 @@ public class CircularProgressButton extends AppCompatButton implements AnimatedB
         mGradientDrawable.setColor(ContextCompat.getColor(getContext(), resid));
     }
 
-    private void loadGradientDrawable(Drawable drawable) {
-        try {
-            mGradientDrawable = (GradientDrawable) drawable;
-        } catch (ClassCastException e) {
-            if(drawable instanceof ColorDrawable){
-                ColorDrawable colorDrawable = (ColorDrawable) drawable;
+	/**
+	 * finds or creates the drawable for the morphing animation and the drawable to set the background to
+	 *
+	 * @param drawable Drawable set with android:background setting
+	 * @return BackgroundAndMorphingDrawables object holding the Drawable to morph and to set a background
+	 */
+	@Nullable
+	static BackgroundAndMorphingDrawables loadGradientDrawable(Drawable drawable) {
+        BackgroundAndMorphingDrawables mGradientDrawable = new BackgroundAndMorphingDrawables();
 
-                mGradientDrawable = new GradientDrawable();
-                mGradientDrawable.setColor(colorDrawable.getColor());
-            } else if(drawable instanceof StateListDrawable){
-                StateListDrawable stateListDrawable = (StateListDrawable) drawable;
+		if (drawable == null)
+		    return null;
 
-                try {
-                    mGradientDrawable = (GradientDrawable) stateListDrawable.getCurrent();
-                } catch (ClassCastException e1) {
-                    throw new RuntimeException("Error reading background... Use a shape or a color in xml!", e1.getCause());
-                }
+		else {
+			if (drawable instanceof GradientDrawable) {
+				mGradientDrawable.setBothDrawables((GradientDrawable) drawable);
+			} else if (drawable instanceof ColorDrawable) {
+				ColorDrawable colorDrawable = (ColorDrawable) drawable;
+                GradientDrawable gradientDrawable = new GradientDrawable();
+                gradientDrawable.setColor(colorDrawable.getColor());
+                mGradientDrawable.setBothDrawables(gradientDrawable);
+			} else if (drawable instanceof InsetDrawable && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+				InsetDrawable insetDrawable = (InsetDrawable) drawable;
+				mGradientDrawable = loadGradientDrawable(insetDrawable.getDrawable());
+				// use the original inset as background to keep margins, and use the inner drawable for morphing
+				mGradientDrawable.backGroundDrawable = insetDrawable;
+			} else if (drawable instanceof StateListDrawable) {
+				StateListDrawable stateListDrawable = (StateListDrawable) drawable;
+				//try to get the drawable for an active, enabled, unpressed button
+                stateListDrawable.setState(new int[] {android.R.attr.state_enabled, android.R.attr.state_active,
+                        -android.R.attr.state_pressed});
+				Drawable current = stateListDrawable.getCurrent();
+				mGradientDrawable = loadGradientDrawable(current);
+
+			}
+            if (mGradientDrawable.morphingDrawable == null) {
+                throw new RuntimeException("Error reading background... Use a shape or a color in xml!");
             }
         }
-    }
+
+		return mGradientDrawable;
+	}
 
     @Override
     public void setSpinningBarColor(int color) {
@@ -556,5 +588,15 @@ public class CircularProgressButton extends AppCompatButton implements AnimatedB
         private float mInitialCornerRadius;
         private float mFinalCornerRadius;
         private Drawable[] mDrawables;
+    }
+
+    static class BackgroundAndMorphingDrawables {
+        Drawable backGroundDrawable;
+        GradientDrawable morphingDrawable;
+
+        void setBothDrawables(GradientDrawable drawable) {
+            this.backGroundDrawable = drawable;
+            this.morphingDrawable = drawable;
+        }
     }
 }
