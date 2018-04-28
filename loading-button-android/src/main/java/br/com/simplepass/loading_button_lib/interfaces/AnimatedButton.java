@@ -9,4 +9,6 @@ public interface AnimatedButton {
     void revertAnimation();
     void revertAnimation(final OnAnimationEndListener onAnimationEndListener);
     void dispose();
+    void setProgress(int progress);
+    void resetProgress();
 }

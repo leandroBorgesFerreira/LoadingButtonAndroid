@@ -30,19 +30,19 @@ class MainActivity : AppCompatActivity() {
         progressButtonNoPadding.setOnClickListener { _ ->
             animateButtonAndRevert(progressButtonNoPadding,
                     ContextCompat.getColor(this@MainActivity, R.color.black),
-                    BitmapFactory.decodeResource(resources, R.drawable.ic_alarm_on_white_48dp))
+                    BitmapFactory.decodeResource(resources, R.drawable.ic_alarm_on_white_48dp), false)
         }
 
         progressFix.setOnClickListener { _ ->
             animateButtonAndRevert(progressFix,
                     ContextCompat.getColor(this@MainActivity, R.color.transparent),
-                    BitmapFactory.decodeResource(resources, R.drawable.ic_cloud_upload_white_24dp))
+                    BitmapFactory.decodeResource(resources, R.drawable.ic_cloud_upload_white_24dp), false)
         }
 
         progressButtonNoPadding2.setOnClickListener { _ ->
             animateButtonAndRevert(progressButtonNoPadding2,
                     ContextCompat.getColor(this@MainActivity, R.color.colorAccent),
-                    BitmapFactory.decodeResource(resources, R.drawable.ic_pregnant_woman_white_48dp))
+                    BitmapFactory.decodeResource(resources, R.drawable.ic_pregnant_woman_white_48dp), true)
         }
 
         progressButtonChangeActivity.setOnClickListener { view ->
@@ -69,7 +69,8 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun animateButtonAndRevert(circularProgressButton: CircularProgressButton, fillColor: Int, bitmap: Bitmap) {
+    private fun animateButtonAndRevert(circularProgressButton: CircularProgressButton, fillColor: Int, bitmap:
+    Bitmap, determinateProgress: Boolean) {
         val handler = Handler()
 
         val runnable = {
@@ -86,6 +87,15 @@ class MainActivity : AppCompatActivity() {
         circularProgressButton.revertAnimation()
 
         circularProgressButton.startAnimation()
+
+        if (determinateProgress) {
+            handler.postDelayed({ circularProgressButton.setProgress(20) }, 500)
+            handler.postDelayed({ circularProgressButton.setProgress(50) }, 1000)
+            handler.postDelayed({ circularProgressButton.setProgress(40) }, 1500)
+            handler.postDelayed({ circularProgressButton.setProgress(100) }, 1900)
+            handler.postDelayed({ circularProgressButton.resetProgress() }, 2300)
+        }
+
         handler.postDelayed(runnable, 3000)
         handler.postDelayed(changeActivity, 4000)
         handler.postDelayed(changeActivity, 4100)
