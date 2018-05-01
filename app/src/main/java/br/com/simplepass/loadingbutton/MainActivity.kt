@@ -98,7 +98,6 @@ class MainActivity : AppCompatActivity() {
 
         handler.postDelayed(runnable, 3000)
         handler.postDelayed(changeActivity, 4000)
-        handler.postDelayed(changeActivity, 4100)
     }
 
     private fun animateTwice(circularProgressButton: CircularProgressButton) {

@@ -119,9 +119,9 @@ if (project.hasProperty('bintrayUser') && project.hasProperty('bintrayKey')) {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     implementation 'com.android.support:appcompat-v7:27.0.2'
 }
