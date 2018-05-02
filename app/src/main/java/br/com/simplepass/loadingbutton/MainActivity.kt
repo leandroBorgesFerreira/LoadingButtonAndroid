@@ -14,8 +14,6 @@ import android.util.Pair
 import android.view.View
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressImageButton
-import br.com.simplepass.loading_button_lib.interfaces.AnimatedButton
-import br.com.simplepass.loadingbutton.R.id.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -86,25 +84,6 @@ class MainActivity : AppCompatActivity() {
             postDelayed(doneAnimationRunnable, 3000)
             postDelayed({ circularProgressButton.revertAnimation() }, 4000)
         }
-    }
-
-    private fun animateTwice(circularProgressButton: CircularProgressButton) {
-        val runnable = {
-            circularProgressButton.revertAnimation { circularProgressButton.text = "Animation reverted" }
-            circularProgressButton.startAnimation()
-
-            // new Handler().postDelayed(circularProgressButton::revertAnimation, 2000);
-        }
-
-        circularProgressButton.startAnimation()
-        Handler().postDelayed(runnable, 3000)
-    }
-
-    private fun animateAndRevert(animatedButton: AnimatedButton) {
-        val handler = Handler()
-
-        animatedButton.startAnimation()
-        handler.postDelayed({ animatedButton.revertAnimation() }, 3000)
     }
 
     private fun animateAndDoneFast(animatedButton: CircularProgressImageButton) {
