@@ -33,9 +33,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         progressFix.setOnClickListener {
-            animateButtonAndRevert(progressFix,
-                    ContextCompat.getColor(this@MainActivity, R.color.transparent),
-                    BitmapFactory.decodeResource(resources, R.drawable.ic_cloud_upload_white_24dp))
+            deterministicAnimation(progressFix)
         }
 
         progressButtonNoPadding2.setOnClickListener {
@@ -43,6 +41,8 @@ class MainActivity : AppCompatActivity() {
                     ContextCompat.getColor(this@MainActivity, R.color.colorAccent),
                     BitmapFactory.decodeResource(resources, R.drawable.ic_pregnant_woman_white_48dp))
         }
+
+
 
         progressButtonChangeActivity.setOnClickListener {
             val intent = Intent(this, SecondActivity::class.java)
@@ -98,6 +98,18 @@ class MainActivity : AppCompatActivity() {
             animatedButton.setImageBitmap(BitmapFactory.decodeResource(resources, R.drawable.ic_alarm_on_white_48dp))
         } }, 700)
 
+    }
+
+    private fun deterministicAnimation(animatedButton: CircularProgressButton) {
+        animatedButton.startAnimation()
+
+        with(Handler()) {
+            postDelayed({ animatedButton.setProgress(20) }, 500)
+            postDelayed({ animatedButton.setProgress(50) }, 1000)
+            postDelayed({ animatedButton.setProgress(40) }, 1500)
+            postDelayed({ animatedButton.setProgress(100) }, 1900)
+            postDelayed({ animatedButton.resetProgress() }, 2300)
+        }
     }
 
     override fun onDestroy() {
