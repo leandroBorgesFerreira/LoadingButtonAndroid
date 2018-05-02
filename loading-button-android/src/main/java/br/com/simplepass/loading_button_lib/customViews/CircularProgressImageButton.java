@@ -114,8 +114,10 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
 
         mParams.mPaddingProgress = 0f;
 
+        CircularProgressButton.BackgroundAndMorphingDrawables drawables;
+
         if(attrs == null) {
-            mGradientDrawable = (GradientDrawable) UtilsJava.getDrawable(getContext(), R.drawable.shape_default);
+            drawables = CircularProgressButton.loadGradientDrawable(UtilsJava.getDrawable(getContext(), R.drawable.shape_default));
         } else{
             int[] attrsArray = new int[] {
                     android.R.attr.background, // 0
@@ -124,27 +126,7 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
             TypedArray typedArray =  context.obtainStyledAttributes(attrs, R.styleable.CircularProgressButton, defStyleAttr, defStyleRes);
             TypedArray typedArrayBG = context.obtainStyledAttributes(attrs, attrsArray, defStyleAttr, defStyleRes);
 
-            try {
-                mGradientDrawable = (GradientDrawable) typedArrayBG.getDrawable(0);
-
-            } catch (ClassCastException e) {
-                Drawable drawable = typedArrayBG.getDrawable(0);
-
-                if(drawable instanceof ColorDrawable){
-                    ColorDrawable colorDrawable = (ColorDrawable) drawable;
-
-                    mGradientDrawable = new GradientDrawable();
-                    mGradientDrawable.setColor(colorDrawable.getColor());
-                } else if(drawable instanceof StateListDrawable){
-                    StateListDrawable stateListDrawable = (StateListDrawable) drawable;
-
-                    try {
-                        mGradientDrawable = (GradientDrawable) stateListDrawable.getCurrent();
-                    } catch (ClassCastException e1) {
-                        throw new RuntimeException("Error reading background... Use a shape or a color in xml!", e1.getCause());
-                    }
-                }
-            }
+            drawables = CircularProgressButton.loadGradientDrawable(typedArrayBG.getDrawable(0));
 
             mParams.mInitialCornerRadius = typedArray.getDimension(
                     R.styleable.CircularProgressButton_initialCornerAngle, 0);
@@ -161,7 +143,14 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
         }
 
         mState = State.IDLE;
-        setBackground(mGradientDrawable);
+
+        if (drawables != null) {
+            mGradientDrawable = drawables.morphingDrawable;
+            if (drawables.backGroundDrawable != null) {
+                setBackground(drawables.backGroundDrawable);
+            }
+        }
+
         resetProgress();
     }
 
