@@ -15,6 +15,7 @@ import android.view.View
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressImageButton
 import br.com.simplepass.loading_button_lib.interfaces.AnimatedButton
+import br.com.simplepass.loadingbutton.R.id.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -27,25 +28,25 @@ class MainActivity : AppCompatActivity() {
 
         progressButtonNoPadding.setBackgroundColor(Color.GREEN)
 
-        progressButtonNoPadding.setOnClickListener { _ ->
+        progressButtonNoPadding.setOnClickListener {
             animateButtonAndRevert(progressButtonNoPadding,
                     ContextCompat.getColor(this@MainActivity, R.color.black),
-                    BitmapFactory.decodeResource(resources, R.drawable.ic_alarm_on_white_48dp), false)
+                    BitmapFactory.decodeResource(resources, R.drawable.ic_alarm_on_white_48dp))
         }
 
-        progressFix.setOnClickListener { _ ->
+        progressFix.setOnClickListener {
             animateButtonAndRevert(progressFix,
                     ContextCompat.getColor(this@MainActivity, R.color.transparent),
-                    BitmapFactory.decodeResource(resources, R.drawable.ic_cloud_upload_white_24dp), false)
+                    BitmapFactory.decodeResource(resources, R.drawable.ic_cloud_upload_white_24dp))
         }
 
-        progressButtonNoPadding2.setOnClickListener { _ ->
+        progressButtonNoPadding2.setOnClickListener {
             animateButtonAndRevert(progressButtonNoPadding2,
                     ContextCompat.getColor(this@MainActivity, R.color.colorAccent),
-                    BitmapFactory.decodeResource(resources, R.drawable.ic_pregnant_woman_white_48dp), true)
+                    BitmapFactory.decodeResource(resources, R.drawable.ic_pregnant_woman_white_48dp))
         }
 
-        progressButtonChangeActivity.setOnClickListener { view ->
+        progressButtonChangeActivity.setOnClickListener {
             val intent = Intent(this, SecondActivity::class.java)
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -69,40 +70,25 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun animateButtonAndRevert(circularProgressButton: CircularProgressButton, fillColor: Int, bitmap:
-    Bitmap, determinateProgress: Boolean) {
-        val handler = Handler()
+    private fun animateButtonAndRevert(circularProgressButton: CircularProgressButton,
+                                       fillColor: Int,
+                                       bitmap: Bitmap) {
 
-        val runnable = {
+        val doneAnimationRunnable = {
             circularProgressButton.doneLoadingAnimation(
                     fillColor,
                     bitmap)
         }
 
-        val changeActivity = {
-            startActivity(Intent(this, SecondActivity::class.java))
-            finish()
-        }
-
-        circularProgressButton.revertAnimation()
-
         circularProgressButton.startAnimation()
 
-        if (determinateProgress) {
-            handler.postDelayed({ circularProgressButton.setProgress(20) }, 500)
-            handler.postDelayed({ circularProgressButton.setProgress(50) }, 1000)
-            handler.postDelayed({ circularProgressButton.setProgress(40) }, 1500)
-            handler.postDelayed({ circularProgressButton.setProgress(100) }, 1900)
-            handler.postDelayed({ circularProgressButton.resetProgress() }, 2300)
+        with(Handler()) {
+            postDelayed(doneAnimationRunnable, 3000)
+            postDelayed({ circularProgressButton.revertAnimation() }, 4000)
         }
-
-        handler.postDelayed(runnable, 3000)
-        handler.postDelayed(changeActivity, 4000)
     }
 
     private fun animateTwice(circularProgressButton: CircularProgressButton) {
-        val handler = Handler()
-
         val runnable = {
             circularProgressButton.revertAnimation { circularProgressButton.text = "Animation reverted" }
             circularProgressButton.startAnimation()
@@ -111,7 +97,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         circularProgressButton.startAnimation()
-        handler.postDelayed(runnable, 3000)
+        Handler().postDelayed(runnable, 3000)
     }
 
     private fun animateAndRevert(animatedButton: AnimatedButton) {
@@ -143,15 +129,4 @@ class MainActivity : AppCompatActivity() {
         progressButtonNoPadding2.dispose()
         login.dispose()
     }
-
-    /*private void animateButton(final CircularProgressButton circularProgressButton){
-        Handler handler = new Handler();
-
-        Runnable runnable = () -> circularProgressButton.doneLoadingAnimation(
-                    ContextCompat.getColor(MainActivity.this, R.color.colorPrimaryDark),
-                    BitmapFactory.decodeResource(getResources(), R.drawable.ic_done_white_48dp));
-
-        circularProgressButton.startAnimation();
-        handler.postDelayed(runnable, 3000);
-    }*/
 }

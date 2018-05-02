@@ -9,7 +9,6 @@ group = 'br.com.simplepass'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.0.2'
 
     defaultConfig {
         minSdkVersion 17
