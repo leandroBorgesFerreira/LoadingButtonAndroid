@@ -9,4 +9,8 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
+
+    <style name="BluePrimaryButton" parent="Theme.AppCompat.Light">
+        <item name="android:colorBackground">@android:color/black</item>
+    </style>
 </resources>

@@ -15,5 +15,9 @@ class SecondActivity : AppCompatActivity() {
 
         animator.startDelay = 400
         animator.start()
+
+//        button.setOnClickListener {
+//            startActivity(Intent(this, MainActivity::class.java))
+//        }
     }
 }

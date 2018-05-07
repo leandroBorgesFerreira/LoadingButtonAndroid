@@ -17,43 +17,47 @@
         android:scaleType="fitCenter"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/colorAccent"
+        android:theme="@style/BluePrimaryButton"
+        android:background="@color/black"
         android:layout_marginLeft="18dp"
         android:layout_marginRight="18dp"
         android:src="@drawable/ic_cloud_upload_white_24dp"
         app:spinning_bar_padding="0dp"
-        app:spinning_bar_color="@android:color/black"
+        app:spinning_bar_color="#FFFFFF"
         app:spinning_bar_width="3dp"
         app:initialCornerAngle="0dp"
         app:finalCornerAngle="50dp"
         android:layout_marginBottom="20dp"/>
 
     <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
-        android:id="@+id/progressButton2"
+        android:id="@+id/progressFix"
         android:layout_width="match_parent"
+        android:theme="@style/BluePrimaryButton"
+        android:background="@drawable/button_shape_default"
         android:layout_height="50dp"
         android:layout_marginLeft="18dp"
         android:layout_marginRight="18dp"
-        app:spinning_bar_padding="@dimen/abc_button_padding_horizontal_material"
-        app:spinning_bar_color="@color/blue"
+        app:spinning_bar_color="#FFFFFFFF"
+        app:spinning_bar_padding="8dp"
         app:spinning_bar_width="4dp"
         app:initialCornerAngle="0dp"
         app:finalCornerAngle="50dp"
         android:text="Send"
         android:textColor="@android:color/white"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="20dp"
+        />
 
     <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
         android:id="@+id/progressButtonNoPadding"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@drawable/button_shape_default_rounded"
+        android:background="@drawable/problem_shape"
         android:layout_marginLeft="18dp"
         android:layout_marginRight="18dp"
         app:spinning_bar_color="@android:color/holo_blue_bright"
         app:spinning_bar_padding="8dp"
         app:spinning_bar_width="4dp"
-        app:initialCornerAngle="50dp"
+        app:initialCornerAngle="0dp"
         app:finalCornerAngle="50dp"
         android:text="Send"
         android:textColor="@android:color/white"
@@ -63,17 +67,18 @@
         android:id="@+id/progressButtonNoPadding2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@drawable/button_shape_no_fill"
+        android:layout_marginBottom="20dp"
         android:layout_marginLeft="18dp"
         android:layout_marginRight="18dp"
-        app:spinning_bar_color="@android:color/holo_blue_bright"
-        app:spinning_bar_width="6dp"
-        app:initialCornerAngle="0dp"
-        app:finalCornerAngle="50dp"
-        app:spinning_bar_padding="8dp"
-        android:layout_marginBottom="20dp"
+        android:background="@drawable/button_shape_no_fill"
+        android:fontFamily="@font/aclonica"
         android:text="Send"
-        android:textColor="@android:color/black"/>
+        android:textColor="@android:color/black"
+        app:finalCornerAngle="50dp"
+        app:initialCornerAngle="0dp"
+        app:spinning_bar_color="@android:color/holo_blue_bright"
+        app:spinning_bar_padding="8dp"
+        app:spinning_bar_width="6dp"/>
 
     <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
         android:id="@+id/login"
@@ -87,9 +92,16 @@
         android:text="login"
         android:textColor="@color/black"
         app:initialCornerAngle="2dp"
-        app:spinning_bar_color="@color/black"
+        app:spinning_bar_color="#FFFFFF"
         app:spinning_bar_padding="6dp"
         app:spinning_bar_width="4dp"/>
+
+    <fragment
+        android:id="@+id/frag"
+        android:name="br.com.simplepass.loadingbutton.TestFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

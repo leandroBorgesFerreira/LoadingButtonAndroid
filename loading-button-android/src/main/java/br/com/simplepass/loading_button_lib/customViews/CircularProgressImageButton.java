@@ -54,8 +54,10 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
 
     private Params mParams;
     private boolean doneWhileMorphing;
-	private boolean shouldStartAnimation;
-	private boolean layoutDone;
+  	private boolean shouldStartAnimation;
+	  private boolean layoutDone;
+    private int progress;
+
 
     /**
      *
@@ -115,8 +117,10 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
 
         mParams.mPaddingProgress = 0f;
 
+        CircularProgressButton.BackgroundAndMorphingDrawables drawables;
+
         if(attrs == null) {
-            mGradientDrawable = (GradientDrawable) UtilsJava.getDrawable(getContext(), R.drawable.shape_default);
+            drawables = CircularProgressButton.loadGradientDrawable(UtilsJava.getDrawable(getContext(), R.drawable.shape_default));
         } else{
             int[] attrsArray = new int[] {
                     android.R.attr.background, // 0
@@ -125,27 +129,7 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
             TypedArray typedArray =  context.obtainStyledAttributes(attrs, R.styleable.CircularProgressButton, defStyleAttr, defStyleRes);
             TypedArray typedArrayBG = context.obtainStyledAttributes(attrs, attrsArray, defStyleAttr, defStyleRes);
 
-            try {
-                mGradientDrawable = (GradientDrawable) typedArrayBG.getDrawable(0);
-
-            } catch (ClassCastException e) {
-                Drawable drawable = typedArrayBG.getDrawable(0);
-
-                if(drawable instanceof ColorDrawable){
-                    ColorDrawable colorDrawable = (ColorDrawable) drawable;
-
-                    mGradientDrawable = new GradientDrawable();
-                    mGradientDrawable.setColor(colorDrawable.getColor());
-                } else if(drawable instanceof StateListDrawable){
-                    StateListDrawable stateListDrawable = (StateListDrawable) drawable;
-
-                    try {
-                        mGradientDrawable = (GradientDrawable) stateListDrawable.getCurrent();
-                    } catch (ClassCastException e1) {
-                        throw new RuntimeException("Error reading background... Use a shape or a color in xml!", e1.getCause());
-                    }
-                }
-            }
+            drawables = CircularProgressButton.loadGradientDrawable(typedArrayBG.getDrawable(0));
 
             mParams.mInitialCornerRadius = typedArray.getDimension(
                     R.styleable.CircularProgressButton_initialCornerAngle, 0);
@@ -162,7 +146,15 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
         }
 
         mState = State.IDLE;
-        setBackground(mGradientDrawable);
+
+        if (drawables != null) {
+            mGradientDrawable = drawables.morphingDrawable;
+            if (drawables.backGroundDrawable != null) {
+                setBackground(drawables.backGroundDrawable);
+            }
+        }
+
+        resetProgress();
     }
 
     @Override
@@ -228,7 +220,9 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
 		}
 
 		if (mState == State.PROGRESS && !mIsMorphingInProgress) {
-            drawIndeterminateProgress(canvas);
+        drawIndeterminateProgress(canvas);
+        if (mState == State.PROGRESS && !mIsMorphingInProgress) {
+            drawProgress(canvas);
         } else if(mState == State.DONE) {
             drawDoneAnimation(canvas);
         }
@@ -240,7 +234,7 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
      *
      * @param canvas Canvas
      */
-    private void drawIndeterminateProgress(Canvas canvas) {
+    private void drawProgress(Canvas canvas) {
         if (mAnimatedDrawable == null || !mAnimatedDrawable.isRunning()) {
             mAnimatedDrawable = new CircularAnimatedDrawable(this,
                     mParams.mSpinningBarWidth,
@@ -257,8 +251,25 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
             mAnimatedDrawable.setCallback(this);
             mAnimatedDrawable.start();
         } else {
+            mAnimatedDrawable.setProgress(progress);
             mAnimatedDrawable.draw(canvas);
         }
+    }
+
+    /**
+     * @param progress set a progress to switch displaying a determinate circular progress
+     */
+    public void setProgress(int progress) {
+        progress = Math.max(CircularAnimatedDrawable.MIN_PROGRESS,
+                Math.min(CircularAnimatedDrawable.MAX_PROGRESS, progress));
+        this.progress = progress;
+    }
+
+    /**
+     * resets a given progress and shows an indeterminate progress animation
+     */
+    public void resetProgress() {
+        this.progress = CircularAnimatedDrawable.MIN_PROGRESS - 1;
     }
 
     /**
@@ -327,6 +338,7 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
 
     public void revertAnimation(final OnAnimationEndListener onAnimationEndListener) {
         mState = State.IDLE;
+        resetProgress();
 
         if(mAnimatedDrawable != null && mAnimatedDrawable.isRunning()){
             stopAnimation();
@@ -423,14 +435,14 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
             return;
         }
 
-		if (!layoutDone) {
-			shouldStartAnimation = true;
-			return;
-		}
+        if (!layoutDone) {
+          shouldStartAnimation = true;
+          return;
+        }
 
-		shouldStartAnimation = false;
+		    shouldStartAnimation = false;
 
-		if (mIsMorphingInProgress) {
+		    if (mIsMorphingInProgress) {
             mMorphingAnimatorSet.cancel();
         } else {
             mParams.mInitialWidth = getWidth();
