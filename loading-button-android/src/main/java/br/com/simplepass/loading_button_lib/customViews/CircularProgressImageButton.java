@@ -10,10 +10,8 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.StateListDrawable;
 import android.os.Handler;
 import android.support.annotation.ColorRes;
 import android.support.v4.content.ContextCompat;
@@ -55,7 +53,7 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
     private Params mParams;
     private boolean doneWhileMorphing;
   	private boolean shouldStartAnimation;
-	  private boolean layoutDone;
+    private boolean layoutDone;
     private int progress;
 
 
@@ -213,18 +211,16 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        layoutDone = true;
 
-		layoutDone = true;
 		if (shouldStartAnimation) {
 			startAnimation();
 		}
 
-		if (mState == State.PROGRESS && !mIsMorphingInProgress) {
-        drawIndeterminateProgress(canvas);
         if (mState == State.PROGRESS && !mIsMorphingInProgress) {
             drawProgress(canvas);
         } else if(mState == State.DONE) {
-            drawDoneAnimation(canvas);
+		    drawDoneAnimation(canvas);
         }
     }
 
@@ -546,3 +542,4 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
         private float mFinalCornerRadius;
     }
 }
+
