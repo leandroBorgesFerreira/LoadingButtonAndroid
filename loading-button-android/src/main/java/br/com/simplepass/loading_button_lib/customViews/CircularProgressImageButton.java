@@ -54,7 +54,10 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
 
     private Params mParams;
     private boolean doneWhileMorphing;
+  	private boolean shouldStartAnimation;
+	  private boolean layoutDone;
     private int progress;
+
 
     /**
      *
@@ -211,6 +214,13 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+		layoutDone = true;
+		if (shouldStartAnimation) {
+			startAnimation();
+		}
+
+		if (mState == State.PROGRESS && !mIsMorphingInProgress) {
+        drawIndeterminateProgress(canvas);
         if (mState == State.PROGRESS && !mIsMorphingInProgress) {
             drawProgress(canvas);
         } else if(mState == State.DONE) {
@@ -425,7 +435,14 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
             return;
         }
 
-        if (mIsMorphingInProgress) {
+        if (!layoutDone) {
+          shouldStartAnimation = true;
+          return;
+        }
+
+		    shouldStartAnimation = false;
+
+		    if (mIsMorphingInProgress) {
             mMorphingAnimatorSet.cancel();
         } else {
             mParams.mInitialWidth = getWidth();
