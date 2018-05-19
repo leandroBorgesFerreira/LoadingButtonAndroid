@@ -148,7 +148,7 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
         if (drawables != null) {
             mGradientDrawable = drawables.morphingDrawable;
             if (drawables.backGroundDrawable != null) {
-                setBackground(drawables.backGroundDrawable);
+                UtilsJava.setViewBackground(this, drawables.backGroundDrawable);
             }
         }
 

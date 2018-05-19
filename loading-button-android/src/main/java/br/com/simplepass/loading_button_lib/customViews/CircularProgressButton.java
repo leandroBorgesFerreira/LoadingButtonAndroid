@@ -18,7 +18,6 @@ import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.ColorRes;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatButton;
@@ -152,12 +151,12 @@ public class CircularProgressButton extends AppCompatButton implements AnimatedB
         mState = State.IDLE;
 
         mParams.mText = this.getText().toString();
-        mParams.mDrawables = this.getCompoundDrawablesRelative();
+        mParams.mDrawables = UtilsJava.getViewCompoundDrawables(this);
 
         if (drawables != null) {
             mGradientDrawable = drawables.morphingDrawable;
             if (drawables.backGroundDrawable != null) {
-                setBackground(drawables.backGroundDrawable);
+                UtilsJava.setViewBackground(this, drawables.backGroundDrawable);
             }
         }
 
@@ -458,7 +457,8 @@ public class CircularProgressButton extends AppCompatButton implements AnimatedB
                 setClickable(true);
                 mIsMorphingInProgress = false;
                 setText(mParams.mText);
-                setCompoundDrawablesRelative(mParams.mDrawables[0],mParams.mDrawables[1],mParams.mDrawables[2],mParams.mDrawables[3]);
+                UtilsJava.setViewCompoundDrawables(CircularProgressButton.this,
+                        mParams.mDrawables[0], mParams.mDrawables[1], mParams.mDrawables[2], mParams.mDrawables[3]);
                 if (onAnimationEndListener!=null) {
                     onAnimationEndListener.onAnimationEnd();
                 }

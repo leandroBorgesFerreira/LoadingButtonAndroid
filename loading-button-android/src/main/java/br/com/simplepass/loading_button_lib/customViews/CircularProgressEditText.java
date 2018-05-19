@@ -8,18 +8,19 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
-import br.com.simplepass.loading_button_lib.animatedDrawables.CircularAnimatedDrawable;
 import br.com.simplepass.loading_button_lib.R;
+import br.com.simplepass.loading_button_lib.UtilsJava;
+import br.com.simplepass.loading_button_lib.animatedDrawables.CircularAnimatedDrawable;
 
 
 /**
  * Created by leandro on 5/31/16.
  */
-public class CircularProgressEditText extends EditText {
+public class CircularProgressEditText extends AppCompatEditText {
     private enum State {
         PROGRESS, IDLE
     }
@@ -90,7 +91,7 @@ public class CircularProgressEditText extends EditText {
 
         mButtonText = this.getText().toString();
 
-        setBackground(mDrawable);
+        UtilsJava.setViewBackground(this, mDrawable);
     }
 
     @Override
