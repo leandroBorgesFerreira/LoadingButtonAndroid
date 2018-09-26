@@ -13,7 +13,7 @@ Android Button that morphs into a loading progress bar.
 
 You can check how this library was implemented here: https://medium.com/p/9efee6e39711/
 
-## Contents
+## Contents 
 
  - [Installation](#installation)
  - [How to use / Sample](#how-to-use)
@@ -107,7 +107,7 @@ To avoid memory leaks is your code, you must dispose the buttons in the onDestro
             progressButton.dispose()
      }
 
-## Be creative! 
+## Be creative!
 
 You can do a lot of fun stuff with this lib. Check this example:
 
