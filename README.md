@@ -107,7 +107,7 @@ To avoid memory leaks is your code, you must dispose the buttons in the onDestro
             progressButton.dispose()
      }
 
-## Be creative! 
+## Be creative!  
 
 You can do a lot of fun stuff with this lib. Check this example:
 
