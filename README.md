@@ -5,7 +5,7 @@
 
 ![enter image description here](https://i.stack.imgur.com/8SHR1.gif)
 
-Android Button that morphs into a loading progress bar. 
+Android Button that morphs into a loading progress bar.
 
   - Fully customizable in the XML
   - Really simple to use.
@@ -50,10 +50,10 @@ Then, instanciate the button
         CircularProgressButton btn = (CircularProgressButton) findViewById(R.id.btn_id)
 
         btn.startAnimation();
-        
+
     [do some async task. When it finishes]
     //You can choose the color and the image after the loading is finished
-		btn.doneLoadingAnimation(fillColor, bitmap); 
+		btn.doneLoadingAnimation(fillColor, bitmap);
 		[or just revert de animation]
 		btn.revertAnimation();
 
@@ -72,7 +72,7 @@ When the loading animation is running, call:
 
     //Choose the color and the image that will be show
     circularProgressButton.doneLoadingAnimation(fillColor, bitmap);
-		
+
 ### - Revert the loading animation with different text or image
 
     circularProgressButton.revertAnimation(new OnAnimationEndListener() {
@@ -94,8 +94,8 @@ or
 
  - app:spinning_bar_width : Changes the width of the spinning bar inside the button
  - app:spinning_bar_color: Changes the color of the spinning bar inside the button
- - app:spinning_bar_padding: Changes the padding of the spinning bar in relation of the button bounds. 
- - app:initialCornerAngle: The initial corner angle of the animation. Insert 0 if you have a square button. 
+ - app:spinning_bar_padding: Changes the padding of the spinning bar in relation of the button bounds.
+ - app:initialCornerAngle: The initial corner angle of the animation. Insert 0 if you have a square button.
  - app:finalCornerAngle: The final corner angle of the animation.
 
 ## Avoid Memory Leaks
@@ -103,11 +103,11 @@ To avoid memory leaks is your code, you must dispose the buttons in the onDestro
 
     override fun onDestroy() {
             super.onDestroy()
-    
+
             progressButton.dispose()
      }
 
-## Be creative!
+## Be creative!  
 
 You can do a lot of fun stuff with this lib. Check this example:
 
@@ -122,5 +122,5 @@ For bugs, feature requests, and discussion please use [GitHub Issues](https://gi
 ## Credits
 
 This library was inspired in this repo: https://github.com/dmytrodanylyk/android-morphing-button
-    
+
 ### And that's it! Enjoy!
