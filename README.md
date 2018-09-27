@@ -1,7 +1,7 @@
 
 [ ![Download](https://api.bintray.com/packages/lehen01/maven/loading-button/images/download.svg) ](https://bintray.com/lehen01/maven/loading-button/_latestVersion)[![Build Status](https://travis-ci.org/leandroBorgesFerreira/LoadingButtonAndroid.svg?branch=master)](https://travis-ci.org/leandroBorgesFerreira/LoadingButtonAndroid)
 
-# Progress Button Android
+# Progress Button Android 
 
 ![enter image description here](https://i.stack.imgur.com/8SHR1.gif)
 
@@ -107,7 +107,7 @@ To avoid memory leaks is your code, you must dispose the buttons in the onDestro
             progressButton.dispose()
      }
 
-## Be creative! 
+## Be creative!
 
 You can do a lot of fun stuff with this lib. Check this example:
 
