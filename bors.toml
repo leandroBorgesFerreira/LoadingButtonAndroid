@@ -1,3 +1,3 @@
 status = [
-  "ci/circleci;aksnda;ksd"
+  "continuous-integration/travis-ci/push"
 ]
