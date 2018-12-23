@@ -103,10 +103,10 @@ class MainActivity : AppCompatActivity() {
         animatedButton.startAnimation()
 
         with(Handler()) {
-            postDelayed({ animatedButton.setProgress(20) }, 500)
-            postDelayed({ animatedButton.setProgress(50) }, 1000)
-            postDelayed({ animatedButton.setProgress(40) }, 1500)
-            postDelayed({ animatedButton.setProgress(100) }, 1900)
+            postDelayed({ animatedButton.setProgress(20F) }, 500)
+            postDelayed({ animatedButton.setProgress(50F) }, 1000)
+            postDelayed({ animatedButton.setProgress(40F) }, 1500)
+            postDelayed({ animatedButton.setProgress(100F) }, 1900)
             postDelayed({ animatedButton.resetProgress() }, 2300)
         }
     }
