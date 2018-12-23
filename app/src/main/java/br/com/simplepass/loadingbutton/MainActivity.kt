@@ -8,10 +8,10 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import androidx.core.content.ContextCompat
-import androidx.appcompat.app.AppCompatActivity
 import android.util.Pair
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressImageButton
 import kotlinx.android.synthetic.main.activity_main.*
@@ -71,14 +71,13 @@ class MainActivity : AppCompatActivity() {
     private fun animateButtonAndRevert(circularProgressButton: CircularProgressButton,
                                        fillColor: Int,
                                        bitmap: Bitmap) {
+        circularProgressButton.startAnimation()
 
         val doneAnimationRunnable = {
             circularProgressButton.doneLoadingAnimation(
                     fillColor,
                     bitmap)
         }
-
-        circularProgressButton.startAnimation()
 
         with(Handler()) {
             postDelayed(doneAnimationRunnable, 3000)
@@ -92,11 +91,11 @@ class MainActivity : AppCompatActivity() {
             animatedButton.doneLoadingAnimation(
                     ContextCompat.getColor(this@MainActivity, R.color.black),
                     BitmapFactory.decodeResource(resources, R.drawable.ic_alarm_on_white_48dp))
-        }, 100)
+        }, 5000)
 
         Handler().postDelayed({ animatedButton.revertAnimation {
             animatedButton.setImageBitmap(BitmapFactory.decodeResource(resources, R.drawable.ic_alarm_on_white_48dp))
-        } }, 700)
+        } }, 7000)
 
     }
 

@@ -28,6 +28,7 @@ import br.com.simplepass.loading_button_lib.R;
 import br.com.simplepass.loading_button_lib.Utils;
 import br.com.simplepass.loading_button_lib.UtilsJava;
 import br.com.simplepass.loading_button_lib.animatedDrawables.CircularAnimatedDrawable;
+import br.com.simplepass.loading_button_lib.animatedDrawables.CircularAnimatedDrawable2;
 import br.com.simplepass.loading_button_lib.animatedDrawables.CircularRevealAnimatedDrawable;
 import br.com.simplepass.loading_button_lib.interfaces.AnimatedButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
@@ -46,7 +47,7 @@ public class CircularProgressButton extends AppCompatButton implements AnimatedB
 
     private boolean mIsMorphingInProgress;
     private State mState;
-    private CircularAnimatedDrawable mAnimatedDrawable;
+    private CircularAnimatedDrawable2 mAnimatedDrawable;
     private CircularRevealAnimatedDrawable mRevealDrawable;
     private AnimatorSet mAnimatorSet;
 
@@ -282,7 +283,7 @@ public class CircularProgressButton extends AppCompatButton implements AnimatedB
      */
 	private void drawProgress(Canvas canvas) {
         if (mAnimatedDrawable == null || !mAnimatedDrawable.isRunning()) {
-            mAnimatedDrawable = new CircularAnimatedDrawable(this,
+            mAnimatedDrawable = new CircularAnimatedDrawable2(this,
                     mParams.mSpinningBarWidth,
                     mParams.mSpinningBarColor);
 
@@ -297,7 +298,7 @@ public class CircularProgressButton extends AppCompatButton implements AnimatedB
             mAnimatedDrawable.setCallback(this);
             mAnimatedDrawable.start();
         } else {
-			mAnimatedDrawable.setProgress(progress);
+//			mAnimatedDrawable.setProgress(progress);
             mAnimatedDrawable.draw(canvas);
         }
     }
@@ -577,7 +578,6 @@ public class CircularProgressButton extends AppCompatButton implements AnimatedB
         mIsMorphingInProgress = true;
         mAnimatorSet.start();
     }
-
 
     /**
      * Check if button is animating
