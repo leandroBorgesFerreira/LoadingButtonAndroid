@@ -15,7 +15,7 @@ private const val SWEEP_ANIMATOR_DURATION = 700L
 private const val PROGRESS_ANIMATOR_DURATION = 200L
 private const val MIN_SWEEP_ANGLE = 50f
 
-class CircularAnimatedDrawable2(
+class CircularAnimatedDrawable(
     private val animatedView: View,
     private val borderWidth: Float,
     arcColor: Int

@@ -22,8 +22,8 @@ import androidx.core.content.ContextCompat;
 import br.com.simplepass.loading_button_lib.R;
 import br.com.simplepass.loading_button_lib.Utils;
 import br.com.simplepass.loading_button_lib.UtilsJava;
-import br.com.simplepass.loading_button_lib.animatedDrawables.CircularAnimatedDrawable2;
-import br.com.simplepass.loading_button_lib.animatedDrawables.CircularAnimatedDrawable2Kt;
+import br.com.simplepass.loading_button_lib.animatedDrawables.CircularAnimatedDrawable;
+import br.com.simplepass.loading_button_lib.animatedDrawables.CircularAnimatedDrawableKt;
 import br.com.simplepass.loading_button_lib.animatedDrawables.CircularRevealAnimatedDrawable;
 import br.com.simplepass.loading_button_lib.interfaces.AnimatedButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
@@ -37,7 +37,7 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
 
     private boolean mIsMorphingInProgress;
     private State mState;
-    private CircularAnimatedDrawable2 mAnimatedDrawable;
+    private CircularAnimatedDrawable mAnimatedDrawable;
     private CircularRevealAnimatedDrawable mRevealDrawable;
     private AnimatorSet mMorphingAnimatorSet;
     private Drawable mSrc;
@@ -227,7 +227,7 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
      */
     private void drawProgress(Canvas canvas) {
         if (mAnimatedDrawable == null || !mAnimatedDrawable.isRunning()) {
-            mAnimatedDrawable = new CircularAnimatedDrawable2(this,
+            mAnimatedDrawable = new CircularAnimatedDrawable(this,
                     mParams.mSpinningBarWidth,
                     mParams.mSpinningBarColor);
 
@@ -251,8 +251,8 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
      * @param progress set a progress to switch displaying a determinate circular progress
      */
     public void setProgress(float progress) {
-        progress = Math.max(CircularAnimatedDrawable2Kt.MIN_PROGRESS,
-                Math.min(CircularAnimatedDrawable2Kt.MAX_PROGRESS, progress));
+        progress = Math.max(CircularAnimatedDrawableKt.MIN_PROGRESS,
+                Math.min(CircularAnimatedDrawableKt.MAX_PROGRESS, progress));
         this.progress = progress;
     }
 
@@ -260,7 +260,7 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
      * resets a given progress and shows an indeterminate progress animation
      */
     public void resetProgress() {
-        this.progress = CircularAnimatedDrawable2Kt.MIN_PROGRESS - 1;
+        this.progress = CircularAnimatedDrawableKt.MIN_PROGRESS - 1;
     }
 
     /**
