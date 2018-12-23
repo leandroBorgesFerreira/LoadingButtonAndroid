@@ -3,8 +3,8 @@ package br.com.simplepass.loadingbutton
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
-import android.support.annotation.StringRes
-import android.support.v7.app.AppCompatActivity
+import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
 import android.view.Gravity
 import android.view.ViewManager
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
@@ -31,7 +31,6 @@ class AnkoActivity : AppCompatActivity() {
                 setPaddingProgress(dip(4).toFloat())
                 setFinalCornerRadius(0F)
                 setFinalCornerRadius(1000F)
-                text = "Some text"
             }
         }
     }
