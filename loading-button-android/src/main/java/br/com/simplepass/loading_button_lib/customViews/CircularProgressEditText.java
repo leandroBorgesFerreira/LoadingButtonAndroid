@@ -15,10 +15,6 @@ import android.widget.EditText;
 import br.com.simplepass.loading_button_lib.animatedDrawables.CircularAnimatedDrawable;
 import br.com.simplepass.loading_button_lib.R;
 
-
-/**
- * Created by leandro on 5/31/16.
- */
 public class CircularProgressEditText extends EditText {
     private enum State {
         PROGRESS, IDLE

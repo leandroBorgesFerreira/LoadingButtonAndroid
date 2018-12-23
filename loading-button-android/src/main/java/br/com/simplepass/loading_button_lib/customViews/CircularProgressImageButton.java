@@ -27,11 +27,6 @@ import br.com.simplepass.loading_button_lib.animatedDrawables.CircularRevealAnim
 import br.com.simplepass.loading_button_lib.interfaces.AnimatedButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 
-
-/**
- * Made by Leandro Ferreira.
- *
- */
 public class CircularProgressImageButton extends AppCompatImageButton implements AnimatedButton, CustomizableByCode {
     private enum State {
         PROGRESS, IDLE, DONE, STOPED

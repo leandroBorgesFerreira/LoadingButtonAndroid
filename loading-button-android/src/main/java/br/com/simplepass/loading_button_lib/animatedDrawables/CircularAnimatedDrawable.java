@@ -17,9 +17,6 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 
-/**
- * Created by leandro on 5/31/16.
- */
 public class CircularAnimatedDrawable extends Drawable implements Animatable {
     public static final int MIN_PROGRESS = 0;
     public static final int MAX_PROGRESS = 100;

@@ -16,8 +16,6 @@ import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
 /**
- * Created by Leandro Ferreira on 22/09/16.
- *
  * An animation of the 'Done' status. It makes a circular reveal of a background color and the
  * than show the image passed in the constructor.
  */
