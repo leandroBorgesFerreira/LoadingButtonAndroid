@@ -12,7 +12,6 @@ const val MIN_PROGRESS = 0F
 const val MAX_PROGRESS = 100F
 private const val ANGLE_ANIMATOR_DURATION = 2000L
 private const val SWEEP_ANIMATOR_DURATION = 700L
-private const val PROGRESS_ANIMATOR_DURATION = 200L
 private const val MIN_SWEEP_ANGLE = 50f
 
 class CircularAnimatedDrawable(
@@ -36,10 +35,30 @@ class CircularAnimatedDrawable(
     private var modeAppearing: Boolean = false
 
     private var shouldDraw: Boolean = true
-    private var shownProgress: Float = 0F
 
-    private var progressType = ProgressType.INDETERMINATE
     private val determinateInterpolator = AccelerateDecelerateInterpolator()
+
+    var progressType = ProgressType.INDETERMINATE
+
+    var progress: Float = 0F
+        set(value) {
+            if (progressType == ProgressType.INDETERMINATE) {
+                stop()
+                progressType = ProgressType.DETERMINATE
+            }
+
+            if (field == value) {
+                return
+            }
+
+            field = when {
+                value > MAX_PROGRESS -> MAX_PROGRESS
+                value < MIN_PROGRESS -> MIN_PROGRESS
+                else                 -> value
+            }
+
+            animatedView.invalidate()
+        }
 
     private val indeterminateAnimator = AnimatorSet().apply {
         playTogether(
@@ -102,7 +121,7 @@ class CircularAnimatedDrawable(
     private fun getAngles(): Pair<Float, Float> =
         when (progressType) {
             ProgressType.DETERMINATE   -> {
-                -90f to shownProgress
+                -90f to progress
             }
             ProgressType.INDETERMINATE -> {
                 if (modeAppearing) {
@@ -164,24 +183,5 @@ class CircularAnimatedDrawable(
 
     fun dispose() {
         disposeAnimator(indeterminateAnimator)
-    }
-
-    fun setProgress(newProgress: Float) {
-        if (progressType == ProgressType.INDETERMINATE) {
-            stop()
-            progressType = ProgressType.DETERMINATE
-        }
-
-        if (shownProgress == newProgress) {
-            return
-        }
-
-        shownProgress = when {
-            newProgress > MAX_PROGRESS -> MAX_PROGRESS
-            newProgress < MIN_PROGRESS -> MIN_PROGRESS
-            else                       -> newProgress
-        }
-
-        invalidateSelf()
     }
 }
