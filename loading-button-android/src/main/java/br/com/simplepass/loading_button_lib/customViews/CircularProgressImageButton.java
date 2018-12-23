@@ -22,7 +22,8 @@ import androidx.core.content.ContextCompat;
 import br.com.simplepass.loading_button_lib.R;
 import br.com.simplepass.loading_button_lib.Utils;
 import br.com.simplepass.loading_button_lib.UtilsJava;
-import br.com.simplepass.loading_button_lib.animatedDrawables.CircularAnimatedDrawable;
+import br.com.simplepass.loading_button_lib.animatedDrawables.CircularAnimatedDrawable2;
+import br.com.simplepass.loading_button_lib.animatedDrawables.CircularAnimatedDrawable2Kt;
 import br.com.simplepass.loading_button_lib.animatedDrawables.CircularRevealAnimatedDrawable;
 import br.com.simplepass.loading_button_lib.interfaces.AnimatedButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
@@ -32,12 +33,11 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
         PROGRESS, IDLE, DONE, STOPED
     }
 
-    //private CircularAnimatedDrawable mAnimatedDrawable;
     private GradientDrawable mGradientDrawable;
 
     private boolean mIsMorphingInProgress;
     private State mState;
-    private CircularAnimatedDrawable mAnimatedDrawable;
+    private CircularAnimatedDrawable2 mAnimatedDrawable;
     private CircularRevealAnimatedDrawable mRevealDrawable;
     private AnimatorSet mMorphingAnimatorSet;
     private Drawable mSrc;
@@ -49,7 +49,7 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
     private boolean doneWhileMorphing;
   	private boolean shouldStartAnimation;
     private boolean layoutDone;
-    private int progress;
+    private float progress;
 
 
     /**
@@ -227,7 +227,7 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
      */
     private void drawProgress(Canvas canvas) {
         if (mAnimatedDrawable == null || !mAnimatedDrawable.isRunning()) {
-            mAnimatedDrawable = new CircularAnimatedDrawable(this,
+            mAnimatedDrawable = new CircularAnimatedDrawable2(this,
                     mParams.mSpinningBarWidth,
                     mParams.mSpinningBarColor);
 
@@ -242,7 +242,7 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
             mAnimatedDrawable.setCallback(this);
             mAnimatedDrawable.start();
         } else {
-            mAnimatedDrawable.setProgress(progress);
+//            mAnimatedDrawable.setProgress(progress);
             mAnimatedDrawable.draw(canvas);
         }
     }
@@ -250,9 +250,9 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
     /**
      * @param progress set a progress to switch displaying a determinate circular progress
      */
-    public void setProgress(int progress) {
-        progress = Math.max(CircularAnimatedDrawable.MIN_PROGRESS,
-                Math.min(CircularAnimatedDrawable.MAX_PROGRESS, progress));
+    public void setProgress(float progress) {
+        progress = Math.max(CircularAnimatedDrawable2Kt.MIN_PROGRESS,
+                Math.min(CircularAnimatedDrawable2Kt.MAX_PROGRESS, progress));
         this.progress = progress;
     }
 
@@ -260,7 +260,7 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
      * resets a given progress and shows an indeterminate progress animation
      */
     public void resetProgress() {
-        this.progress = CircularAnimatedDrawable.MIN_PROGRESS - 1;
+        this.progress = CircularAnimatedDrawable2Kt.MIN_PROGRESS - 1;
     }
 
     /**

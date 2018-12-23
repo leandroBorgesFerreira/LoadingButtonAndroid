@@ -27,22 +27,17 @@ import androidx.core.content.ContextCompat;
 import br.com.simplepass.loading_button_lib.R;
 import br.com.simplepass.loading_button_lib.Utils;
 import br.com.simplepass.loading_button_lib.UtilsJava;
-import br.com.simplepass.loading_button_lib.animatedDrawables.CircularAnimatedDrawable;
 import br.com.simplepass.loading_button_lib.animatedDrawables.CircularAnimatedDrawable2;
+import br.com.simplepass.loading_button_lib.animatedDrawables.CircularAnimatedDrawable2Kt;
 import br.com.simplepass.loading_button_lib.animatedDrawables.CircularRevealAnimatedDrawable;
 import br.com.simplepass.loading_button_lib.interfaces.AnimatedButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 
-/**
- * Made by Leandro Ferreira.
- *
- */
 public class CircularProgressButton extends AppCompatButton implements AnimatedButton, CustomizableByCode {
     private enum State {
         PROGRESS, IDLE, DONE, STOPED
     }
 
-    //private CircularAnimatedDrawable mAnimatedDrawable;
     private GradientDrawable mGradientDrawable;
 
     private boolean mIsMorphingInProgress;
@@ -52,7 +47,7 @@ public class CircularProgressButton extends AppCompatButton implements AnimatedB
     private AnimatorSet mAnimatorSet;
 
     private int mFillColorDone;
-    private int progress;
+    private float progress;
 
     private Bitmap mBitmapDone;
 
@@ -307,9 +302,9 @@ public class CircularProgressButton extends AppCompatButton implements AnimatedB
     /**
      * @param progress set a progress to switch displaying a determinate circular progress
      */
-    public void setProgress(int progress) {
-        progress = Math.max(CircularAnimatedDrawable.MIN_PROGRESS,
-                Math.min(CircularAnimatedDrawable.MAX_PROGRESS, progress));
+    public void setProgress(float progress) {
+        progress = Math.max(CircularAnimatedDrawable2Kt.MIN_PROGRESS,
+                Math.min(CircularAnimatedDrawable2Kt.MAX_PROGRESS, progress));
         this.progress = progress;
     }
 
@@ -317,7 +312,7 @@ public class CircularProgressButton extends AppCompatButton implements AnimatedB
      * resets a given progress and shows an indeterminate progress animation
      */
     public void resetProgress() {
-        this.progress = CircularAnimatedDrawable.MIN_PROGRESS - 1;
+        this.progress = CircularAnimatedDrawable2Kt.MIN_PROGRESS - 1;
     }
 
     /**

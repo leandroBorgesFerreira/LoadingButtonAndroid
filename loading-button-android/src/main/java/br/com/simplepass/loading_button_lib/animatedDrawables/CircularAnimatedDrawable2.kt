@@ -8,8 +8,8 @@ import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.LinearInterpolator
 
-private const val MIN_PROGRESS = 0F
-private const val MAX_PROGRESS = 100F
+const val MIN_PROGRESS = 0F
+const val MAX_PROGRESS = 100F
 private const val ANGLE_ANIMATOR_DURATION = 2000L
 private const val SWEEP_ANIMATOR_DURATION = 700L
 private const val PROGRESS_ANIMATOR_DURATION = 200L
