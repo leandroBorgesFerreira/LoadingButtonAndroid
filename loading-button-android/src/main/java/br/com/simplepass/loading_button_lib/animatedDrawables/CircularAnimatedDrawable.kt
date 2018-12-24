@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.LinearInterpolator
+import br.com.simplepass.loading_button_lib.disposeAnimator
 
 const val MIN_PROGRESS = 0F
 const val MAX_PROGRESS = 100F
@@ -20,7 +21,15 @@ class CircularAnimatedDrawable(
     arcColor: Int
 ) : Drawable(), Animatable {
 
-    private val fBounds = RectF()
+    private val fBounds: RectF by lazy {
+        RectF().apply {
+            left = bounds.left.toFloat() + borderWidth / 2F + .5F
+            right = bounds.right.toFloat() - borderWidth / 2F - .5F
+            top = bounds.top.toFloat() + borderWidth / 2F + .5F
+            bottom = bounds.bottom.toFloat() - borderWidth / 2F - .5F
+        }
+    }
+
     private val paint = Paint().apply {
         isAntiAlias = true
         style = Paint.Style.STROKE
@@ -35,8 +44,6 @@ class CircularAnimatedDrawable(
     private var modeAppearing: Boolean = false
 
     private var shouldDraw: Boolean = true
-
-    private val determinateInterpolator = AccelerateDecelerateInterpolator()
 
     var progressType = ProgressType.INDETERMINATE
 
@@ -63,7 +70,7 @@ class CircularAnimatedDrawable(
     private val indeterminateAnimator = AnimatorSet().apply {
         playTogether(
             angleValueAnimator(LinearInterpolator()),
-            sweepValueAnimator(determinateInterpolator)
+            sweepValueAnimator(AccelerateDecelerateInterpolator())
         )
     }
 
@@ -75,18 +82,18 @@ class CircularAnimatedDrawable(
         }
     }
 
-    private fun angleValueAnimator(interpolator: TimeInterpolator): ValueAnimator =
+    private fun angleValueAnimator(timeInterpolator: TimeInterpolator): ValueAnimator =
         ValueAnimator.ofFloat(0F, 360F).apply {
-            setInterpolator(interpolator)
+            interpolator = timeInterpolator
             duration = ANGLE_ANIMATOR_DURATION
             repeatCount = ValueAnimator.INFINITE
 
             addUpdateListener { animation -> currentGlobalAngle = animation.animatedValue as Float }
         }
 
-    private fun sweepValueAnimator(interpolator: TimeInterpolator): ValueAnimator =
+    private fun sweepValueAnimator(timeInterpolator: TimeInterpolator): ValueAnimator =
         ValueAnimator.ofFloat(0F, 360F - 2 * MIN_SWEEP_ANGLE).apply {
-            setInterpolator(interpolator)
+            interpolator = timeInterpolator
             duration = SWEEP_ANIMATOR_DURATION
             repeatCount = ValueAnimator.INFINITE
 
@@ -110,14 +117,6 @@ class CircularAnimatedDrawable(
             })
         }
 
-    private fun disposeAnimator(animator: Animator) {
-        animator.run {
-            end()
-            removeAllListeners()
-            cancel()
-        }
-    }
-
     private fun getAngles(): Pair<Float, Float> =
         when (progressType) {
             ProgressType.DETERMINATE   -> {
@@ -135,17 +134,6 @@ class CircularAnimatedDrawable(
 
     fun setLoadingBarColor(color: Int) {
         paint.color = color
-    }
-
-    override fun onBoundsChange(bounds: Rect) {
-        super.onBoundsChange(bounds)
-
-        fBounds.run {
-            left = bounds.left.toFloat() + borderWidth / 2F + .5F
-            right = bounds.right.toFloat() - borderWidth / 2F - .5F
-            top = bounds.top.toFloat() + borderWidth / 2F + .5F
-            bottom = bounds.bottom.toFloat() - borderWidth / 2F - .5F
-        }
     }
 
     override fun isRunning(): Boolean = indeterminateAnimator.isRunning
@@ -182,6 +170,6 @@ class CircularAnimatedDrawable(
     }
 
     fun dispose() {
-        disposeAnimator(indeterminateAnimator)
+        indeterminateAnimator.disposeAnimator()
     }
 }
