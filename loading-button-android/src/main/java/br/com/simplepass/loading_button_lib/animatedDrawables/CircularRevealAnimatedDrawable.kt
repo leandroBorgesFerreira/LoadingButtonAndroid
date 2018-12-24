@@ -11,7 +11,7 @@ import br.com.simplepass.loading_button_lib.disposeAnimator
 private const val REVEAL_DURATION = 120L
 private const val ALPHA_ANIMATION_DURATION = 80L
 
-class CircularRevealAnimatedDrawable(
+internal class CircularRevealAnimatedDrawable(
     private val containerView: View,
     fillColor: Int,
     image: Bitmap
