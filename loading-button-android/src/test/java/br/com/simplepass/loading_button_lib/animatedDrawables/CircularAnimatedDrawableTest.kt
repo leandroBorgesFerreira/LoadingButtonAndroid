@@ -1,7 +1,7 @@
 package br.com.simplepass.loading_button_lib.animatedDrawables
 
 import com.nhaarman.mockitokotlin2.mock
-import junit.framework.Assert.*
+import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -11,15 +11,15 @@ class CircularAnimatedDrawableTest {
 
     @Test
     fun `isRunning should return correct state`() {
-        val circularAnimatedDrawable = getCircularAnimatedDrawable()
+        getCircularAnimatedDrawable().run {
+            assertFalse(isRunning)
 
-        assertFalse(circularAnimatedDrawable.isRunning)
+            start()
+            assertTrue(isRunning)
 
-        circularAnimatedDrawable.start()
-        assertTrue(circularAnimatedDrawable.isRunning)
-
-        circularAnimatedDrawable.stop()
-        assertFalse(circularAnimatedDrawable.isRunning)
+            stop()
+            assertFalse(isRunning)
+        }
     }
 
     @Test
