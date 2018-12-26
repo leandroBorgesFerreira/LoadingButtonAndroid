@@ -51,7 +51,8 @@ class CircularProgressButton : AppCompatButton {
         }
 
         drawable = parseGradientDrawable(
-            typedArrayBg?.getDrawable(0) ?: ContextCompat.getDrawable(context, R.drawable.shape_default)!!
+            typedArrayBg?.getDrawable(0)
+                ?: ContextCompat.getDrawable(context, R.drawable.shape_default)!!
         )
 
         typedArray?.run {
@@ -89,7 +90,10 @@ class CircularProgressButton : AppCompatButton {
     private var viewReady = false
     private var waitingToStartProgress = false
 
-    private val initialText = text //Todo: Check if the text is not null!
+    private var doneFillColor: Int = ContextCompat.getColor(context, android.R.color.black)
+    private lateinit var doneImage: Bitmap
+
+    private val initialText = text
 
     private val progressAnimatedDrawable: CircularProgressAnimatedDrawable by lazy {
         CircularProgressAnimatedDrawable(this, spinningBarWidth, spinningBarColor).apply {
@@ -105,7 +109,12 @@ class CircularProgressButton : AppCompatButton {
         }
     }
 
-    private var revealAnimatedDrawable: CircularRevealAnimatedDrawable? = null
+    private val revealAnimatedDrawable: CircularRevealAnimatedDrawable by lazy {
+        CircularRevealAnimatedDrawable(this, doneFillColor, doneImage).apply {
+            setBounds(0, 0, width, height)
+            callback = this@CircularProgressButton
+        }
+    }
 
     private val morphAnimator by lazy {
         AnimatorSet().apply {
@@ -149,7 +158,7 @@ class CircularProgressButton : AppCompatButton {
         if (waitingToStartDone) {
             waitingToStartDone = false
 
-            val runnable = Runnable { revealAnimatedDrawable?.start() }
+            val runnable = Runnable { revealAnimatedDrawable.start() }
             Handler().postDelayed(runnable, 50)
         }
 
@@ -218,14 +227,18 @@ class CircularProgressButton : AppCompatButton {
     }
 
     fun doneLoadingAnimation(fillColor: Int, bitmap: Bitmap) {
+        doneFillColor = fillColor
+        doneImage = bitmap
+
         when (state) {
             State.PROGRESS -> {
                 progressAnimatedDrawable.stop()
-                revealAnimatedDrawable?.start()
+                revealAnimatedDrawable.start()
             }
             State.MORPHING -> {
                 waitingToStartDone = true
             }
+            else -> {}
         }
 
         state = State.DONE
@@ -247,7 +260,7 @@ class CircularProgressButton : AppCompatButton {
     }
 
     private fun drawDoneAnimation(canvas: Canvas) {
-        revealAnimatedDrawable?.draw(canvas)
+        revealAnimatedDrawable.draw(canvas)
     }
 
     override fun onDraw(canvas: Canvas) {
