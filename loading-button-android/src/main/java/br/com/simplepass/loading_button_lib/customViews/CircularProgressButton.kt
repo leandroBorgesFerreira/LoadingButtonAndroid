@@ -13,7 +13,7 @@ import android.view.View
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import br.com.simplepass.loading_button_lib.R
-import br.com.simplepass.loading_button_lib.animatedDrawables.CircularAnimatedDrawable
+import br.com.simplepass.loading_button_lib.animatedDrawables.CircularProgressAnimatedDrawable
 import br.com.simplepass.loading_button_lib.animatedDrawables.CircularRevealAnimatedDrawable
 import br.com.simplepass.loading_button_lib.disposeAnimator
 
@@ -21,7 +21,7 @@ private enum class State {
     IDLE, MORPHING, MORPHING_REVERT, PROGRESS, DONE, STOPPED
 }
 
-class CircularProgressButton2 : AppCompatButton {
+class CircularProgressButton : AppCompatButton {
 
     constructor(context: Context) : super(context) {
         init()
@@ -91,15 +91,28 @@ class CircularProgressButton2 : AppCompatButton {
 
     private val initialText = text //Todo: Check if the text is not null!
 
-    private var progressAnimatedDrawable: CircularAnimatedDrawable? = null
+    private val progressAnimatedDrawable: CircularProgressAnimatedDrawable by lazy {
+        CircularProgressAnimatedDrawable(this, spinningBarWidth, spinningBarColor).apply {
+            val offset = (width - height) / 2
+
+            val left = offset + paddingProgress.toInt()
+            val right = width - offset - paddingProgress.toInt()
+            val bottom = height - paddingProgress.toInt()
+            val top = paddingProgress.toInt()
+
+            setBounds(left, top, right, bottom)
+            callback = this@CircularProgressButton
+        }
+    }
+
     private var revealAnimatedDrawable: CircularRevealAnimatedDrawable? = null
 
     private val morphAnimator by lazy {
         AnimatorSet().apply {
             playTogether(
                 cornerAnimator(drawable, initialCorner, finalCorner),
-                widthAnimator(this@CircularProgressButton2, initialWidth, finalWidth),
-                heightAnimator(this@CircularProgressButton2, initialHeight, finalHeight)
+                widthAnimator(this@CircularProgressButton, initialWidth, finalWidth),
+                heightAnimator(this@CircularProgressButton, initialHeight, finalHeight)
             )
 
             addListener(morphListener(::morphStart, ::morphEnd))
@@ -110,8 +123,8 @@ class CircularProgressButton2 : AppCompatButton {
         AnimatorSet().apply {
             playTogether(
                 cornerAnimator(drawable, finalCorner, initialCorner),
-                widthAnimator(this@CircularProgressButton2, finalWidth, initialWidth),
-                heightAnimator(this@CircularProgressButton2, finalHeight, initialHeight)
+                widthAnimator(this@CircularProgressButton, finalWidth, initialWidth),
+                heightAnimator(this@CircularProgressButton, finalHeight, initialHeight)
             )
 
             addListener(morphListener(::morphRevertStart, ::morphRevertEnd))
@@ -180,7 +193,7 @@ class CircularProgressButton2 : AppCompatButton {
                 morphAnimator.end()
             }
             State.PROGRESS                    -> {
-                progressAnimatedDrawable?.stop()
+                progressAnimatedDrawable.stop()
             }
             else                              -> {
             }
@@ -200,14 +213,14 @@ class CircularProgressButton2 : AppCompatButton {
         state = State.STOPPED
 
         if (state == State.PROGRESS) {
-            progressAnimatedDrawable?.stop()
+            progressAnimatedDrawable.stop()
         }
     }
 
     fun doneLoadingAnimation(fillColor: Int, bitmap: Bitmap) {
         when (state) {
             State.PROGRESS -> {
-                progressAnimatedDrawable?.stop()
+                progressAnimatedDrawable.stop()
                 revealAnimatedDrawable?.start()
             }
             State.MORPHING -> {
@@ -224,7 +237,7 @@ class CircularProgressButton2 : AppCompatButton {
     }
 
     private fun drawProgress(canvas: Canvas) {
-        progressAnimatedDrawable?.run {
+        progressAnimatedDrawable.run {
             if (isRunning) {
                 draw(canvas)
             } else {
@@ -239,6 +252,11 @@ class CircularProgressButton2 : AppCompatButton {
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+
+        if (!viewReady) {
+            auxiliaryConfig()
+        }
+
         viewReady = true
 
         when (state) {

@@ -7,7 +7,7 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 
 @RunWith(RobolectricTestRunner::class)
-class CircularAnimatedDrawableTest {
+class CircularProgressAnimatedDrawableTest {
 
     @Test
     fun `isRunning should return correct state`() {
@@ -51,5 +51,5 @@ class CircularAnimatedDrawableTest {
         }
     }
 
-    private fun getCircularAnimatedDrawable() = CircularAnimatedDrawable(mock(), 5F, 2)
+    private fun getCircularAnimatedDrawable() = CircularProgressAnimatedDrawable(mock(), 5F, 2)
 }
