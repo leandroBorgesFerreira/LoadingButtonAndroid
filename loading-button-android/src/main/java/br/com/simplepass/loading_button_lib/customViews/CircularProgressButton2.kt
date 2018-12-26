@@ -2,6 +2,7 @@ package br.com.simplepass.loading_button_lib.customViews
 
 import android.animation.*
 import android.content.Context
+import android.content.res.TypedArray
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.*
@@ -10,6 +11,8 @@ import android.os.Handler
 import android.util.AttributeSet
 import android.view.View
 import androidx.appcompat.widget.AppCompatButton
+import androidx.core.content.ContextCompat
+import br.com.simplepass.loading_button_lib.R
 import br.com.simplepass.loading_button_lib.animatedDrawables.CircularAnimatedDrawable
 import br.com.simplepass.loading_button_lib.animatedDrawables.CircularRevealAnimatedDrawable
 import br.com.simplepass.loading_button_lib.disposeAnimator
@@ -20,26 +23,66 @@ private enum class State {
 
 class CircularProgressButton2 : AppCompatButton {
 
-    constructor(context: Context?) : super(context)
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
+    constructor(context: Context) : super(context) {
+        init()
+    }
+
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
+        init(attrs)
+    }
+
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+        init(attrs, defStyleAttr)
+    }
+
+    private fun init(attrs: AttributeSet? = null, defStyleAttr: Int = 0) {
+        val typedArray: TypedArray? = attrs?.run {
+            context.obtainStyledAttributes(
+                this,
+                R.styleable.CircularProgressButton,
+                defStyleAttr,
+                0
+            )
+        }
+
+        val typedArrayBg: TypedArray? = attrs?.run {
+            val attrsArray = intArrayOf(android.R.attr.background)
+            context.obtainStyledAttributes(this, attrsArray, defStyleAttr, 0)
+        }
+
+        drawable = parseGradientDrawable(
+            typedArrayBg?.getDrawable(0) ?: ContextCompat.getDrawable(context, R.drawable.shape_default)!!
+        )
+
+        typedArray?.run {
+            initialCorner = this.getDimension(R.styleable.CircularProgressButton_initialCornerAngle, 0f)
+            finalCorner = this.getDimension(R.styleable.CircularProgressButton_finalCornerAngle, 100f)
+
+            spinningBarWidth = this.getDimension(R.styleable.CircularProgressButton_spinning_bar_width, 10f)
+            spinningBarColor = this.getColor(R.styleable.CircularProgressButton_spinning_bar_color, spinningBarColor)
+
+            paddingProgress = this.getDimension(R.styleable.CircularProgressButton_spinning_bar_padding, 0F)
+
+            this.recycle()
+        }
+    }
 
     private var state: State = State.IDLE
 
-    //TODO: Fix this!
-    private val finalCorner = 0F
-    private val initialCorner = 0F
-    //TODO: Fix this!
-    private val drawable: GradientDrawable? = null
+    private var finalCorner = 0F
+    private var initialCorner = 0F
+    private lateinit var drawable: GradientDrawable
 
+    private val finalWidth: Int by lazy { finalHeight }
+    private var initialWidth = 0
 
-    //TODO: Fix this!
-    private val finalWidth = 0
-    private val initialWidth = 0
+    private val finalHeight: Int by lazy { this.height }
+    private val initialHeight: Int by lazy { this.height }
 
-    //TODO: Fix this!
-    private val finalHeight = 0
-    private val initialHeight = 0
+    private var spinningBarWidth = 10F
+    private var spinningBarColor = ContextCompat.getColor(context, android.R.color.black)
+
+    private var paddingProgress = 0F
 
     private var waitingToStartDone: Boolean = false
 
@@ -54,7 +97,7 @@ class CircularProgressButton2 : AppCompatButton {
     private val morphAnimator by lazy {
         AnimatorSet().apply {
             playTogether(
-                cornerAnimator(drawable!!, initialCorner, finalCorner),
+                cornerAnimator(drawable, initialCorner, finalCorner),
                 widthAnimator(this@CircularProgressButton2, initialWidth, finalWidth),
                 heightAnimator(this@CircularProgressButton2, initialHeight, finalHeight)
             )
@@ -66,7 +109,7 @@ class CircularProgressButton2 : AppCompatButton {
     private val morphRevertAnimator by lazy {
         AnimatorSet().apply {
             playTogether(
-                cornerAnimator(drawable!!, finalCorner, initialCorner),
+                cornerAnimator(drawable, finalCorner, initialCorner),
                 widthAnimator(this@CircularProgressButton2, finalWidth, initialWidth),
                 heightAnimator(this@CircularProgressButton2, finalHeight, initialHeight)
             )
@@ -81,6 +124,10 @@ class CircularProgressButton2 : AppCompatButton {
         text = null
         state = State.MORPHING
         setCompoundDrawables(null, null, null, null)
+    }
+
+    private fun auxiliaryConfig() {
+        initialWidth = width
     }
 
     private fun morphEnd() {
@@ -104,6 +151,7 @@ class CircularProgressButton2 : AppCompatButton {
     private fun morphRevertEnd() {
         isClickable = true
         state = State.IDLE
+        text = initialText
 
         //        setCompoundDrawablesRelative(mParams.mDrawables[0], mParams.mDrawables[1], mParams.mDrawables[2], mParams.mDrawables[3])
     }
@@ -137,7 +185,6 @@ class CircularProgressButton2 : AppCompatButton {
             else                              -> {
             }
         }
-
 
         morphRevertAnimator.apply {
             addListener(object : AnimatorListenerAdapter() {
@@ -178,7 +225,7 @@ class CircularProgressButton2 : AppCompatButton {
 
     private fun drawProgress(canvas: Canvas) {
         progressAnimatedDrawable?.run {
-            if(isRunning) {
+            if (isRunning) {
                 draw(canvas)
             } else {
                 start()
@@ -195,16 +242,15 @@ class CircularProgressButton2 : AppCompatButton {
         viewReady = true
 
         when (state) {
-            State.IDLE                            -> {
+            State.IDLE     -> {
                 if (waitingToStartProgress) {
                     morphAnimator.start()
                 }
             }
-            State.MORPHING, State.MORPHING_REVERT -> {
+            State.PROGRESS -> drawProgress(canvas)
+            State.DONE     -> drawDoneAnimation(canvas)
+            else           -> {
             }
-            State.PROGRESS                        -> drawProgress(canvas)
-            State.DONE                            -> drawDoneAnimation(canvas)
-
         }
     }
 }

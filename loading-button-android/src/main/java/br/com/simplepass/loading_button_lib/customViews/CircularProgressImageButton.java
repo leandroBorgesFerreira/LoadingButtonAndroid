@@ -47,53 +47,48 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
 
     private Params mParams;
     private boolean doneWhileMorphing;
-  	private boolean shouldStartAnimation;
+    private boolean shouldStartAnimation;
     private boolean layoutDone;
     private float progress;
 
-
     /**
-     *
      * @param context
      */
-    public CircularProgressImageButton(Context context) {
+    public CircularProgressImageButton (Context context) {
         super(context);
 
         init(context, null, 0, 0);
     }
 
     /**
-     *
      * @param context
      * @param attrs
      */
-    public CircularProgressImageButton(Context context, AttributeSet attrs) {
+    public CircularProgressImageButton (Context context, AttributeSet attrs) {
         super(context, attrs);
 
         init(context, attrs, 0, 0);
     }
 
     /**
-     *
      * @param context
      * @param attrs
      * @param defStyleAttr
      */
-    public CircularProgressImageButton(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CircularProgressImageButton (Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         init(context, attrs, defStyleAttr, 0);
     }
 
     /**
-     *
      * @param context
      * @param attrs
      * @param defStyleAttr
      * @param defStyleRes
      */
     @TargetApi(23)
-    public CircularProgressImageButton(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public CircularProgressImageButton (Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr);
 
         init(context, attrs, defStyleAttr, defStyleRes);
@@ -103,23 +98,23 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
      * Commom initializer method.
      *
      * @param context Context
-     * @param attrs Atributes passed in the XML
+     * @param attrs   Atributes passed in the XML
      */
-    private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    private void init (Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         mParams = new Params();
 
         mParams.mPaddingProgress = 0f;
 
         CircularProgressButton.BackgroundAndMorphingDrawables drawables;
 
-        if(attrs == null) {
+        if (attrs == null) {
             drawables = CircularProgressButton.loadGradientDrawable(UtilsJava.getDrawable(getContext(), R.drawable.shape_default));
-        } else{
-            int[] attrsArray = new int[] {
+        } else {
+            int[] attrsArray = new int[]{
                     android.R.attr.background, // 0
             };
 
-            TypedArray typedArray =  context.obtainStyledAttributes(attrs, R.styleable.CircularProgressButton, defStyleAttr, defStyleRes);
+            TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CircularProgressButton, defStyleAttr, defStyleRes);
             TypedArray typedArrayBG = context.obtainStyledAttributes(attrs, attrsArray, defStyleAttr, defStyleRes);
 
             drawables = CircularProgressButton.loadGradientDrawable(typedArrayBG.getDrawable(0));
@@ -161,7 +156,7 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
     }
 
     @Override
-    public void setSpinningBarColor(int color) {
+    public void setSpinningBarColor (int color) {
         mParams.mSpinningBarColor = color;
         if (mAnimatedDrawable != null) {
             mAnimatedDrawable.setLoadingBarColor(color);
@@ -169,32 +164,32 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
     }
 
     @Override
-    public void setSpinningBarWidth(float width) {
+    public void setSpinningBarWidth (float width) {
         mParams.mSpinningBarWidth = width;
     }
 
     @Override
-    public void setDoneColor(int color) {
+    public void setDoneColor (int color) {
         mParams.mDoneColor = color;
     }
 
     @Override
-    public void setPaddingProgress(float padding) {
+    public void setPaddingProgress (float padding) {
         mParams.mPaddingProgress = padding;
     }
 
     @Override
-    public void setInitialHeight(int height) {
+    public void setInitialHeight (int height) {
         mParams.mInitialHeight = height;
     }
 
     @Override
-    public void setInitialCornerRadius(float radius) {
+    public void setInitialCornerRadius (float radius) {
         mParams.mInitialCornerRadius = radius;
     }
 
     @Override
-    public void setFinalCornerRadius(float radius) {
+    public void setFinalCornerRadius (float radius) {
         mParams.mFinalCornerRadius = radius;
     }
 
@@ -204,18 +199,18 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
      * @param canvas Canvas
      */
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected void onDraw (Canvas canvas) {
         super.onDraw(canvas);
         layoutDone = true;
 
-		if (shouldStartAnimation) {
-			startAnimation();
-		}
+        if (shouldStartAnimation) {
+            startAnimation();
+        }
 
         if (mState == State.PROGRESS && !mIsMorphingInProgress) {
             drawProgress(canvas);
-        } else if(mState == State.DONE) {
-		    drawDoneAnimation(canvas);
+        } else if (mState == State.DONE) {
+            drawDoneAnimation(canvas);
         }
     }
 
@@ -225,7 +220,7 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
      *
      * @param canvas Canvas
      */
-    private void drawProgress(Canvas canvas) {
+    private void drawProgress (Canvas canvas) {
         if (mAnimatedDrawable == null || !mAnimatedDrawable.isRunning()) {
             mAnimatedDrawable = new CircularAnimatedDrawable(this,
                     mParams.mSpinningBarWidth,
@@ -242,7 +237,7 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
             mAnimatedDrawable.setCallback(this);
             mAnimatedDrawable.start();
         } else {
-//            mAnimatedDrawable.setProgress(progress);
+//            mAnimatedDrawable.updateProgress(progress);
             mAnimatedDrawable.draw(canvas);
         }
     }
@@ -250,7 +245,7 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
     /**
      * @param progress set a progress to switch displaying a determinate circular progress
      */
-    public void setProgress(float progress) {
+    public void setProgress (float progress) {
         progress = Math.max(CircularAnimatedDrawableKt.MIN_PROGRESS,
                 Math.min(CircularAnimatedDrawableKt.MAX_PROGRESS, progress));
         this.progress = progress;
@@ -259,15 +254,15 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
     /**
      * resets a given progress and shows an indeterminate progress animation
      */
-    public void resetProgress() {
+    public void resetProgress () {
         this.progress = CircularAnimatedDrawableKt.MIN_PROGRESS - 1;
     }
 
     /**
      * Stops the animation and sets the button in the STOPED state.
      */
-    public void stopAnimation() {
-        if(mState == State.PROGRESS && !mIsMorphingInProgress) {
+    public void stopAnimation () {
+        if (mState == State.PROGRESS && !mIsMorphingInProgress) {
             mState = State.STOPED;
             mAnimatedDrawable.stop();
         }
@@ -280,14 +275,14 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
      * show that a music is completed... or show some status on a game... be creative!
      *
      * @param fillColor The color of the background of the button
-     * @param bitmap The image that will be shown
+     * @param bitmap    The image that will be shown
      */
-    public void doneLoadingAnimation(int fillColor, Bitmap bitmap) {
-        if(mState != State.PROGRESS) {
+    public void doneLoadingAnimation (int fillColor, Bitmap bitmap) {
+        if (mState != State.PROGRESS) {
             return;
         }
 
-        if(mIsMorphingInProgress) {
+        if (mIsMorphingInProgress) {
             doneWhileMorphing = true;
             mFillColorDone = fillColor;
             mBitmapDone = bitmap;
@@ -303,13 +298,12 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
         mRevealDrawable = new CircularRevealAnimatedDrawable(this, fillColor, bitmap);
 
         int left = 0;
-        int right = getWidth() ;
+        int right = getWidth();
         int bottom = getHeight();
         int top = 0;
 
         mRevealDrawable.setBounds(left, top, right, bottom);
         mRevealDrawable.setCallback(this);
-
 
         mRevealDrawable.start();
     }
@@ -319,23 +313,23 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
      *
      * @param canvas Canvas
      */
-    private void drawDoneAnimation(Canvas canvas) {
+    private void drawDoneAnimation (Canvas canvas) {
         mRevealDrawable.draw(canvas);
     }
 
-    public void revertAnimation(){
+    public void revertAnimation () {
         revertAnimation(null);
     }
 
-    public void revertAnimation(final OnAnimationEndListener onAnimationEndListener) {
+    public void revertAnimation (final OnAnimationEndListener onAnimationEndListener) {
         mState = State.IDLE;
         resetProgress();
 
-        if(mAnimatedDrawable != null && mAnimatedDrawable.isRunning()){
+        if (mAnimatedDrawable != null && mAnimatedDrawable.isRunning()) {
             stopAnimation();
         }
 
-        if(mIsMorphingInProgress){
+        if (mIsMorphingInProgress) {
             mMorphingAnimatorSet.cancel();
         }
 
@@ -344,7 +338,7 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
         int fromWidth = getWidth();
         int fromHeight = getHeight();
 
-        int toHeight =  mParams.mInitialHeight;
+        int toHeight = mParams.mInitialHeight;
         int toWidth = mParams.mInitialWidth;
 
         ObjectAnimator cornerAnimation =
@@ -356,7 +350,7 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
         ValueAnimator widthAnimation = ValueAnimator.ofInt(fromWidth, toWidth);
         widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+            public void onAnimationUpdate (ValueAnimator valueAnimator) {
                 int val = (Integer) valueAnimator.getAnimatedValue();
                 ViewGroup.LayoutParams layoutParams = getLayoutParams();
                 layoutParams.width = val;
@@ -367,7 +361,7 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
         ValueAnimator heightAnimation = ValueAnimator.ofInt(fromHeight, toHeight);
         heightAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+            public void onAnimationUpdate (ValueAnimator valueAnimator) {
                 int val = (Integer) valueAnimator.getAnimatedValue();
                 ViewGroup.LayoutParams layoutParams = getLayoutParams();
                 layoutParams.height = val;
@@ -392,7 +386,7 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
         mMorphingAnimatorSet.playTogether(cornerAnimation, widthAnimation, heightAnimation);
         mMorphingAnimatorSet.addListener(new AnimatorListenerAdapter() {
             @Override
-            public void onAnimationEnd(Animator animation) {
+            public void onAnimationEnd (Animator animation) {
                 setImageDrawable(mSrc);
                 setClickable(true);
                 mIsMorphingInProgress = false;
@@ -408,7 +402,7 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
     }
 
     @Override
-    public void dispose() {
+    public void dispose () {
         if (mMorphingAnimatorSet != null) {
             mMorphingAnimatorSet.end();
             mMorphingAnimatorSet.removeAllListeners();
@@ -421,19 +415,19 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
     /**
      * Method called to start the animation. Morphs in to a ball and then starts a loading spinner.
      */
-    public void startAnimation() {
-        if(mState != State.IDLE) {
+    public void startAnimation () {
+        if (mState != State.IDLE) {
             return;
         }
 
         if (!layoutDone) {
-          shouldStartAnimation = true;
-          return;
+            shouldStartAnimation = true;
+            return;
         }
 
-		    shouldStartAnimation = false;
+        shouldStartAnimation = false;
 
-		    if (mIsMorphingInProgress) {
+        if (mIsMorphingInProgress) {
             mMorphingAnimatorSet.cancel();
         } else {
             mParams.mInitialWidth = getWidth();
@@ -446,7 +440,7 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
         this.setImageDrawable(null);
         this.setClickable(false);
 
-        int toHeight =  mParams.mInitialHeight;
+        int toHeight = mParams.mInitialHeight;
         int toWidth = toHeight;
 
         ObjectAnimator cornerAnimation =
@@ -458,7 +452,7 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
         ValueAnimator widthAnimation = ValueAnimator.ofInt(mParams.mInitialWidth, toWidth);
         widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+            public void onAnimationUpdate (ValueAnimator valueAnimator) {
                 int val = (Integer) valueAnimator.getAnimatedValue();
                 ViewGroup.LayoutParams layoutParams = getLayoutParams();
                 layoutParams.width = val;
@@ -469,7 +463,7 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
         ValueAnimator heightAnimation = ValueAnimator.ofInt(mParams.mInitialHeight, toHeight);
         heightAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+            public void onAnimationUpdate (ValueAnimator valueAnimator) {
                 int val = (Integer) valueAnimator.getAnimatedValue();
                 ViewGroup.LayoutParams layoutParams = getLayoutParams();
                 layoutParams.height = val;
@@ -494,7 +488,7 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
         mMorphingAnimatorSet.playTogether(cornerAnimation, widthAnimation, heightAnimation);
         mMorphingAnimatorSet.addListener(new AnimatorListenerAdapter() {
             @Override
-            public void onAnimationEnd(Animator animation) {
+            public void onAnimationEnd (Animator animation) {
                 mIsMorphingInProgress = false;
 
                 if (doneWhileMorphing) {
@@ -502,7 +496,7 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
 
                     Runnable runnable = new Runnable() {
                         @Override
-                        public void run() {
+                        public void run () {
                             doneLoadingAnimation(mFillColorDone, mBitmapDone);
                         }
                     };
@@ -519,7 +513,7 @@ public class CircularProgressImageButton extends AppCompatImageButton implements
     /**
      * Check if button is animating
      */
-    public Boolean isAnimating() {
+    public Boolean isAnimating () {
         return mState == State.PROGRESS;
     }
 
