@@ -63,9 +63,10 @@ class CircularProgressButton : AppCompatButton {
             spinningBarColor = this.getColor(R.styleable.CircularProgressButton_spinning_bar_color, spinningBarColor)
 
             paddingProgress = this.getDimension(R.styleable.CircularProgressButton_spinning_bar_padding, 0F)
-
-            this.recycle()
         }
+
+        typedArray?.recycle()
+        typedArrayBg?.recycle()
     }
 
     private var state: State = State.IDLE
