@@ -1,17 +1,16 @@
 package br.com.simplepass.loading_button_lib.presentation
 
-import android.animation.*
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.*
 import android.os.Build
 import android.os.Handler
 import android.view.View
-import androidx.core.content.ContextCompat
-import br.com.simplepass.loading_button_lib.animatedDrawables.CircularProgressAnimatedDrawable
-import br.com.simplepass.loading_button_lib.animatedDrawables.CircularRevealAnimatedDrawable
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
-import br.com.simplepass.loading_button_lib.disposeAnimator
 import br.com.simplepass.loading_button_lib.updateHeight
 import br.com.simplepass.loading_button_lib.updateWidth
 
@@ -22,83 +21,14 @@ internal enum class State {
 internal class ProgressButtonPresenter(private val view: CircularProgressButton) {
     var state: State = State.BEFORE_DRAW
 
-    var finalCorner = 0F
-    var initialCorner = 0F
-
-    var spinningBarWidth = 10F
-    var spinningBarColor = ContextCompat.getColor(view.context, android.R.color.black)
-
-    var paddingProgress = 0F
-
-    private val finalWidth: Int by lazy { finalHeight }
-    private var initialWidth = 0
-
-    private val finalHeight: Int by lazy { view.height }
-    private val initialHeight: Int by lazy { view.height }
-
-    lateinit var drawable: GradientDrawable
-    private val initialText = view.text
-
     private var waitingToStartProgress = false
     private var waitingToStartDone: Boolean = false
 
-    private var doneFillColor: Int = ContextCompat.getColor(view.context, android.R.color.black)
-    private lateinit var doneImage: Bitmap
-
-    private val morphAnimator by lazy {
-        AnimatorSet().apply {
-            playTogether(
-                cornerAnimator(drawable, initialCorner, finalCorner),
-                widthAnimator(view, initialWidth, finalWidth),
-                heightAnimator(view, initialHeight, finalHeight)
-            )
-
-            addListener(morphListener(::morphStart, ::morphEnd))
-        }
-    }
-
-    private val morphRevertAnimator by lazy {
-        AnimatorSet().apply {
-            playTogether(
-                cornerAnimator(drawable, finalCorner, initialCorner),
-                widthAnimator(view, finalWidth, initialWidth),
-                heightAnimator(view, finalHeight, initialHeight)
-            )
-
-            addListener(morphListener(::morphRevertStart, ::morphRevertEnd))
-        }
-    }
-
-    private val progressAnimatedDrawable: CircularProgressAnimatedDrawable by lazy {
-        view.run {
-            CircularProgressAnimatedDrawable(this, spinningBarWidth, spinningBarColor).apply {
-                val offset = (width - height) / 2
-
-                val left = offset + paddingProgress.toInt()
-                val right = width - offset - paddingProgress.toInt()
-                val bottom = height - paddingProgress.toInt()
-                val top = paddingProgress.toInt()
-
-                setBounds(left, top, right, bottom)
-                callback = this@run
-            }
-        }
-    }
-
-    private val revealAnimatedDrawable: CircularRevealAnimatedDrawable by lazy {
-        view.run {
-            CircularRevealAnimatedDrawable(this, doneFillColor, doneImage).apply {
-                setBounds(0, 0, width, height)
-                callback = this@run
-            }
-        }
-    }
-
     private fun auxiliaryConfig() {
-        initialWidth = view.width
+        view.initialWidth = view.width
     }
 
-    private fun morphStart() {
+    fun morphStart() {
         view.run {
             isClickable = false
             text = null
@@ -109,40 +39,30 @@ internal class ProgressButtonPresenter(private val view: CircularProgressButton)
         state = State.MORPHING
     }
 
-    private fun morphEnd() {
+    fun morphEnd() {
         view.isClickable = true
 
         if (waitingToStartDone) {
             waitingToStartDone = false
 
-            Handler().postDelayed({ startRevealAnimation() }, 50)
+            Handler().postDelayed({ view.startRevealAnimation() }, 50)
         }
 
         state = State.PROGRESS
     }
 
-    private fun morphRevertStart() {
+    fun morphRevertStart() {
         view.isClickable = false
         state = State.MORPHING
     }
 
-    private fun morphRevertEnd() {
+    fun morphRevertEnd() {
         view.isClickable = true
         state = State.IDLE
-        view.text = initialText
+        view.text = view.initialText
 
         //Todo: Fix this!
         //        setCompoundDrawablesRelative(mParams.mDrawables[0], mParams.mDrawables[1], mParams.mDrawables[2], mParams.mDrawables[3])
-    }
-
-    private fun drawProgress(canvas: Canvas) {
-        progressAnimatedDrawable.run {
-            if (isRunning) {
-                draw(canvas)
-            } else {
-                start()
-            }
-        }
     }
 
     fun onDraw(canvas: Canvas) {
@@ -154,22 +74,14 @@ internal class ProgressButtonPresenter(private val view: CircularProgressButton)
         when (state) {
             State.IDLE     -> {
                 if (waitingToStartProgress) {
-                    morphAnimator.start()
+                    view.morphAnimator.start()
                 }
             }
-            State.PROGRESS -> drawProgress(canvas)
-            State.DONE     -> drawDoneAnimation(canvas)
+            State.PROGRESS -> view.drawProgress(canvas)
+            State.DONE     -> view.drawDoneAnimation(canvas)
             else           -> {
             }
         }
-    }
-
-    private fun startRevealAnimation() {
-        revealAnimatedDrawable.start()
-    }
-
-    private fun drawDoneAnimation(canvas: Canvas) {
-        revealAnimatedDrawable.draw(canvas)
     }
 
     fun startAnimation() {
@@ -182,18 +94,18 @@ internal class ProgressButtonPresenter(private val view: CircularProgressButton)
             return
         }
 
-        morphAnimator.start()
+        view.startMorphAnimation()
     }
 
     fun stopAnimation() {
         state = State.STOPPED
 
         if (state == State.PROGRESS) {
-            progressAnimatedDrawable.stop()
+            view.stopProgressAnimation()
         }
     }
 
-    fun revertAnimation(onAnimationEndListener: () -> Unit = {}) {
+    fun revertAnimation() {
         if (state == State.IDLE) {
             return
         }
@@ -201,32 +113,24 @@ internal class ProgressButtonPresenter(private val view: CircularProgressButton)
         when (state) {
             State.IDLE, State.MORPHING_REVERT -> return
             State.MORPHING                    -> {
-                morphAnimator.end()
+                view.stopMorphAnimation()
             }
             State.PROGRESS                    -> {
-                progressAnimatedDrawable.stop()
+                view.stopProgressAnimation()
             }
             else                              -> {
             }
         }
-
-        morphRevertAnimator.apply {
-            addListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: Animator) {
-                    onAnimationEndListener()
-                }
-            })
-        }.start()
     }
 
     fun doneLoadingAnimation(fillColor: Int, bitmap: Bitmap) {
-        doneFillColor = fillColor
-        doneImage = bitmap
+        view.doneFillColor = fillColor
+        view.doneImage = bitmap
 
         when (state) {
             State.PROGRESS -> {
-                progressAnimatedDrawable.stop()
-                startRevealAnimation()
+                view.stopProgressAnimation()
+                view.startRevealAnimation()
             }
             State.MORPHING -> {
                 waitingToStartDone = true
@@ -236,11 +140,6 @@ internal class ProgressButtonPresenter(private val view: CircularProgressButton)
         }
 
         state = State.DONE
-    }
-
-    fun dispose() {
-        morphAnimator.disposeAnimator()
-        morphRevertAnimator.disposeAnimator()
     }
 }
 
