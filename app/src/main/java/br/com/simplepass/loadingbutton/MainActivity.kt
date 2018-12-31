@@ -16,14 +16,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        progressButtonNoPadding.onClick {
-            progressButtonNoPadding.morphAndRevert()
-        }
+        progressImageButton.onClick { progressImageButton.morphAndRevert() }
+        progressButtonNoPadding.onClick { progressButtonNoPadding.morphAndRevert() }
     }
 
     private fun ProgressButton.morphAndRevert() {
         animateButtonAndRevert(
-            progressButtonNoPadding,
+            this,
             ContextCompat.getColor(this@MainActivity, android.R.color.black),
             BitmapFactory.decodeResource(resources, R.drawable.ic_pregnant_woman_white_48dp)
         )

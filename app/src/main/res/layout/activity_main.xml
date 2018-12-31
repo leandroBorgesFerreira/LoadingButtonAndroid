@@ -12,6 +12,23 @@
     android:gravity="center_horizontal"
     tools:context="br.com.simplepass.loadingbutton.MainActivity">
 
+    <br.com.simplepass.loading_button_lib.customViews.CircularProgressImageButton
+        android:id="@+id/progressImageButton"
+        android:scaleType="fitCenter"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:theme="@style/BluePrimaryButton"
+        android:background="@color/black"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        android:src="@drawable/ic_cloud_upload_white_24dp"
+        app:spinning_bar_padding="0dp"
+        app:spinning_bar_color="#FFFFFF"
+        app:spinning_bar_width="3dp"
+        app:initialCornerAngle="0dp"
+        app:finalCornerAngle="50dp"
+        android:layout_marginBottom="20dp"/>
+
     <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
         android:id="@+id/progressFix"
         android:layout_width="match_parent"
@@ -21,8 +38,8 @@
         android:layout_marginLeft="18dp"
         android:layout_marginRight="18dp"
         app:spinning_bar_color="#FFFFFFFF"
-        app:spinning_bar_padding="8dp"
-        app:spinning_bar_width="4dp"
+        app:spinning_bar_padding="0dp"
+        app:spinning_bar_width="1dp"
         app:initialCornerAngle="0dp"
         app:finalCornerAngle="50dp"
         android:text="Send"
