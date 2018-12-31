@@ -4,9 +4,10 @@ import android.animation.*
 import android.graphics.*
 import android.graphics.drawable.Animatable
 import android.graphics.drawable.Drawable
-import android.view.View
+import android.util.Log
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.LinearInterpolator
+import br.com.simplepass.loading_button_lib.customViews.ProgressButton
 import br.com.simplepass.loading_button_lib.disposeAnimator
 
 const val MIN_PROGRESS = 0F
@@ -16,7 +17,7 @@ private const val SWEEP_ANIMATOR_DURATION = 700L
 private const val MIN_SWEEP_ANGLE = 50f
 
 internal class CircularProgressAnimatedDrawable(
-    private val animatedView: View,
+    private val progressButton: ProgressButton,
     private val borderWidth: Float,
     arcColor: Int
 ) : Drawable(), Animatable {
@@ -64,7 +65,7 @@ internal class CircularProgressAnimatedDrawable(
                 else                 -> value
             }
 
-            animatedView.invalidate()
+            progressButton.invalidate()
         }
 
     private val indeterminateAnimator = AnimatorSet().apply {
@@ -105,7 +106,7 @@ internal class CircularProgressAnimatedDrawable(
                 }
 
                 if (shouldDraw) {
-                    animatedView.invalidate()
+                    progressButton.invalidate()
                 }
             }
 
@@ -156,6 +157,7 @@ internal class CircularProgressAnimatedDrawable(
 
     override fun draw(canvas: Canvas) {
         val (startAngle, sweepAngle) = getAngles()
+        Log.d("Draw!", "lalalala")
         canvas.drawArc(fBounds, startAngle, sweepAngle, false, paint)
     }
 

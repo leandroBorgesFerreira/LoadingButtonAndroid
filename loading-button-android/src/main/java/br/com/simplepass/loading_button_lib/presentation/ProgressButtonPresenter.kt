@@ -1,18 +1,9 @@
 package br.com.simplepass.loading_button_lib.presentation
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
-import android.animation.ObjectAnimator
-import android.animation.ValueAnimator
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.graphics.drawable.*
-import android.os.Build
 import android.os.Handler
-import android.view.View
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
-import br.com.simplepass.loading_button_lib.updateHeight
-import br.com.simplepass.loading_button_lib.updateWidth
 
 internal enum class State {
     BEFORE_DRAW, IDLE, MORPHING, MORPHING_REVERT, PROGRESS, DONE, STOPPED
@@ -58,8 +49,8 @@ internal class ProgressButtonPresenter(private val view: CircularProgressButton)
 
     fun morphRevertEnd() {
         view.isClickable = true
-        state = State.IDLE
         view.text = view.initialText
+        state = State.IDLE
 
         //Todo: Fix this!
         //        setCompoundDrawablesRelative(mParams.mDrawables[0], mParams.mDrawables[1], mParams.mDrawables[2], mParams.mDrawables[3])
@@ -142,56 +133,3 @@ internal class ProgressButtonPresenter(private val view: CircularProgressButton)
         state = State.DONE
     }
 }
-
-internal fun parseGradientDrawable(drawable: Drawable): GradientDrawable =
-    when (drawable) {
-        is GradientDrawable  -> drawable
-        is ColorDrawable     -> GradientDrawable().apply { setColor(drawable.color) }
-        is InsetDrawable     -> {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                drawable.drawable?.let { innerDrawable ->
-                    parseGradientDrawable(innerDrawable)
-                }
-                    ?: throw RuntimeException("Error reading background... Use a shape or a color in xml!")
-            } else {
-                throw RuntimeException("Error reading background... Use a shape or a color in xml!")
-            }
-        }
-        is StateListDrawable -> {
-            if (drawable.current is GradientDrawable) {
-                drawable.current as GradientDrawable
-            } else {
-                throw RuntimeException("Error reading background... Use a shape or a color in xml!")
-            }
-        }
-        else                 -> throw RuntimeException("Error reading background... Use a shape or a color in xml!")
-
-    }
-
-internal fun cornerAnimator(drawable: GradientDrawable, initial: Float, final: Float) =
-    ObjectAnimator.ofFloat(drawable, "cornerRadius", initial, final)
-
-internal fun widthAnimator(view: View, initial: Int, final: Int) =
-    ValueAnimator.ofInt(initial, final).apply {
-        addUpdateListener { animation ->
-            view.updateWidth(animation.animatedValue as Int)
-        }
-    }
-
-internal fun heightAnimator(view: View, initial: Int, final: Int) =
-    ValueAnimator.ofInt(initial, final).apply {
-        addUpdateListener { animation ->
-            view.updateHeight(animation.animatedValue as Int)
-        }
-    }
-
-internal fun morphListener(morphStartFn: () -> Unit, morphEndFn: () -> Unit) =
-    object : AnimatorListenerAdapter() {
-        override fun onAnimationEnd(animation: Animator?) {
-            morphEndFn()
-        }
-
-        override fun onAnimationStart(animation: Animator?) {
-            morphStartFn()
-        }
-    }

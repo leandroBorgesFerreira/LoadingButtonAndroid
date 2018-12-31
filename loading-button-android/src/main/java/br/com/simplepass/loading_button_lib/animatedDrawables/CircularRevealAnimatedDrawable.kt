@@ -4,15 +4,15 @@ import android.animation.*
 import android.graphics.*
 import android.graphics.drawable.Animatable
 import android.graphics.drawable.Drawable
-import android.view.View
 import android.view.animation.DecelerateInterpolator
+import br.com.simplepass.loading_button_lib.customViews.ProgressButton
 import br.com.simplepass.loading_button_lib.disposeAnimator
 
 private const val REVEAL_DURATION = 120L
 private const val ALPHA_ANIMATION_DURATION = 80L
 
 internal class CircularRevealAnimatedDrawable(
-    private val containerView: View,
+    private val progressButton: ProgressButton,
     fillColor: Int,
     image: Bitmap
 ) : Drawable(), Animatable {
@@ -69,7 +69,7 @@ internal class CircularRevealAnimatedDrawable(
 
             addUpdateListener { animation ->
                 currentRadius = animation.animatedValue as Float
-                containerView.invalidate()
+                progressButton.invalidate()
             }
 
             addListener(object : AnimatorListenerAdapter() {
@@ -85,7 +85,7 @@ internal class CircularRevealAnimatedDrawable(
             duration = ALPHA_ANIMATION_DURATION
             addUpdateListener { animation ->
                 imageReadyAlpha = animation.animatedValue as Int
-                containerView.invalidate()
+                progressButton.invalidate()
             }
         }
 
