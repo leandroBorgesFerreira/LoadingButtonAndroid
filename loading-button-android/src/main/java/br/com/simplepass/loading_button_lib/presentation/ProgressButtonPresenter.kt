@@ -17,8 +17,8 @@ internal class ProgressButtonPresenter(private val view: ProgressButton) {
 
     fun morphStart() {
         view.run {
+            hideInitialState()
             setClickable(false)
-            setText(null)
             setCompoundDrawables(null, null, null, null)
         }
 

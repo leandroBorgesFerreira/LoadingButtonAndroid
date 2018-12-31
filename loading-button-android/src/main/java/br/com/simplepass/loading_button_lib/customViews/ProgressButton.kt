@@ -20,7 +20,7 @@ import br.com.simplepass.loading_button_lib.updateHeight
 import br.com.simplepass.loading_button_lib.updateWidth
 import br.com.simplepass.loading_button_lib.utils.parseGradientDrawable
 
-internal interface ProgressButton : Drawable.Callback {
+interface ProgressButton : Drawable.Callback {
     var paddingProgress: Float
     var spinningBarWidth: Float
     var spinningBarColor: Int
@@ -45,10 +45,18 @@ internal interface ProgressButton : Drawable.Callback {
 
     fun saveInitialState()
     fun recoverInitialState()
+    fun hideInitialState()
 
+
+    fun startAnimation()
     fun startMorphAnimation()
     fun stopMorphAnimation()
+    fun stopAnimation()
     fun stopProgressAnimation()
+
+    fun revertAnimation(onAnimationEndListener: () -> Unit = {})
+
+    fun doneLoadingAnimation(fillColor: Int, bitmap: Bitmap)
 
     fun startRevealAnimation()
     fun drawProgress(canvas: Canvas)

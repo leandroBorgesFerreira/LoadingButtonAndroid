@@ -91,6 +91,10 @@ class CircularProgressButton : AppCompatButton, ProgressButton {
         text = initialState.initialText
     }
 
+    override fun hideInitialState() {
+        text = null
+    }
+
     override fun drawProgress(canvas: Canvas) {
         progressAnimatedDrawable.drawProgress(canvas)
     }
@@ -115,11 +119,11 @@ class CircularProgressButton : AppCompatButton, ProgressButton {
         morphAnimator.end()
     }
 
-    fun startAnimation() {
+    override fun startAnimation() {
         presenter.startAnimation()
     }
 
-    fun revertAnimation(onAnimationEndListener: () -> Unit = {}) {
+    override fun revertAnimation(onAnimationEndListener: () -> Unit) {
         presenter.revertAnimation()
 
         morphRevertAnimator.apply {
@@ -131,11 +135,11 @@ class CircularProgressButton : AppCompatButton, ProgressButton {
         }.start()
     }
 
-    fun stopAnimation() {
+    override fun stopAnimation() {
         presenter.stopAnimation()
     }
 
-    fun doneLoadingAnimation(fillColor: Int, bitmap: Bitmap) {
+    override fun doneLoadingAnimation(fillColor: Int, bitmap: Bitmap) {
         presenter.doneLoadingAnimation(fillColor, bitmap)
     }
 
