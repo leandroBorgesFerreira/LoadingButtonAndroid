@@ -41,13 +41,13 @@ class CircularProgressButton : AppCompatButton, ProgressButton {
     override lateinit var doneImage: Bitmap
 
     private val finalWidth: Int by lazy { finalHeight }
-    var initialWidth = 0
+    override var initialWidth = 0
 
     private val finalHeight: Int by lazy { height }
     private val initialHeight: Int by lazy { height }
 
     override lateinit var drawable: GradientDrawable
-    val initialText: CharSequence = text
+    override val initialText: CharSequence = text
 
     private val presenter = ProgressButtonPresenter(this)
 
@@ -83,27 +83,27 @@ class CircularProgressButton : AppCompatButton, ProgressButton {
         createRevealAnimatedDrawable()
     }
 
-    internal fun drawProgress(canvas: Canvas) {
+    override fun drawProgress(canvas: Canvas) {
         progressAnimatedDrawable.drawProgress(canvas)
     }
 
-    internal fun drawDoneAnimation(canvas: Canvas) {
+    override fun drawDoneAnimation(canvas: Canvas) {
         revealAnimatedDrawable.draw(canvas)
     }
 
-    internal fun startRevealAnimation() {
+    override fun startRevealAnimation() {
         revealAnimatedDrawable.start()
     }
 
-    internal fun startMorphAnimation() {
+    override fun startMorphAnimation() {
         morphAnimator.start()
     }
 
-    internal fun stopProgressAnimation() {
+    override fun stopProgressAnimation() {
         progressAnimatedDrawable.stop()
     }
 
-    internal fun stopMorphAnimation() {
+    override fun stopMorphAnimation() {
         morphAnimator.end()
     }
 

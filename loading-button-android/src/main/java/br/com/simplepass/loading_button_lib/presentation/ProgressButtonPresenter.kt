@@ -3,27 +3,27 @@ package br.com.simplepass.loading_button_lib.presentation
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.os.Handler
-import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+import br.com.simplepass.loading_button_lib.customViews.ProgressButton
 
 internal enum class State {
     BEFORE_DRAW, IDLE, MORPHING, MORPHING_REVERT, PROGRESS, DONE, STOPPED
 }
 
-internal class ProgressButtonPresenter(private val view: CircularProgressButton) {
+internal class ProgressButtonPresenter(private val view: ProgressButton) {
     var state: State = State.BEFORE_DRAW
 
     private var waitingToStartProgress = false
     private var waitingToStartDone: Boolean = false
 
     private fun auxiliaryConfig() {
-        view.initialWidth = view.width
+        view.initialWidth = view.getWidth()
     }
 
     fun morphStart() {
         view.run {
-            isClickable = false
-            text = null
-            setCompoundDrawables(null, null, null, null)
+            setClickable(false)
+            setText(null)
+//            setCompoundDrawables(null, null, null, null) //Todo: Fix this!
         }
 
         waitingToStartProgress = false
@@ -31,7 +31,7 @@ internal class ProgressButtonPresenter(private val view: CircularProgressButton)
     }
 
     fun morphEnd() {
-        view.isClickable = true
+        view.setClickable(true)
 
         if (waitingToStartDone) {
             waitingToStartDone = false
@@ -43,13 +43,13 @@ internal class ProgressButtonPresenter(private val view: CircularProgressButton)
     }
 
     fun morphRevertStart() {
-        view.isClickable = false
+        view.setClickable(false)
         state = State.MORPHING
     }
 
     fun morphRevertEnd() {
-        view.isClickable = true
-        view.text = view.initialText
+        view.setClickable(true)
+        view.setText(view.initialText)
         state = State.IDLE
 
         //Todo: Fix this!
@@ -65,7 +65,7 @@ internal class ProgressButtonPresenter(private val view: CircularProgressButton)
         when (state) {
             State.IDLE     -> {
                 if (waitingToStartProgress) {
-                    view.morphAnimator.start()
+                    view.startMorphAnimation()
                 }
             }
             State.PROGRESS -> view.drawProgress(canvas)
@@ -109,8 +109,7 @@ internal class ProgressButtonPresenter(private val view: CircularProgressButton)
             State.PROGRESS                    -> {
                 view.stopProgressAnimation()
             }
-            else                              -> {
-            }
+            else                              -> { }
         }
     }
 
@@ -126,8 +125,7 @@ internal class ProgressButtonPresenter(private val view: CircularProgressButton)
             State.MORPHING -> {
                 waitingToStartDone = true
             }
-            else           -> {
-            }
+            else           -> { }
         }
 
         state = State.DONE
