@@ -32,10 +32,7 @@ internal interface ProgressButton : Drawable.Callback {
     var doneImage: Bitmap
 
     var drawable: GradientDrawable
-
-    var initialWidth: Int //Should be initial state
-    val initialText: CharSequence //Should be initial state
-
+    
     fun invalidate()
 
     fun getHeight(): Int
@@ -44,10 +41,13 @@ internal interface ProgressButton : Drawable.Callback {
 
     fun setClickable(b: Boolean)
     fun setText(text: CharSequence?)
+    fun setCompoundDrawables(left: Drawable?, top: Drawable?, right: Drawable?, bottom: Drawable?)
+
+    fun saveInitialState()
+    fun recoverInitialState()
 
     fun startMorphAnimation()
     fun stopMorphAnimation()
-
     fun stopProgressAnimation()
 
     fun startRevealAnimation()

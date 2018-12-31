@@ -15,15 +15,11 @@ internal class ProgressButtonPresenter(private val view: ProgressButton) {
     private var waitingToStartProgress = false
     private var waitingToStartDone: Boolean = false
 
-    private fun auxiliaryConfig() {
-        view.initialWidth = view.getWidth()
-    }
-
     fun morphStart() {
         view.run {
             setClickable(false)
             setText(null)
-//            setCompoundDrawables(null, null, null, null) //Todo: Fix this!
+            setCompoundDrawables(null, null, null, null)
         }
 
         waitingToStartProgress = false
@@ -49,7 +45,7 @@ internal class ProgressButtonPresenter(private val view: ProgressButton) {
 
     fun morphRevertEnd() {
         view.setClickable(true)
-        view.setText(view.initialText)
+        view.recoverInitialState()
         state = State.IDLE
 
         //Todo: Fix this!
@@ -59,7 +55,7 @@ internal class ProgressButtonPresenter(private val view: ProgressButton) {
     fun onDraw(canvas: Canvas) {
         if (state == State.BEFORE_DRAW) {
             state = State.IDLE
-            auxiliaryConfig()
+            view.saveInitialState()
         }
 
         when (state) {

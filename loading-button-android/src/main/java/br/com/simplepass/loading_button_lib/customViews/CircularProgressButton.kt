@@ -41,21 +41,21 @@ class CircularProgressButton : AppCompatButton, ProgressButton {
     override lateinit var doneImage: Bitmap
 
     private val finalWidth: Int by lazy { finalHeight }
-    override var initialWidth = 0
+
+    private lateinit var initialState: InitialState
 
     private val finalHeight: Int by lazy { height }
     private val initialHeight: Int by lazy { height }
 
     override lateinit var drawable: GradientDrawable
-    override val initialText: CharSequence = text
 
     private val presenter = ProgressButtonPresenter(this)
 
-    internal val morphAnimator by lazy {
+    private val morphAnimator by lazy {
         AnimatorSet().apply {
             playTogether(
                 cornerAnimator(drawable, initialCorner, finalCorner),
-                widthAnimator(this@CircularProgressButton, initialWidth, finalWidth),
+                widthAnimator(this@CircularProgressButton, initialState.initialWidth, finalWidth),
                 heightAnimator(this@CircularProgressButton, initialHeight, finalHeight)
             )
 
@@ -67,7 +67,7 @@ class CircularProgressButton : AppCompatButton, ProgressButton {
         AnimatorSet().apply {
             playTogether(
                 cornerAnimator(drawable, finalCorner, initialCorner),
-                widthAnimator(this@CircularProgressButton, finalWidth, initialWidth),
+                widthAnimator(this@CircularProgressButton, finalWidth, initialState.initialWidth),
                 heightAnimator(this@CircularProgressButton, finalHeight, initialHeight)
             )
 
@@ -81,6 +81,14 @@ class CircularProgressButton : AppCompatButton, ProgressButton {
 
     private val revealAnimatedDrawable: CircularRevealAnimatedDrawable by lazy {
         createRevealAnimatedDrawable()
+    }
+
+    override fun saveInitialState() {
+        initialState = InitialState(width, text)
+    }
+
+    override fun recoverInitialState() {
+        text = initialState.initialText
     }
 
     override fun drawProgress(canvas: Canvas) {
@@ -141,4 +149,8 @@ class CircularProgressButton : AppCompatButton, ProgressButton {
 
         presenter.onDraw(canvas)
     }
+
+    data class InitialState(var initialWidth: Int, val initialText: CharSequence)
 }
+
+
