@@ -7,6 +7,7 @@ import android.animation.ValueAnimator
 import android.content.Context
 import android.content.res.TypedArray
 import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
@@ -116,3 +117,11 @@ internal fun morphListener(morphStartFn: () -> Unit, morphEndFn: () -> Unit) =
             morphStartFn()
         }
     }
+
+internal fun CircularProgressAnimatedDrawable.drawProgress(canvas: Canvas) {
+    if (isRunning) {
+        draw(canvas)
+    } else {
+        start()
+    }
+}

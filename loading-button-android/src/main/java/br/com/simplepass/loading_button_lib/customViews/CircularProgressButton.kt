@@ -84,13 +84,7 @@ class CircularProgressButton : AppCompatButton, ProgressButton {
     }
 
     internal fun drawProgress(canvas: Canvas) {
-        progressAnimatedDrawable.run {
-            if (isRunning) {
-                draw(canvas)
-            } else {
-                start()
-            }
-        }
+        progressAnimatedDrawable.drawProgress(canvas)
     }
 
     internal fun drawDoneAnimation(canvas: Canvas) {
