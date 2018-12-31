@@ -20,8 +20,6 @@ import br.com.simplepass.loading_button_lib.updateWidth
 import br.com.simplepass.loading_button_lib.utils.parseGradientDrawable
 
 interface ProgressButton : Drawable.Callback {
-    val viewHeight: Int
-    val viewWidth: Int
     var paddingProgress: Float
     var spinningBarWidth: Float
     var spinningBarColor: Int
@@ -36,6 +34,8 @@ interface ProgressButton : Drawable.Callback {
 
     fun invalidate()
 
+    fun getHeight(): Int
+    fun getWidth(): Int
     fun getContext(): Context
 }
 
@@ -72,11 +72,11 @@ internal fun ProgressButton.config(tArray: TypedArray) {
 
 internal fun ProgressButton.createProgressDrawable(): CircularProgressAnimatedDrawable =
     CircularProgressAnimatedDrawable(this, spinningBarWidth, spinningBarColor).apply {
-        val offset = (viewWidth - viewHeight) / 2
+        val offset = (getWidth() - getHeight()) / 2
 
         val left = offset + paddingProgress.toInt()
-        val right = viewWidth - offset - paddingProgress.toInt()
-        val bottom = viewHeight - paddingProgress.toInt()
+        val right = getWidth() - offset - paddingProgress.toInt()
+        val bottom = getHeight() - paddingProgress.toInt()
         val top = paddingProgress.toInt()
 
         setBounds(left, top, right, bottom)
@@ -85,7 +85,7 @@ internal fun ProgressButton.createProgressDrawable(): CircularProgressAnimatedDr
 
 internal fun ProgressButton.createRevealAnimatedDrawable(): CircularRevealAnimatedDrawable =
     CircularRevealAnimatedDrawable(this, doneFillColor, doneImage).apply {
-        setBounds(0, 0, viewWidth, viewHeight)
+        setBounds(0, 0, getWidth(), getHeight())
         callback = this@createRevealAnimatedDrawable
     }
 

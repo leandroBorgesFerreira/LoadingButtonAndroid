@@ -46,9 +46,6 @@ class CircularProgressButton : AppCompatButton, ProgressButton {
     private val finalHeight: Int by lazy { height }
     private val initialHeight: Int by lazy { height }
 
-    override val viewHeight: Int = height
-    override val viewWidth: Int = width
-
     override lateinit var drawable: GradientDrawable
     val initialText: CharSequence = text
 
