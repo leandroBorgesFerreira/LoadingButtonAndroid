@@ -41,6 +41,7 @@ interface ProgressButton : Drawable.Callback {
 
     fun setClickable(b: Boolean)
     fun setCompoundDrawables(left: Drawable?, top: Drawable?, right: Drawable?, bottom: Drawable?)
+    fun setBackground(background: Drawable)
 
     fun saveInitialState()
     fun recoverInitialState()
@@ -75,6 +76,8 @@ internal fun ProgressButton.init(attrs: AttributeSet? = null, defStyleAttr: Int 
         typedArrayBg?.getDrawable(0)
             ?: ContextCompat.getDrawable(getContext(), R.drawable.shape_default)!!
     )
+
+    setBackground(drawable)
 
     typedArray?.let { tArray -> config(tArray) }
 
