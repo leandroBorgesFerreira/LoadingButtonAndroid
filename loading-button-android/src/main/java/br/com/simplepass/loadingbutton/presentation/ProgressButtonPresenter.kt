@@ -64,8 +64,7 @@ internal class ProgressButtonPresenter(private val view: ProgressButton) {
             }
             State.PROGRESS -> view.drawProgress(canvas)
             State.DONE -> view.drawDoneAnimation(canvas)
-            else -> {
-            }
+            else -> return
         }
     }
 
@@ -83,28 +82,22 @@ internal class ProgressButtonPresenter(private val view: ProgressButton) {
     }
 
     fun stopAnimation() {
-        state = State.STOPPED
-
         if (state == State.PROGRESS) {
             view.stopProgressAnimation()
         }
+
+        state = State.STOPPED
     }
 
     fun revertAnimation() {
-        if (state == State.IDLE) {
-            return
-        }
-
         when (state) {
-            State.IDLE, State.MORPHING_REVERT -> return
             State.MORPHING -> {
                 view.stopMorphAnimation()
             }
             State.PROGRESS -> {
                 view.stopProgressAnimation()
             }
-            else -> {
-            }
+            else -> return
         }
     }
 

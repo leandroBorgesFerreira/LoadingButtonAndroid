@@ -1,10 +1,16 @@
 package br.com.simplepass.loadingbutton.presentation
 
+import android.graphics.Bitmap
 import android.graphics.Canvas
 import br.com.simplepass.loadingbutton.customViews.ProgressButton
+import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.never
+import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import org.junit.Assert.assertEquals
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -13,16 +19,22 @@ import org.robolectric.shadows.ShadowLooper
 @RunWith(RobolectricTestRunner::class)
 class ProgressButtonPresenterTest {
 
-    private val view: ProgressButton = mock()
-    private val canvas: Canvas = mock()
+    private lateinit var view: ProgressButton
+    private lateinit var canvas: Canvas
+
+    @Before
+    fun setUp() {
+        view = mock()
+        canvas = mock()
+    }
 
     @Test
     fun `should handle state correctly`() {
         ProgressButtonPresenter(view).run {
-            assertEquals(state, State.BEFORE_DRAW)
+            assertEquals(State.BEFORE_DRAW, state)
 
             onDraw(mock())
-            assertEquals(state, State.IDLE)
+            assertEquals(State.IDLE, state)
         }
     }
 
@@ -43,7 +55,7 @@ class ProgressButtonPresenterTest {
     fun `view should be clean before morph starts`() {
         ProgressButtonPresenter(view).run {
             morphStart()
-            assertEquals(state, State.MORPHING)
+            assertEquals(State.MORPHING, state)
         }
 
         verify(view).run {
@@ -57,7 +69,7 @@ class ProgressButtonPresenterTest {
     fun `state should change when morph ends`() {
         ProgressButtonPresenter(view).run {
             morphEnd()
-            assertEquals(state, State.PROGRESS)
+            assertEquals(State.PROGRESS, state)
         }
     }
 
@@ -78,7 +90,7 @@ class ProgressButtonPresenterTest {
     fun `morph revert start should behave correctly`() {
         ProgressButtonPresenter(view).run {
             morphRevertStart()
-            assertEquals(state, State.MORPHING)
+            assertEquals(State.MORPHING, state)
 
             verify(view).setClickable(false)
         }
@@ -88,7 +100,7 @@ class ProgressButtonPresenterTest {
     fun `morph revert end should behave correctly`() {
         ProgressButtonPresenter(view).run {
             morphRevertEnd()
-            assertEquals(state, State.IDLE)
+            assertEquals(State.IDLE, state)
         }
 
         verify(view).run {
@@ -100,7 +112,153 @@ class ProgressButtonPresenterTest {
     @Test
     fun `view animation start should only be called in Idle state`() {
         ProgressButtonPresenter(view).run {
+            State.values()
+                .filter { state -> state != State.IDLE }
+                .forEach { state ->
+                    this.state = state
+                    startAnimation()
+                }
+
+            verify(view, never()).startMorphAnimation()
+
+            this.state = State.IDLE
+            startAnimation()
+            verify(view).startMorphAnimation()
+        }
+    }
+
+    @Test
+    fun `when animation is called before the onDraw method, it should call startAnimation on onDraw`() {
+        ProgressButtonPresenter(view).run {
             state = State.BEFORE_DRAW
+            startAnimation()
+            verify(view, never()).startMorphAnimation()
+            onDraw(canvas)
+            verify(view).startMorphAnimation()
+        }
+    }
+
+    @Test
+    fun `stop animation should call view if presenter is on progress state`() {
+        ProgressButtonPresenter(view).run {
+            state = State.PROGRESS
+            stopAnimation()
+            assertEquals(State.STOPPED, state)
+
+        }
+
+        verify(view).stopProgressAnimation()
+    }
+
+    @Test
+    fun `stop animation should not call view if presenter is NOT on progress state`() {
+        ProgressButtonPresenter(view).run {
+            stopAnimation()
+            assertEquals(State.STOPPED, state)
+
+        }
+
+        verify(view, never()).stopProgressAnimation()
+    }
+
+    @Test
+    fun `revert animation should do nothing if not in progress or morphing state`() {
+        ProgressButtonPresenter(view).run {
+            State.values().filterNot { state ->
+                state == State.PROGRESS || state == State.MORPHING
+            }.forEach { state ->
+                this.state = state
+                revertAnimation()
+            }
+        }
+
+        verifyNoMoreInteractions(view)
+    }
+
+    @Test
+    fun `revertAnimation should call correct method of view in morphing state`() {
+        ProgressButtonPresenter(view).run {
+            state = State.MORPHING
+            revertAnimation()
+        }
+
+        verify(view).stopMorphAnimation()
+        verifyNoMoreInteractions(view)
+    }
+
+    @Test
+    fun `revertAnimation should call correct method of view in progress state`() {
+        ProgressButtonPresenter(view).run {
+            state = State.PROGRESS
+            revertAnimation()
+        }
+
+        verify(view).stopProgressAnimation()
+        verifyNoMoreInteractions(view)
+    }
+
+    @Test
+    fun `it should save state on the first onDraw`() {
+        ProgressButtonPresenter(view).onDraw(mock())
+        verify(view).saveInitialState()
+    }
+
+    @Test
+    fun `onDraw - on progress`() {
+        ProgressButtonPresenter(view).run {
+            state = State.PROGRESS
+            onDraw(mock())
+        }
+
+        verify(view).drawProgress(any())
+    }
+
+    @Test
+    fun `onDraw - done`() {
+        ProgressButtonPresenter(view).run {
+            state = State.DONE
+            onDraw(mock())
+        }
+
+        verify(view).drawDoneAnimation(any())
+    }
+
+    @Test
+    fun `done animation should work if button is on progress state`() {
+        ProgressButtonPresenter(view).run {
+            state = State.PROGRESS
+            doneLoadingAnimation(0, mock())
+            assertEquals(State.DONE, state)
+        }
+
+        verify(view).run {
+            stopProgressAnimation()
+            startRevealAnimation()
+        }
+    }
+
+    @Test
+    fun `done animation should only interact with view on Progress state`() {
+        val bitmapMock: Bitmap = mock()
+
+        ProgressButtonPresenter(view).run {
+            State.values()
+                .filter { state ->
+                    state != State.PROGRESS
+                }.forEach { state ->
+                    this.state = state
+                    doneLoadingAnimation(0, bitmapMock)
+                }
+        }
+
+        verify(view, times(6)).run {
+            doneFillColor = 0
+            doneImage = bitmapMock
+        }
+
+        verify(view, never()).run {
+            stopProgressAnimation()
+            startRevealAnimation()
         }
     }
 }
