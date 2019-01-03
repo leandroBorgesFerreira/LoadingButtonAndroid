@@ -1,7 +1,7 @@
-package br.com.simplepass.loading_button_lib.presentation
+package br.com.simplepass.loadingbutton.presentation
 
 import android.graphics.Canvas
-import br.com.simplepass.loading_button_lib.customViews.ProgressButton
+import br.com.simplepass.loadingbutton.customViews.ProgressButton
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import org.junit.Assert.assertEquals
@@ -101,9 +101,6 @@ class ProgressButtonPresenterTest {
     fun `view animation start should only be called in Idle state`() {
         ProgressButtonPresenter(view).run {
             state = State.BEFORE_DRAW
-
         }
     }
-
-
 }

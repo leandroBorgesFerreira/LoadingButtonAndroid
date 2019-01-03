@@ -1,9 +1,9 @@
-package br.com.simplepass.loading_button_lib.animatedDrawables
+package br.com.simplepass.loadingbutton.animatedDrawables
 
 import android.content.Context
 import android.graphics.BitmapFactory
 import androidx.test.core.app.ApplicationProvider
-import br.com.simplepass.loading_button_lib.R
+import br.com.simplepass.loadingbutton.R
 import com.nhaarman.mockitokotlin2.mock
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue

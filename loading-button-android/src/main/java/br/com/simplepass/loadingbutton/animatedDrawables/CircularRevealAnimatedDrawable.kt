@@ -1,12 +1,21 @@
-package br.com.simplepass.loading_button_lib.animatedDrawables
+package br.com.simplepass.loadingbutton.animatedDrawables
 
-import android.animation.*
-import android.graphics.*
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.AnimatorSet
+import android.animation.TimeInterpolator
+import android.animation.ValueAnimator
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.ColorFilter
+import android.graphics.Paint
+import android.graphics.PixelFormat
 import android.graphics.drawable.Animatable
 import android.graphics.drawable.Drawable
 import android.view.animation.DecelerateInterpolator
-import br.com.simplepass.loading_button_lib.customViews.ProgressButton
-import br.com.simplepass.loading_button_lib.disposeAnimator
+import br.com.simplepass.loadingbutton.customViews.ProgressButton
+import br.com.simplepass.loadingbutton.disposeAnimator
 
 private const val REVEAL_DURATION = 120L
 private const val ALPHA_ANIMATION_DURATION = 80L

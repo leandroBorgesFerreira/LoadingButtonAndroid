@@ -1,4 +1,4 @@
-package br.com.simplepass.loadingbutton
+package br.com.simplepass.loadingbuttonsample
 
 import android.animation.ObjectAnimator
 import android.os.Bundle

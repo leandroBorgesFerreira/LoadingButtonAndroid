@@ -1,7 +1,9 @@
-package br.com.simplepass.loading_button_lib.animatedDrawables
+package br.com.simplepass.loadingbutton.animatedDrawables
 
 import com.nhaarman.mockitokotlin2.mock
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner

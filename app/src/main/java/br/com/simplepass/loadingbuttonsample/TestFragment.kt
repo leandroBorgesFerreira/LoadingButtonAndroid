@@ -1,4 +1,4 @@
-package br.com.simplepass.loadingbutton
+package br.com.simplepass.loadingbuttonsample
 
 import android.os.Bundle
 import android.view.LayoutInflater

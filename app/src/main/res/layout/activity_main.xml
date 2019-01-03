@@ -10,9 +10,9 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="40dp"
     android:gravity="center_horizontal"
-    tools:context="br.com.simplepass.loadingbutton.MainActivity">
+    tools:context="br.com.simplepass.loadingbuttonsample.MainActivity">
 
-    <br.com.simplepass.loading_button_lib.customViews.CircularProgressImageButton
+    <br.com.simplepass.loadingbutton.customViews.CircularProgressImageButton
         android:id="@+id/progressImageButton"
         android:scaleType="fitCenter"
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
         app:finalCornerAngle="50dp"
         android:layout_marginBottom="20dp"/>
 
-    <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+    <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
         android:id="@+id/progressFix"
         android:layout_width="match_parent"
         android:theme="@style/BluePrimaryButton"
@@ -47,7 +47,7 @@
         android:layout_marginBottom="20dp"
         />
 
-    <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+    <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
         android:id="@+id/progressButtonNoPadding"
         android:layout_width="match_parent"
         android:layout_height="50dp"

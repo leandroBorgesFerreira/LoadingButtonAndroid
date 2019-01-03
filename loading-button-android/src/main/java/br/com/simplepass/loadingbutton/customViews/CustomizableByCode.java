@@ -1,4 +1,4 @@
-package br.com.simplepass.loading_button_lib.customViews;
+package br.com.simplepass.loadingbutton.customViews;
 
 interface CustomizableByCode {
     void setSpinningBarWidth(float width);

@@ -1,4 +1,4 @@
-package br.com.simplepass.loading_button_lib.customViews
+package br.com.simplepass.loadingbutton.customViews
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -11,10 +11,10 @@ import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.core.content.ContextCompat
-import br.com.simplepass.loading_button_lib.animatedDrawables.CircularProgressAnimatedDrawable
-import br.com.simplepass.loading_button_lib.animatedDrawables.CircularRevealAnimatedDrawable
-import br.com.simplepass.loading_button_lib.disposeAnimator
-import br.com.simplepass.loading_button_lib.presentation.ProgressButtonPresenter
+import br.com.simplepass.loadingbutton.animatedDrawables.CircularProgressAnimatedDrawable
+import br.com.simplepass.loadingbutton.animatedDrawables.CircularRevealAnimatedDrawable
+import br.com.simplepass.loadingbutton.disposeAnimator
+import br.com.simplepass.loadingbutton.presentation.ProgressButtonPresenter
 
 class CircularProgressImageButton : AppCompatImageButton, ProgressButton {
 
@@ -155,5 +155,3 @@ class CircularProgressImageButton : AppCompatImageButton, ProgressButton {
 
     data class InitialState(var initialWidth: Int)
 }
-
-

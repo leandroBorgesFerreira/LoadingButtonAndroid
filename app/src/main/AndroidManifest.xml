@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="br.com.simplepass.loadingbutton">
+    package="br.com.simplepass.loadingbuttonsample">
 
     <application
         android:allowBackup="false"
@@ -8,15 +8,15 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name="br.com.simplepass.loadingbuttonsample.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SecondActivity" />
-        <activity android:name=".AnkoActivity">
+        <activity android:name="br.com.simplepass.loadingbuttonsample.SecondActivity" />
+        <activity android:name="br.com.simplepass.loadingbuttonsample.AnkoActivity">
         </activity>
 
         <meta-data

@@ -5,9 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="br.com.simplepass.loadingbutton.TestFragment">
+    tools:context="br.com.simplepass.loadingbuttonsample.TestFragment">
 
-    <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+    <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
         android:id="@+id/progressButtonNoPadding2"
         android:layout_width="match_parent"
         android:layout_height="50dp"

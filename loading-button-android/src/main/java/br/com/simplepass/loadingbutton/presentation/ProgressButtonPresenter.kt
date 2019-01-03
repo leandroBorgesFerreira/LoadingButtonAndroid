@@ -1,9 +1,9 @@
-package br.com.simplepass.loading_button_lib.presentation
+package br.com.simplepass.loadingbutton.presentation
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.os.Handler
-import br.com.simplepass.loading_button_lib.customViews.ProgressButton
+import br.com.simplepass.loadingbutton.customViews.ProgressButton
 
 internal enum class State {
     BEFORE_DRAW, IDLE, MORPHING, MORPHING_REVERT, PROGRESS, DONE, STOPPED
@@ -46,8 +46,8 @@ internal class ProgressButtonPresenter(private val view: ProgressButton) {
         view.recoverInitialState()
         state = State.IDLE
 
-        //Todo: Fix this!
-        //        setCompoundDrawablesRelative(mParams.mDrawables[0], mParams.mDrawables[1], mParams.mDrawables[2], mParams.mDrawables[3])
+        // Todo: Fix this!
+        // setCompoundDrawablesRelative(mParams.mDrawables[0], mParams.mDrawables[1], mParams.mDrawables[2], mParams.mDrawables[3])
     }
 
     fun onDraw(canvas: Canvas) {
@@ -57,14 +57,14 @@ internal class ProgressButtonPresenter(private val view: ProgressButton) {
         }
 
         when (state) {
-            State.IDLE     -> {
+            State.IDLE -> {
                 if (waitingToStartProgress) {
                     view.startMorphAnimation()
                 }
             }
             State.PROGRESS -> view.drawProgress(canvas)
-            State.DONE     -> view.drawDoneAnimation(canvas)
-            else           -> {
+            State.DONE -> view.drawDoneAnimation(canvas)
+            else -> {
             }
         }
     }
@@ -97,13 +97,14 @@ internal class ProgressButtonPresenter(private val view: ProgressButton) {
 
         when (state) {
             State.IDLE, State.MORPHING_REVERT -> return
-            State.MORPHING                    -> {
+            State.MORPHING -> {
                 view.stopMorphAnimation()
             }
-            State.PROGRESS                    -> {
+            State.PROGRESS -> {
                 view.stopProgressAnimation()
             }
-            else                              -> { }
+            else -> {
+            }
         }
     }
 
@@ -119,7 +120,8 @@ internal class ProgressButtonPresenter(private val view: ProgressButton) {
             State.MORPHING -> {
                 waitingToStartDone = true
             }
-            else           -> { }
+            else -> {
+            }
         }
 
         state = State.DONE

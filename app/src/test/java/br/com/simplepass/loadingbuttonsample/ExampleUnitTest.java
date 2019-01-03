@@ -1,4 +1,4 @@
-package br.com.simplepass.loadingbutton;
+package br.com.simplepass.loadingbuttonsample;
 
 import org.junit.Test;
 

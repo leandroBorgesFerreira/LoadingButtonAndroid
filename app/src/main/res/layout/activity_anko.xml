@@ -5,6 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="br.com.simplepass.loadingbutton.AnkoActivity">
+    tools:context="br.com.simplepass.loadingbuttonsample.AnkoActivity">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

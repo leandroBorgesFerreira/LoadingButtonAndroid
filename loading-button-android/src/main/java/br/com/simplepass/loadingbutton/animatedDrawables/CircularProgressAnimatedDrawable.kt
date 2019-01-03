@@ -1,14 +1,22 @@
-package br.com.simplepass.loading_button_lib.animatedDrawables
+package br.com.simplepass.loadingbutton.animatedDrawables
 
-import android.animation.*
-import android.graphics.*
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.AnimatorSet
+import android.animation.TimeInterpolator
+import android.animation.ValueAnimator
+import android.graphics.Canvas
+import android.graphics.ColorFilter
+import android.graphics.Paint
+import android.graphics.PixelFormat
+import android.graphics.RectF
 import android.graphics.drawable.Animatable
 import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.LinearInterpolator
-import br.com.simplepass.loading_button_lib.customViews.ProgressButton
-import br.com.simplepass.loading_button_lib.disposeAnimator
+import br.com.simplepass.loadingbutton.customViews.ProgressButton
+import br.com.simplepass.loadingbutton.disposeAnimator
 
 const val MIN_PROGRESS = 0F
 const val MAX_PROGRESS = 100F
@@ -62,7 +70,7 @@ internal class CircularProgressAnimatedDrawable(
             field = when {
                 value > MAX_PROGRESS -> MAX_PROGRESS
                 value < MIN_PROGRESS -> MIN_PROGRESS
-                else                 -> value
+                else -> value
             }
 
             progressButton.invalidate()
@@ -120,7 +128,7 @@ internal class CircularProgressAnimatedDrawable(
 
     private fun getAngles(): Pair<Float, Float> =
         when (progressType) {
-            ProgressType.DETERMINATE   -> {
+            ProgressType.DETERMINATE -> {
                 -90f to progress
             }
             ProgressType.INDETERMINATE -> {

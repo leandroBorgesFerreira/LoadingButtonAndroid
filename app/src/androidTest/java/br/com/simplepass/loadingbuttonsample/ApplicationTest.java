@@ -1,6 +1,5 @@
-package br.com.simplepass.loadingbutton;
+package br.com.simplepass.loadingbuttonsample;
 
-import android.app.Application;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.ApplicationTestCase;

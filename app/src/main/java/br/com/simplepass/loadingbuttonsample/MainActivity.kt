@@ -1,4 +1,4 @@
-package br.com.simplepass.loadingbutton
+package br.com.simplepass.loadingbuttonsample
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import br.com.simplepass.loading_button_lib.customViews.ProgressButton
+import br.com.simplepass.loadingbutton.customViews.ProgressButton
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 
