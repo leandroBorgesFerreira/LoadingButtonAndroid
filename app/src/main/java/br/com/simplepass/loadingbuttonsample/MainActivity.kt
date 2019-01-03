@@ -37,8 +37,8 @@ private fun animateButtonAndRevert(
     circularProgressButton.run {
         startAnimation()
         Handler().run {
-            postDelayed({ doneLoadingAnimation(fillColor, bitmap) }, 7000)
-            postDelayed({ revertAnimation() }, 8000)
+//            postDelayed({ doneLoadingAnimation(fillColor, bitmap) }, 3000)
+            postDelayed({ revertAnimation() }, 4000)
         }
     }
 }
