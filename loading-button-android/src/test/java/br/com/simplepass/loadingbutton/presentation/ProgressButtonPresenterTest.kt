@@ -44,7 +44,6 @@ class ProgressButtonPresenterTest {
             state = State.PROGRESS
             onDraw(canvas)
             verify(view).drawProgress(canvas)
-
             state = State.DONE
             onDraw(canvas)
             verify(view).drawDoneAnimation(canvas)
@@ -144,7 +143,6 @@ class ProgressButtonPresenterTest {
             state = State.PROGRESS
             stopAnimation()
             assertEquals(State.STOPPED, state)
-
         }
 
         verify(view).stopProgressAnimation()
@@ -155,7 +153,6 @@ class ProgressButtonPresenterTest {
         ProgressButtonPresenter(view).run {
             stopAnimation()
             assertEquals(State.STOPPED, state)
-
         }
 
         verify(view, never()).stopProgressAnimation()
