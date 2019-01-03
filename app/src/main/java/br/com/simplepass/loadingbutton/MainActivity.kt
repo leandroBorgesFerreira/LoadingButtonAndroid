@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity() {
             BitmapFactory.decodeResource(resources, R.drawable.ic_pregnant_woman_white_48dp)
         )
     }
-
 }
 
 private fun animateButtonAndRevert(

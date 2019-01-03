@@ -27,8 +27,6 @@ internal class ProgressButtonPresenter(private val view: ProgressButton) {
     }
 
     fun morphEnd() {
-        view.setClickable(true)
-
         if (waitingToStartDone) {
             waitingToStartDone = false
 
@@ -72,12 +70,12 @@ internal class ProgressButtonPresenter(private val view: ProgressButton) {
     }
 
     fun startAnimation() {
-        if (state != State.IDLE) {
+        if (state == State.BEFORE_DRAW) {
+            waitingToStartProgress = true
             return
         }
 
-        if (state == State.BEFORE_DRAW) {
-            waitingToStartProgress = true
+        if (state != State.IDLE) {
             return
         }
 

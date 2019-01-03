@@ -47,21 +47,21 @@
         android:layout_marginBottom="20dp"
         />
 
-    <!--<br.com.simplepass.loading_button_lib.customViews.CircularProgressButton-->
-        <!--android:id="@+id/progressButtonNoPadding"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="50dp"-->
-        <!--android:background="@drawable/problem_shape"-->
-        <!--android:layout_marginLeft="18dp"-->
-        <!--android:layout_marginRight="18dp"-->
-        <!--app:spinning_bar_color="@android:color/holo_blue_bright"-->
-        <!--app:spinning_bar_padding="8dp"-->
-        <!--app:spinning_bar_width="4dp"-->
-        <!--app:initialCornerAngle="0dp"-->
-        <!--app:finalCornerAngle="50dp"-->
-        <!--android:text="Send"-->
-        <!--android:textColor="@android:color/white"-->
-        <!--android:layout_marginBottom="20dp"/>-->
+    <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+        android:id="@+id/progressButtonNoPadding"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/problem_shape"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        app:spinning_bar_color="@android:color/holo_blue_bright"
+        app:spinning_bar_padding="8dp"
+        app:spinning_bar_width="4dp"
+        app:initialCornerAngle="0dp"
+        app:finalCornerAngle="50dp"
+        android:text="Send"
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="20dp"/>
 
     <!--<br.com.simplepass.loading_button_lib.customViews.CircularProgressButton-->
         <!--android:id="@+id/progressButtonNoPadding2"-->

@@ -2,6 +2,7 @@ package br.com.simplepass.loading_button_lib.animatedDrawables
 
 import android.content.Context
 import android.graphics.BitmapFactory
+import androidx.test.core.app.ApplicationProvider
 import br.com.simplepass.loading_button_lib.R
 import com.nhaarman.mockitokotlin2.mock
 import org.junit.Assert.assertFalse
@@ -9,14 +10,13 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
-import org.robolectric.RuntimeEnvironment
 
 @RunWith(RobolectricTestRunner::class)
 class CircularRevealAnimatedDrawableTest {
 
     @Test
     fun `isRunning should return correct state`() {
-        val context = RuntimeEnvironment.application.applicationContext
+        val context: Context = ApplicationProvider.getApplicationContext()
 
         getCircularRevealAnimatedDrawable(context).run {
             assertFalse(isRunning)
@@ -31,7 +31,7 @@ class CircularRevealAnimatedDrawableTest {
 
     @Test
     fun `call start or stop twice should not break anything`() {
-        val context = RuntimeEnvironment.application.applicationContext
+        val context: Context = ApplicationProvider.getApplicationContext()
 
         getCircularRevealAnimatedDrawable(context).run {
             assertFalse(isRunning)

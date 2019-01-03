@@ -2,6 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'org.jmailen.kotlinter'
 
 //Bintray depends on this global variable to set the library version!
 version = gitVersionName
@@ -132,6 +133,7 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:2.23.4'
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0"
     testImplementation 'org.robolectric:robolectric:4.1'
+    testImplementation 'androidx.test:core:1.1.0'
     testImplementation 'junit:junit:4.12'
 
 }
