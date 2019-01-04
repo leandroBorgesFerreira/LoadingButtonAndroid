@@ -180,6 +180,7 @@ class ProgressButtonPresenterTest {
         }
 
         verify(view).stopMorphAnimation()
+        verify(view).startMorphRevertAnimation()
         verifyNoMoreInteractions(view)
     }
 
@@ -191,6 +192,7 @@ class ProgressButtonPresenterTest {
         }
 
         verify(view).stopProgressAnimation()
+        verify(view).startMorphRevertAnimation()
         verifyNoMoreInteractions(view)
     }
 
