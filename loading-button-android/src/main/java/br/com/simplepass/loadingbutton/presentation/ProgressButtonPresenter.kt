@@ -99,6 +99,9 @@ internal class ProgressButtonPresenter(private val view: ProgressButton) {
                 view.stopProgressAnimation()
                 view.startMorphRevertAnimation()
             }
+            State.DONE -> {
+                view.startMorphRevertAnimation()
+            }
             else -> return
         }
     }

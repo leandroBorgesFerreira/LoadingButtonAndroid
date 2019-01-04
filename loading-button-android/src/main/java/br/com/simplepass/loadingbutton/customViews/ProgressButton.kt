@@ -154,7 +154,6 @@ internal fun CircularProgressAnimatedDrawable.drawProgress(canvas: Canvas) {
 internal fun applyAnimationEndListener(animator: Animator, onAnimationEndListener: () -> Unit) =
     animator.addListener(object : AnimatorListenerAdapter() {
         override fun onAnimationEnd(animation: Animator?) {
-            super.onAnimationEnd(animation)
             onAnimationEndListener()
         }
     })

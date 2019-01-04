@@ -162,7 +162,7 @@ class ProgressButtonPresenterTest {
     fun `revert animation should do nothing if not in progress or morphing state`() {
         ProgressButtonPresenter(view).run {
             State.values().filterNot { state ->
-                state == State.PROGRESS || state == State.MORPHING
+                state == State.PROGRESS || state == State.MORPHING || state == State.DONE
             }.forEach { state ->
                 this.state = state
                 revertAnimation()
