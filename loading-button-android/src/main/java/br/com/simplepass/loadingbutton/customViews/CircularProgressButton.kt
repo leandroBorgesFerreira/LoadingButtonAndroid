@@ -1,7 +1,5 @@
 package br.com.simplepass.loadingbutton.customViews
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.content.Context
 import android.graphics.Bitmap
@@ -111,6 +109,10 @@ class CircularProgressButton : AppCompatButton, ProgressButton {
         morphAnimator.start()
     }
 
+    override fun startMorphRevertAnimation() {
+        morphRevertAnimator.start()
+    }
+
     override fun stopProgressAnimation() {
         progressAnimatedDrawable.stop()
     }
@@ -124,15 +126,9 @@ class CircularProgressButton : AppCompatButton, ProgressButton {
     }
 
     override fun revertAnimation(onAnimationEndListener: () -> Unit) {
-        presenter.revertAnimation()
+        applyAnimationEndListener(morphRevertAnimator, onAnimationEndListener)
 
-        morphRevertAnimator.apply {
-            addListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: Animator) {
-                    onAnimationEndListener()
-                }
-            })
-        }.start()
+        presenter.revertAnimation()
     }
 
     override fun stopAnimation() {

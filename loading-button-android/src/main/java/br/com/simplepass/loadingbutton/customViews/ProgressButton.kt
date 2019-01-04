@@ -49,6 +49,7 @@ interface ProgressButton : Drawable.Callback {
 
     fun startAnimation()
     fun startMorphAnimation()
+    fun startMorphRevertAnimation()
     fun stopMorphAnimation()
     fun stopAnimation()
     fun stopProgressAnimation()
@@ -149,3 +150,11 @@ internal fun CircularProgressAnimatedDrawable.drawProgress(canvas: Canvas) {
         start()
     }
 }
+
+internal fun applyAnimationEndListener(animator: Animator, onAnimationEndListener: () -> Unit) =
+    animator.addListener(object : AnimatorListenerAdapter() {
+        override fun onAnimationEnd(animation: Animator?) {
+            super.onAnimationEnd(animation)
+            onAnimationEndListener()
+        }
+    })
