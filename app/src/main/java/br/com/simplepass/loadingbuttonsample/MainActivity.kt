@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import br.com.simplepass.loadingbutton.customViews.ProgressButton
 import kotlinx.android.synthetic.main.activity_main.*
-import org.jetbrains.anko.sdk27.coroutines.onClick
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,8 +15,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        progressImageButton.onClick { progressImageButton.morphAndRevert() }
-        progressButtonNoPadding.onClick { progressButtonNoPadding.morphAndRevert() }
+        progressImageButton.setOnClickListener { progressImageButton.morphAndRevert() }
+        progressButtonNoPadding.setOnClickListener { progressButtonNoPadding.morphAndRevert() }
     }
 
     private fun ProgressButton.morphAndRevert() {
@@ -37,7 +36,7 @@ private fun animateButtonAndRevert(
     circularProgressButton.run {
         startAnimation()
         Handler().run {
-//            postDelayed({ doneLoadingAnimation(fillColor, bitmap) }, 3000)
+            postDelayed({ doneLoadingAnimation(fillColor, bitmap) }, 3000)
             postDelayed({ revertAnimation() }, 4000)
         }
     }
