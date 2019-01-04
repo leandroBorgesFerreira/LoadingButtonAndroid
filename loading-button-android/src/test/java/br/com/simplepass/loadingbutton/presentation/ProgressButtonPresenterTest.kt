@@ -159,7 +159,7 @@ class ProgressButtonPresenterTest {
     }
 
     @Test
-    fun `revert animation should do nothing if not in progress or morphing state`() {
+    fun `revert animation should do nothing if not in correct stage`() {
         ProgressButtonPresenter(view).run {
             State.values().filterNot { state ->
                 state == State.PROGRESS || state == State.MORPHING || state == State.DONE
@@ -192,6 +192,17 @@ class ProgressButtonPresenterTest {
         }
 
         verify(view).stopProgressAnimation()
+        verify(view).startMorphRevertAnimation()
+        verifyNoMoreInteractions(view)
+    }
+
+    @Test
+    fun `revertAnimation should call correct method of view in done state`() {
+        ProgressButtonPresenter(view).run {
+            state = State.DONE
+            revertAnimation()
+        }
+
         verify(view).startMorphRevertAnimation()
         verifyNoMoreInteractions(view)
     }
