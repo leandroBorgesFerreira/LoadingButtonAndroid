@@ -3,7 +3,6 @@ apply plugin: 'kotlin-android'
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'org.jmailen.kotlinter'
-apply plugin: 'jacoco-android'
 
 //Bintray depends on this global variable to set the library version!
 version = gitVersionName
@@ -141,11 +140,3 @@ dependencies {
 repositories {
     mavenCentral()
 }
-
-jacocoAndroidUnitTestReport {
-    csv.enabled false
-    html.enabled true
-    xml.enabled true
-}
-
-
