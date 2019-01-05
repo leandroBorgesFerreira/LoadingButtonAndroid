@@ -45,9 +45,9 @@
             android:layout_height="50dp"
             android:layout_marginLeft="18dp"
             android:layout_marginRight="18dp"
-            android:background="@drawable/problem_shape"
+            android:background="@drawable/button_shape_no_fill"
             android:text="Send"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             app:finalCornerAngle="50dp"
             app:initialCornerAngle="0dp"
             app:spinning_bar_color="@android:color/holo_blue_bright"
@@ -90,7 +90,7 @@
             android:layout_marginLeft="18dp"
             android:layout_marginRight="18dp"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/button_shape_default"
+            android:background="@color/blue"
             android:text="Send"
             android:textColor="@android:color/white"
             android:theme="@style/BluePrimaryButton"
@@ -113,9 +113,9 @@
             android:layout_marginLeft="18dp"
             android:layout_marginRight="18dp"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/button_shape_default"
+            android:background="@drawable/button_shape_no_fill"
             android:text="Send"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             android:theme="@style/BluePrimaryButton"
             app:finalCornerAngle="50dp"
             app:initialCornerAngle="0dp"
@@ -145,71 +145,6 @@
             app:spinning_bar_color="#FFFFFFFF"
             app:spinning_bar_padding="5dp"
             app:spinning_bar_width="5dp" />
-
-        <!--<br.com.simplepass.loading_button_lib.customViews.CircularProgressButton-->
-        <!--android:id="@+id/progressButtonNoPadding2"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="50dp"-->
-        <!--android:layout_marginBottom="20dp"-->
-        <!--android:layout_marginLeft="18dp"-->
-        <!--android:layout_marginRight="18dp"-->
-        <!--android:background="@drawable/button_shape_no_fill"-->
-        <!--android:fontFamily="@font/aclonica"-->
-        <!--android:text="Send"-->
-        <!--android:textColor="@android:color/black"-->
-        <!--app:finalCornerAngle="50dp"-->
-        <!--app:initialCornerAngle="0dp"-->
-        <!--app:spinning_bar_color="@android:color/holo_blue_bright"-->
-        <!--app:spinning_bar_padding="8dp"-->
-        <!--app:spinning_bar_width="6dp"/>-->
-
-        <!--<br.com.simplepass.loading_button_lib.customViews.CircularProgressButton-->
-        <!--android:id="@+id/login"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:layout_marginTop="16dp"-->
-        <!--android:layout_marginLeft="18dp"-->
-        <!--android:layout_marginRight="18dp"-->
-        <!--android:background="@drawable/rounded_corners_yellow"-->
-        <!--android:text="login"-->
-        <!--android:textColor="@color/black"-->
-        <!--app:initialCornerAngle="2dp"-->
-        <!--app:spinning_bar_color="#FFFFFF"-->
-        <!--app:spinning_bar_padding="6dp"-->
-        <!--app:spinning_bar_width="4dp"/>-->
-
-        <!--<fragment-->
-        <!--android:id="@+id/frag"-->
-        <!--android:name="br.com.simplepass.loadingbutton.TestFragment"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="30dp"/>-->
-
-        <!--<RelativeLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_weight="1"-->
-        <!--android:gravity="center_horizontal">-->
-
-        <!--<br.com.simplepass.loading_button_lib.customViews.CircularProgressButton-->
-        <!--android:id="@+id/progressButtonChangeActivity"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="50dp"-->
-        <!--android:background="@drawable/button_shape_default"-->
-        <!--android:layout_marginLeft="18dp"-->
-        <!--android:layout_marginRight="18dp"-->
-        <!--app:spinning_bar_color="@color/black"-->
-        <!--app:spinning_bar_width="4dp"-->
-        <!--app:initialCornerAngle="50dp"-->
-        <!--app:finalCornerAngle="50dp"-->
-        <!--android:transitionName="transition"-->
-        <!--android:text="Send"-->
-        <!--android:textColor="@android:color/white"/>-->
-
-        <!--</RelativeLayout>-->
-
 
     </LinearLayout>
 </ScrollView>
