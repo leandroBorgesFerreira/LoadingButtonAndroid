@@ -2,17 +2,24 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'org.jmailen.kotlinter'
 
 //Bintray depends on this global variable to set the library version!
 version = gitVersionName
 group = 'br.com.simplepass'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
 
     defaultConfig {
         minSdkVersion 17
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode gitVersionCode
         versionName gitVersionName
     }
@@ -27,7 +34,7 @@ android {
         abortOnError false
     }
     sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
+        main.java.srcDirs += 'src/main/java'
     }
 }
 
@@ -119,10 +126,16 @@ if (project.hasProperty('bintrayUser') && project.hasProperty('bintrayKey')) {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    testImplementation 'junit:junit:4.12'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+
+    testImplementation 'org.mockito:mockito-core:2.23.4'
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0"
+    testImplementation 'org.robolectric:robolectric:4.1'
+    testImplementation 'androidx.test:core:1.1.0'
+    testImplementation 'junit:junit:4.12'
+
 }
 repositories {
     mavenCentral()
