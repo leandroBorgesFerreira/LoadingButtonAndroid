@@ -1,5 +1,6 @@
 package br.com.simplepass.loadingbuttonsample
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
@@ -15,29 +16,42 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        progressImageButton.setOnClickListener { progressImageButton.morphAndRevert() }
-        progressButtonNoPadding.setOnClickListener { progressButtonNoPadding.morphAndRevert() }
+        imgBtnTest1.run { setOnClickListener { morphDoneAndRevert(this@MainActivity) } }
+        buttonTest1.run { setOnClickListener { morphDoneAndRevert(this@MainActivity) } }
+
+        buttonTest2.run { setOnClickListener { morphAndRevert() } }
+
+        buttonTest3.run { setOnClickListener { morphAndRevert(100) } }
+
+        buttonTest4.run {
+            setOnClickListener {
+                morphDoneAndRevert(this@MainActivity, doneTime = 100)
+            }
+        }
+
+        buttonTest5.run {
+            setOnClickListener {
+                morphDoneAndRevert(this@MainActivity, doneTime = 100, revertTime = 200)
+            }
+        }
     }
 
-    private fun ProgressButton.morphAndRevert() {
-        animateButtonAndRevert(
-            this,
-            ContextCompat.getColor(this@MainActivity, android.R.color.black),
-            BitmapFactory.decodeResource(resources, R.drawable.ic_pregnant_woman_white_48dp)
-        )
-    }
-}
-
-private fun animateButtonAndRevert(
-    circularProgressButton: ProgressButton,
-    fillColor: Int,
-    bitmap: Bitmap
-) {
-    circularProgressButton.run {
+    private fun ProgressButton.morphDoneAndRevert(
+        context: Context,
+        fillColor: Int = ContextCompat.getColor(context, android.R.color.black),
+        bitmap: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.ic_pregnant_woman_white_48dp),
+        doneTime: Long = 3000,
+        revertTime: Long = 4000
+    ) {
         startAnimation()
         Handler().run {
-            postDelayed({ doneLoadingAnimation(fillColor, bitmap) }, 3000)
-            postDelayed({ revertAnimation() }, 4000)
+            postDelayed({ doneLoadingAnimation(fillColor, bitmap) }, doneTime)
+            postDelayed({ revertAnimation() }, revertTime)
         }
+    }
+
+    private fun ProgressButton.morphAndRevert(revertTime: Long = 3000) {
+        startAnimation()
+        Handler().postDelayed({ revertAnimation() }, revertTime)
     }
 }
