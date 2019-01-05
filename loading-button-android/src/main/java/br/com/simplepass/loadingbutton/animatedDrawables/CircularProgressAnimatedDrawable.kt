@@ -12,7 +12,6 @@ import android.graphics.PixelFormat
 import android.graphics.RectF
 import android.graphics.drawable.Animatable
 import android.graphics.drawable.Drawable
-import android.util.Log
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.LinearInterpolator
 import br.com.simplepass.loadingbutton.customViews.ProgressButton
@@ -165,7 +164,6 @@ internal class CircularProgressAnimatedDrawable(
 
     override fun draw(canvas: Canvas) {
         val (startAngle, sweepAngle) = getAngles()
-        Log.d("Draw!", "lalalala")
         canvas.drawArc(fBounds, startAngle, sweepAngle, false, paint)
     }
 
