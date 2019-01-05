@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat
 import br.com.simplepass.loadingbutton.R
 import br.com.simplepass.loadingbutton.animatedDrawables.CircularProgressAnimatedDrawable
 import br.com.simplepass.loadingbutton.animatedDrawables.CircularRevealAnimatedDrawable
+import br.com.simplepass.loadingbutton.animatedDrawables.ProgressType
 import br.com.simplepass.loadingbutton.updateHeight
 import br.com.simplepass.loadingbutton.updateWidth
 import br.com.simplepass.loadingbutton.utils.parseGradientDrawable
@@ -35,6 +36,7 @@ interface ProgressButton : Drawable.Callback {
     var doneImage: Bitmap
 
     var drawable: GradientDrawable
+    var progressType: ProgressType
 
     fun invalidate()
 
@@ -64,6 +66,8 @@ interface ProgressButton : Drawable.Callback {
     fun startRevealAnimation()
     fun drawProgress(canvas: Canvas)
     fun drawDoneAnimation(canvas: Canvas)
+
+    fun setProgress(value: Float)
 }
 
 internal fun ProgressButton.init(attrs: AttributeSet? = null, defStyleAttr: Int = 0) {
@@ -101,11 +105,11 @@ internal fun ProgressButton.config(tArray: TypedArray) {
 
 internal fun ProgressButton.createProgressDrawable(): CircularProgressAnimatedDrawable =
     CircularProgressAnimatedDrawable(this, spinningBarWidth, spinningBarColor).apply {
-        val offset = (getWidth() - getHeight()) / 2
+        val offset = (finalWidth - finalHeight) / 2
 
         val left = offset + paddingProgress.toInt()
-        val right = getWidth() - offset - paddingProgress.toInt()
-        val bottom = getHeight() - paddingProgress.toInt()
+        val right = finalWidth - offset - paddingProgress.toInt()
+        val bottom = finalHeight - paddingProgress.toInt()
         val top = paddingProgress.toInt()
 
         setBounds(left, top, right, bottom)

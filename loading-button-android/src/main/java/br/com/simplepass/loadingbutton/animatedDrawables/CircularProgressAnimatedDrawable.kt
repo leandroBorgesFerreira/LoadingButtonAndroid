@@ -21,12 +21,13 @@ const val MIN_PROGRESS = 0F
 const val MAX_PROGRESS = 100F
 private const val ANGLE_ANIMATOR_DURATION = 2000L
 private const val SWEEP_ANIMATOR_DURATION = 700L
-private const val MIN_SWEEP_ANGLE = 50f
+private const val MIN_SWEEP_ANGLE = 50F
 
 internal class CircularProgressAnimatedDrawable(
     private val progressButton: ProgressButton,
     private val borderWidth: Float,
-    arcColor: Int
+    arcColor: Int,
+    var progressType: ProgressType = ProgressType.INDETERMINATE
 ) : Drawable(), Animatable {
 
     private val fBounds: RectF by lazy {
@@ -52,8 +53,6 @@ internal class CircularProgressAnimatedDrawable(
     private var modeAppearing: Boolean = false
 
     private var shouldDraw: Boolean = true
-
-    var progressType = ProgressType.INDETERMINATE
 
     var progress: Float = 0F
         set(value) {
@@ -128,14 +127,14 @@ internal class CircularProgressAnimatedDrawable(
     private fun getAngles(): Pair<Float, Float> =
         when (progressType) {
             ProgressType.DETERMINATE -> {
-                -90f to progress
+                -90F to progress * 3.6F
             }
             ProgressType.INDETERMINATE -> {
                 if (modeAppearing) {
                     (currentGlobalAngle - currentGlobalAngleOffset) to currentSweepAngle + MIN_SWEEP_ANGLE
                 } else {
                     (currentGlobalAngle - currentGlobalAngleOffset + currentSweepAngle) to
-                        360f - currentSweepAngle - MIN_SWEEP_ANGLE
+                        360F - currentSweepAngle - MIN_SWEEP_ANGLE
                 }
             }
         }

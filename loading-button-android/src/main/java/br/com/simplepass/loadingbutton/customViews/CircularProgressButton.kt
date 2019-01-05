@@ -11,6 +11,7 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import br.com.simplepass.loadingbutton.animatedDrawables.CircularProgressAnimatedDrawable
 import br.com.simplepass.loadingbutton.animatedDrawables.CircularRevealAnimatedDrawable
+import br.com.simplepass.loadingbutton.animatedDrawables.ProgressType
 import br.com.simplepass.loadingbutton.disposeAnimator
 import br.com.simplepass.loadingbutton.presentation.ProgressButtonPresenter
 
@@ -44,6 +45,12 @@ class CircularProgressButton : AppCompatButton, ProgressButton {
     override val finalWidth: Int by lazy { finalHeight }
     override val finalHeight: Int by lazy { height }
     private val initialHeight: Int by lazy { height }
+
+    override var progressType: ProgressType
+        get() = progressAnimatedDrawable.progressType
+        set(value) {
+            progressAnimatedDrawable.progressType = value
+        }
 
     override lateinit var drawable: GradientDrawable
 
@@ -154,6 +161,10 @@ class CircularProgressButton : AppCompatButton, ProgressButton {
         super.onDraw(canvas)
 
         presenter.onDraw(canvas)
+    }
+
+    override fun setProgress(value: Float) {
+        progressAnimatedDrawable.progress = value
     }
 
     data class InitialState(

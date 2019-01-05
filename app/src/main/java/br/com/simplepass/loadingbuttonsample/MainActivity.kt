@@ -1,12 +1,15 @@
 package br.com.simplepass.loadingbuttonsample
 
+import android.animation.ValueAnimator
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import br.com.simplepass.loadingbutton.animatedDrawables.ProgressType
 import br.com.simplepass.loadingbutton.customViews.ProgressButton
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -34,24 +37,52 @@ class MainActivity : AppCompatActivity() {
                 morphDoneAndRevert(this@MainActivity, doneTime = 100, revertTime = 200)
             }
         }
-    }
 
-    private fun ProgressButton.morphDoneAndRevert(
-        context: Context,
-        fillColor: Int = ContextCompat.getColor(context, android.R.color.black),
-        bitmap: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.ic_pregnant_woman_white_48dp),
-        doneTime: Long = 3000,
-        revertTime: Long = 4000
-    ) {
-        startAnimation()
-        Handler().run {
-            postDelayed({ doneLoadingAnimation(fillColor, bitmap) }, doneTime)
-            postDelayed({ revertAnimation() }, revertTime)
+        buttonTest6.run {
+            setOnClickListener {
+                progressType = ProgressType.INDETERMINATE
+                startAnimation()
+                progressAnimator(this).start()
+                Handler().run {
+                    postDelayed({
+                        doneLoadingAnimation(defaultColor(context), defaultDoneImage(context.resources))
+                    }, 2500)
+                    postDelayed({ revertAnimation() }, 3500)
+                }
+            }
         }
     }
+}
 
-    private fun ProgressButton.morphAndRevert(revertTime: Long = 3000) {
-        startAnimation()
-        Handler().postDelayed({ revertAnimation() }, revertTime)
+private fun defaultColor(context: Context) = ContextCompat.getColor(context, android.R.color.black)
+
+private fun defaultDoneImage(resources: Resources) =
+    BitmapFactory.decodeResource(resources, R.drawable.ic_pregnant_woman_white_48dp)
+
+private fun ProgressButton.morphDoneAndRevert(
+    context: Context,
+    fillColor: Int = defaultColor(context),
+    bitmap: Bitmap = defaultDoneImage(context.resources),
+    doneTime: Long = 3000,
+    revertTime: Long = 4000
+) {
+    progressType = ProgressType.INDETERMINATE
+    startAnimation()
+    Handler().run {
+        postDelayed({ doneLoadingAnimation(fillColor, bitmap) }, doneTime)
+        postDelayed({ revertAnimation() }, revertTime)
+    }
+}
+
+private fun ProgressButton.morphAndRevert(revertTime: Long = 3000) {
+    startAnimation()
+    Handler().postDelayed({ revertAnimation() }, revertTime)
+}
+
+private fun progressAnimator(progressButton: ProgressButton) = ValueAnimator.ofFloat(0F, 100F).apply {
+    duration = 1500
+    startDelay = 500
+    addUpdateListener { animation ->
+        progressButton.setProgress(animation.animatedValue as Float)
     }
 }
