@@ -271,4 +271,14 @@ class ProgressButtonPresenterTest {
             startRevealAnimation()
         }
     }
+
+    @Test
+    fun `if done animation is called before morph finishes, it should not show progress`() {
+        ProgressButtonPresenter(view).run {
+            startAnimation()
+            doneLoadingAnimation(0, mock())
+
+            assertEquals(State.DONE, state) //Should not be progress
+        }
+    }
 }
