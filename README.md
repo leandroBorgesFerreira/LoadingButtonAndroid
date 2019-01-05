@@ -11,7 +11,7 @@ Android Button that morphs into a loading progress bar.
   - Really simple to use.
   - Makes your app looks cooler =D
 
-You can check how this library was implemented here: https://medium.com/p/9efee6e39711/
+You can check how this library was implemented here (Old version): https://medium.com/p/9efee6e39711/
 
 ## Contents
 
@@ -28,7 +28,7 @@ You can check how this library was implemented here: https://medium.com/p/9efee6
 
 ## Installation 
 
-    implementation 'br.com.simplepass:loading-button-android:1.14.0'
+    implementation 'br.com.simplepass:loading-button-android:2.0.0'
 
 ## How to use
 
