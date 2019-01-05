@@ -45,9 +45,6 @@ internal class ProgressButtonPresenter(private val view: ProgressButton) {
         view.setClickable(true)
         view.recoverInitialState()
         state = State.IDLE
-
-        // Todo: Fix this!
-        // setCompoundDrawablesRelative(mParams.mDrawables[0], mParams.mDrawables[1], mParams.mDrawables[2], mParams.mDrawables[3])
     }
 
     fun onDraw(canvas: Canvas) {

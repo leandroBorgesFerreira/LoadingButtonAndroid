@@ -52,7 +52,11 @@
             app:initialCornerAngle="0dp"
             app:spinning_bar_color="@android:color/holo_blue_bright"
             app:spinning_bar_padding="8dp"
-            app:spinning_bar_width="4dp" />
+            app:spinning_bar_width="4dp"
+            android:drawableLeft="@android:drawable/arrow_up_float"
+            android:drawableRight="@android:drawable/arrow_up_float"
+            android:padding="10dp"
+            />
 
         <TextView
             android:layout_width="match_parent"

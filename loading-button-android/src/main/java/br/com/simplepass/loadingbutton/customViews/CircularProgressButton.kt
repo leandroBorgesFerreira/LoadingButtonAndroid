@@ -4,6 +4,7 @@ import android.animation.AnimatorSet
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatButton
@@ -38,10 +39,9 @@ class CircularProgressButton : AppCompatButton, ProgressButton {
     override var doneFillColor: Int = ContextCompat.getColor(context, android.R.color.black)
     override lateinit var doneImage: Bitmap
 
-    override val finalWidth: Int by lazy { finalHeight }
-
     private lateinit var initialState: InitialState
 
+    override val finalWidth: Int by lazy { finalHeight }
     override val finalHeight: Int by lazy { height }
     private val initialHeight: Int by lazy { height }
 
@@ -82,11 +82,17 @@ class CircularProgressButton : AppCompatButton, ProgressButton {
     }
 
     override fun saveInitialState() {
-        initialState = InitialState(width, text)
+        initialState = InitialState(width, text, compoundDrawables)
     }
 
     override fun recoverInitialState() {
         text = initialState.initialText
+        setCompoundDrawables(
+            initialState.compoundDrawables[0],
+            initialState.compoundDrawables[1],
+            initialState.compoundDrawables[2],
+            initialState.compoundDrawables[3]
+        )
     }
 
     override fun hideInitialState() {
@@ -150,5 +156,9 @@ class CircularProgressButton : AppCompatButton, ProgressButton {
         presenter.onDraw(canvas)
     }
 
-    data class InitialState(var initialWidth: Int, val initialText: CharSequence)
+    data class InitialState(
+        var initialWidth: Int,
+        val initialText: CharSequence,
+        val compoundDrawables: Array<Drawable>
+    )
 }
