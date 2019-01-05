@@ -278,7 +278,7 @@ class ProgressButtonPresenterTest {
             startAnimation()
             doneLoadingAnimation(0, mock())
 
-            assertEquals(State.DONE, state) //Should not be progress
+            assertEquals(State.DONE, state) // Should not be progress
         }
     }
 }
