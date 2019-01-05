@@ -31,9 +31,9 @@ internal class ProgressButtonPresenter(private val view: ProgressButton) {
             waitingToStartDone = false
 
             Handler().postDelayed({ view.startRevealAnimation() }, 50)
+        } else {
+            state = State.PROGRESS
         }
-
-        state = State.PROGRESS
     }
 
     fun morphRevertStart() {

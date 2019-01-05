@@ -28,6 +28,9 @@ interface ProgressButton : Drawable.Callback {
     var initialCorner: Float
     var finalCorner: Float
 
+    val finalWidth: Int
+    val finalHeight: Int
+
     var doneFillColor: Int
     var doneImage: Bitmap
 
@@ -111,7 +114,7 @@ internal fun ProgressButton.createProgressDrawable(): CircularProgressAnimatedDr
 
 internal fun ProgressButton.createRevealAnimatedDrawable(): CircularRevealAnimatedDrawable =
     CircularRevealAnimatedDrawable(this, doneFillColor, doneImage).apply {
-        setBounds(0, 0, getWidth(), getHeight())
+        setBounds(0, 0, finalWidth, finalHeight)
         callback = this@createRevealAnimatedDrawable
     }
 

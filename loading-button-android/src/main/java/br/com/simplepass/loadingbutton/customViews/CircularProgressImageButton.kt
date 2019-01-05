@@ -39,11 +39,11 @@ class CircularProgressImageButton : AppCompatImageButton, ProgressButton {
     override var doneFillColor: Int = ContextCompat.getColor(context, android.R.color.black)
     override lateinit var doneImage: Bitmap
 
-    private val finalWidth: Int by lazy { finalHeight }
+    override val finalWidth: Int by lazy { finalHeight }
 
     private lateinit var initialState: InitialState
 
-    private val finalHeight: Int by lazy { height }
+    override val finalHeight: Int by lazy { height }
     private val initialHeight: Int by lazy { height }
 
     override lateinit var drawable: GradientDrawable
