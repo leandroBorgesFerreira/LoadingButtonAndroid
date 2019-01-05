@@ -107,14 +107,6 @@ To avoid memory leaks is your code, you must dispose the buttons in the onDestro
             progressButton.dispose()
      }
 
-## Be creative!
-
-You can do a lot of fun stuff with this lib. Check this example:
-
-![enter image description here](https://lh3.googleusercontent.com/-GhZNh9tt9rs/WdUAZ9DCRYI/AAAAAAAAMkc/w_HuR5HpErI6nHQSzPY8Flo2X7boVweSACLcBGAs/s500/loadingB.gif "loadingB.gif")
-
-You can find the code for the animation inside this repo.
-
 ## Bugs and Feedback
 
 For bugs, feature requests, and discussion please use [GitHub Issues](https://github.com/leandroBorgesFerreira/LoadingButtonAndroid/issues).
