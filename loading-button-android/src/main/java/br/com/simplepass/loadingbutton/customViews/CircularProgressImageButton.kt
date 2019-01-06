@@ -11,6 +11,7 @@ import androidx.appcompat.widget.AppCompatImageButton
 import androidx.core.content.ContextCompat
 import br.com.simplepass.loadingbutton.animatedDrawables.CircularProgressAnimatedDrawable
 import br.com.simplepass.loadingbutton.animatedDrawables.CircularRevealAnimatedDrawable
+import br.com.simplepass.loadingbutton.animatedDrawables.ProgressType
 import br.com.simplepass.loadingbutton.disposeAnimator
 import br.com.simplepass.loadingbutton.presentation.ProgressButtonPresenter
 
@@ -39,12 +40,17 @@ class CircularProgressImageButton : AppCompatImageButton, ProgressButton {
     override var doneFillColor: Int = ContextCompat.getColor(context, android.R.color.black)
     override lateinit var doneImage: Bitmap
 
-    override val finalWidth: Int by lazy { finalHeight }
-
     private lateinit var initialState: InitialState
 
     override val finalHeight: Int by lazy { height }
     private val initialHeight: Int by lazy { height }
+    override val finalWidth: Int by lazy { finalHeight }
+
+    override var progressType: ProgressType
+        get() = progressAnimatedDrawable.progressType
+        set(value) {
+            progressAnimatedDrawable.progressType = value
+        }
 
     override lateinit var drawable: GradientDrawable
 
@@ -145,6 +151,10 @@ class CircularProgressImageButton : AppCompatImageButton, ProgressButton {
         super.onDraw(canvas)
 
         presenter.onDraw(canvas)
+    }
+
+    override fun setProgress(value: Float) {
+        progressAnimatedDrawable.progress = value
     }
 
     override fun setCompoundDrawables(left: Drawable?, top: Drawable?, right: Drawable?, bottom: Drawable?) {}

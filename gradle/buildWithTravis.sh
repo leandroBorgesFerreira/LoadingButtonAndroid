@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 if [ "$TRAVIS_TAG" == "" ]; then
   echo -e 'Build Branch'
   ./gradlew build
