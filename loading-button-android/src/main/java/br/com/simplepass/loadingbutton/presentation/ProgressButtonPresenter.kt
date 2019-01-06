@@ -6,14 +6,19 @@ import android.os.Handler
 import br.com.simplepass.loadingbutton.customViews.ProgressButton
 
 internal enum class State {
-    BEFORE_DRAW, IDLE, MORPHING, MORPHING_REVERT, PROGRESS, DONE, STOPPED
+    BEFORE_DRAW,
+    IDLE,
+    MORPHING,
+    MORPHING_REVERT,
+    WAITING_PROGRESS,
+    PROGRESS,
+    WAITING_DONE,
+    DONE,
+    STOPPED
 }
 
 internal class ProgressButtonPresenter(private val view: ProgressButton) {
     var state: State = State.BEFORE_DRAW
-
-    private var waitingToStartProgress = false
-    private var waitingToStartDone: Boolean = false
 
     fun morphStart() {
         view.run {
@@ -22,14 +27,12 @@ internal class ProgressButtonPresenter(private val view: ProgressButton) {
             setCompoundDrawables(null, null, null, null)
         }
 
-        waitingToStartProgress = false
         state = State.MORPHING
     }
 
     fun morphEnd() {
-        if (waitingToStartDone) {
-            waitingToStartDone = false
-
+        if (state == State.WAITING_DONE) {
+            state = State.DONE
             Handler().postDelayed({ view.startRevealAnimation() }, 50)
         } else {
             state = State.PROGRESS
@@ -54,11 +57,7 @@ internal class ProgressButtonPresenter(private val view: ProgressButton) {
         }
 
         when (state) {
-            State.IDLE -> {
-                if (waitingToStartProgress) {
-                    view.startMorphAnimation()
-                }
-            }
+            State.WAITING_PROGRESS -> view.startMorphAnimation()
             State.PROGRESS -> view.drawProgress(canvas)
             State.DONE -> view.drawDoneAnimation(canvas)
             else -> return
@@ -67,7 +66,7 @@ internal class ProgressButtonPresenter(private val view: ProgressButton) {
 
     fun startAnimation() {
         if (state == State.BEFORE_DRAW) {
-            waitingToStartProgress = true
+            state = State.WAITING_PROGRESS
             return
         }
 
@@ -96,7 +95,7 @@ internal class ProgressButtonPresenter(private val view: ProgressButton) {
                 view.stopProgressAnimation()
                 view.startMorphRevertAnimation()
             }
-            State.DONE -> {
+            State.WAITING_DONE, State.DONE -> {
                 view.startMorphRevertAnimation()
             }
             else -> return
@@ -107,18 +106,14 @@ internal class ProgressButtonPresenter(private val view: ProgressButton) {
         view.doneFillColor = fillColor
         view.doneImage = bitmap
 
-        when (state) {
+        state = when (state) {
             State.PROGRESS -> {
                 view.stopProgressAnimation()
                 view.startRevealAnimation()
+                State.DONE
             }
-            State.MORPHING -> {
-                waitingToStartDone = true
-            }
-            else -> {
-            }
+            State.MORPHING -> State.WAITING_DONE
+            else -> State.DONE
         }
-
-        state = State.DONE
     }
 }
