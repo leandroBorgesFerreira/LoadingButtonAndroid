@@ -19,9 +19,7 @@ internal enum class State {
 
 internal class ProgressButtonPresenter(private val view: ProgressButton) {
     var state: State = State.BEFORE_DRAW
-
-    private var waitingToStartDone: Boolean = false
-
+    
     fun morphStart() {
         view.run {
             hideInitialState()
@@ -33,9 +31,8 @@ internal class ProgressButtonPresenter(private val view: ProgressButton) {
     }
 
     fun morphEnd() {
-        if (waitingToStartDone) {
-            waitingToStartDone = false
-
+        if (state == State.WAITING_DONE) {
+            state = State.DONE
             Handler().postDelayed({ view.startRevealAnimation() }, 50)
         } else {
             state = State.PROGRESS
@@ -98,7 +95,7 @@ internal class ProgressButtonPresenter(private val view: ProgressButton) {
                 view.stopProgressAnimation()
                 view.startMorphRevertAnimation()
             }
-            State.DONE -> {
+            State.WAITING_DONE, State.DONE -> {
                 view.startMorphRevertAnimation()
             }
             else -> return
@@ -109,18 +106,14 @@ internal class ProgressButtonPresenter(private val view: ProgressButton) {
         view.doneFillColor = fillColor
         view.doneImage = bitmap
 
-        when (state) {
+        state = when (state) {
             State.PROGRESS -> {
                 view.stopProgressAnimation()
                 view.startRevealAnimation()
+                State.DONE
             }
-            State.MORPHING -> {
-                waitingToStartDone = true
-            }
-            else -> {
-            }
+            State.MORPHING -> State.WAITING_DONE
+            else -> State.DONE
         }
-
-        state = State.DONE
     }
 }
