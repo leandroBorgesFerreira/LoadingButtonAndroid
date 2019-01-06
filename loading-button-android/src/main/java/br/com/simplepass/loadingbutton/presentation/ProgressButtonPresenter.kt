@@ -19,7 +19,7 @@ internal enum class State {
 
 internal class ProgressButtonPresenter(private val view: ProgressButton) {
     var state: State = State.BEFORE_DRAW
-    
+
     fun morphStart() {
         view.run {
             hideInitialState()
