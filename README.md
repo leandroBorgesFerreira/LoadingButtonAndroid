@@ -62,9 +62,10 @@ You can switch between indeterminant and determinant progress:
 
     circularProgressButton.setProgress(10)
     ...
+    circularProgressButton.setProgress(50)
+    ...
     circularProgressButton.setProgress(100)
     ...
-    circularProgressButton.resetProgress()
 
 ### - Show 'done' animation
 
