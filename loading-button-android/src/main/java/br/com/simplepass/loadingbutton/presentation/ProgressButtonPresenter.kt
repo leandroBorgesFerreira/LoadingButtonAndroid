@@ -6,13 +6,20 @@ import android.os.Handler
 import br.com.simplepass.loadingbutton.customViews.ProgressButton
 
 internal enum class State {
-    BEFORE_DRAW, IDLE, MORPHING, MORPHING_REVERT, PROGRESS, DONE, STOPPED
+    BEFORE_DRAW,
+    IDLE,
+    MORPHING,
+    MORPHING_REVERT,
+    WAITING_PROGRESS,
+    PROGRESS,
+    WAITING_DONE,
+    DONE,
+    STOPPED
 }
 
 internal class ProgressButtonPresenter(private val view: ProgressButton) {
     var state: State = State.BEFORE_DRAW
 
-    private var waitingToStartProgress = false
     private var waitingToStartDone: Boolean = false
 
     fun morphStart() {
@@ -22,7 +29,6 @@ internal class ProgressButtonPresenter(private val view: ProgressButton) {
             setCompoundDrawables(null, null, null, null)
         }
 
-        waitingToStartProgress = false
         state = State.MORPHING
     }
 
@@ -54,11 +60,7 @@ internal class ProgressButtonPresenter(private val view: ProgressButton) {
         }
 
         when (state) {
-            State.IDLE -> {
-                if (waitingToStartProgress) {
-                    view.startMorphAnimation()
-                }
-            }
+            State.WAITING_PROGRESS -> view.startMorphAnimation()
             State.PROGRESS -> view.drawProgress(canvas)
             State.DONE -> view.drawDoneAnimation(canvas)
             else -> return
@@ -67,7 +69,7 @@ internal class ProgressButtonPresenter(private val view: ProgressButton) {
 
     fun startAnimation() {
         if (state == State.BEFORE_DRAW) {
-            waitingToStartProgress = true
+            state = State.WAITING_PROGRESS
             return
         }
 

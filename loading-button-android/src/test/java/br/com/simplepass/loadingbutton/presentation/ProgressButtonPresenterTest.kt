@@ -261,7 +261,7 @@ class ProgressButtonPresenterTest {
                 }
         }
 
-        verify(view, times(6)).run {
+        verify(view, times(8)).run {
             doneFillColor = 0
             doneImage = bitmapMock
         }
