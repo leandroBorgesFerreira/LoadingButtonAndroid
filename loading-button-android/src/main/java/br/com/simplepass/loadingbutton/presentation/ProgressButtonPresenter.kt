@@ -95,7 +95,7 @@ internal class ProgressButtonPresenter(private val view: ProgressButton) {
                 view.stopProgressAnimation()
                 view.startMorphRevertAnimation()
             }
-            State.WAITING_DONE, State.DONE -> {
+            State.WAITING_DONE, State.STOPPED, State.DONE -> {
                 view.startMorphRevertAnimation()
             }
             else -> return
@@ -113,6 +113,10 @@ internal class ProgressButtonPresenter(private val view: ProgressButton) {
                 State.DONE
             }
             State.MORPHING -> State.WAITING_DONE
+            State.STOPPED -> {
+                view.startRevealAnimation()
+                State.DONE
+            }
             else -> State.DONE
         }
     }
