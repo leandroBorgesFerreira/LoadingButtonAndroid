@@ -5,7 +5,7 @@ apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'org.jmailen.kotlinter'
 
 //Bintray depends on this global variable to set the library version!
-version = gitVersionName
+version = "2.0.2"
 group = 'br.com.simplepass'
 
 android {
@@ -18,10 +18,10 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 17
+        minSdkVersion 16
         targetSdkVersion 28
-        versionCode gitVersionCode
-        versionName gitVersionName
+        versionCode 21
+        versionName "2.0.2"
     }
     buildTypes {
         release {
@@ -76,7 +76,7 @@ install {
             packaging 'aar'
             groupId 'br.com.simplepass'
             artifactId 'loading-button-android'
-            version gitVersionName
+            version "2.0.2"
 
             licenses {
                 license {
