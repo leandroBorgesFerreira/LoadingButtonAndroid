@@ -51,6 +51,9 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+        buttonTest7.run { setOnClickListener { morphStopRevert() } }
+        buttonTest8.run { setOnClickListener { morphStopRevert(100, 1000) } }
     }
 }
 
@@ -76,6 +79,12 @@ private fun ProgressButton.morphDoneAndRevert(
 
 private fun ProgressButton.morphAndRevert(revertTime: Long = 3000) {
     startAnimation()
+    Handler().postDelayed({ revertAnimation() }, revertTime)
+}
+
+private fun ProgressButton.morphStopRevert(stopTime: Long = 1000, revertTime: Long = 2000) {
+    startAnimation()
+    Handler().postDelayed({ stopAnimation() }, stopTime)
     Handler().postDelayed({ revertAnimation() }, revertTime)
 }
 
