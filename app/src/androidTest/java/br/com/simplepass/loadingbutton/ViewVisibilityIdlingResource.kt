@@ -37,5 +37,4 @@ class ViewVisibilityIdlingResource(private val view: View, private val expectedV
     override fun registerIdleTransitionCallback(resourceCallback: ResourceCallback) {
         mResourceCallback = resourceCallback
     }
-
 }

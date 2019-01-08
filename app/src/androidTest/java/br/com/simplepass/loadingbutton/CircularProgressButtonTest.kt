@@ -9,7 +9,11 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.isEnabled
+import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
@@ -65,7 +69,6 @@ class CircularProgressButtonTest {
     fun testTextVisibleBeforeAndAfterSpinnerAnimation() {
         val mainActivity = activityTestRule.launchActivity(Intent(app, MainActivity::class.java))
 
-
         onView(withId(R.id.buttonTest2))
                 .check(matches(allOf<View>(
                         isDisplayed(), withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE), isEnabled())))
@@ -102,5 +105,4 @@ class CircularProgressButtonTest {
                 .check(matches(withText(
                         containsString(mainActivity.resources.getString(R.string.send)))))
     }
-
 }
