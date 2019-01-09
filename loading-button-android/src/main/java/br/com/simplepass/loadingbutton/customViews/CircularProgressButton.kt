@@ -15,7 +15,7 @@ import br.com.simplepass.loadingbutton.animatedDrawables.ProgressType
 import br.com.simplepass.loadingbutton.disposeAnimator
 import br.com.simplepass.loadingbutton.presentation.ProgressButtonPresenter
 
-class CircularProgressButton : AppCompatButton, ProgressButton {
+open class CircularProgressButton : AppCompatButton, ProgressButton {
 
     constructor(context: Context) : super(context) {
         init()
