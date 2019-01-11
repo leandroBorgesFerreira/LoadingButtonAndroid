@@ -108,6 +108,10 @@ To avoid memory leaks is your code, you must dispose the buttons in the onDestro
             progressButton.dispose()
      }
 
+## Changes
+
+To see whats changed between versions, view the [CHANGELOG](#CHANGELOG.md)
+
 ## Bugs and Feedback
 
 For bugs, feature requests, and discussion please use [GitHub Issues](https://github.com/leandroBorgesFerreira/LoadingButtonAndroid/issues).
