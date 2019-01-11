@@ -5,7 +5,7 @@ import android.graphics.Canvas
 import android.os.Handler
 import br.com.simplepass.loadingbutton.customViews.ProgressButton
 
-internal enum class State {
+enum class State {
     BEFORE_DRAW,
     IDLE,
     MORPHING,

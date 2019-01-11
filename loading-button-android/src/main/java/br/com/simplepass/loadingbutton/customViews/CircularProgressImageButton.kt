@@ -14,6 +14,7 @@ import br.com.simplepass.loadingbutton.animatedDrawables.CircularRevealAnimatedD
 import br.com.simplepass.loadingbutton.animatedDrawables.ProgressType
 import br.com.simplepass.loadingbutton.disposeAnimator
 import br.com.simplepass.loadingbutton.presentation.ProgressButtonPresenter
+import br.com.simplepass.loadingbutton.presentation.State
 
 open class CircularProgressImageButton : AppCompatImageButton, ProgressButton {
 
@@ -87,6 +88,8 @@ open class CircularProgressImageButton : AppCompatImageButton, ProgressButton {
     private val revealAnimatedDrawable: CircularRevealAnimatedDrawable by lazy {
         createRevealAnimatedDrawable()
     }
+
+    override fun getState(): State = presenter.state
 
     override fun saveInitialState() {
         initialState = InitialState(width)
