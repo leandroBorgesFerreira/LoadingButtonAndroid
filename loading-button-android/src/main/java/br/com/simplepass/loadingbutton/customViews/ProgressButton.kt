@@ -17,6 +17,7 @@ import br.com.simplepass.loadingbutton.R
 import br.com.simplepass.loadingbutton.animatedDrawables.CircularProgressAnimatedDrawable
 import br.com.simplepass.loadingbutton.animatedDrawables.CircularRevealAnimatedDrawable
 import br.com.simplepass.loadingbutton.animatedDrawables.ProgressType
+import br.com.simplepass.loadingbutton.presentation.State
 import br.com.simplepass.loadingbutton.updateHeight
 import br.com.simplepass.loadingbutton.updateWidth
 import br.com.simplepass.loadingbutton.utils.parseGradientDrawable
@@ -43,6 +44,7 @@ interface ProgressButton : Drawable.Callback {
     fun getHeight(): Int
     fun getWidth(): Int
     fun getContext(): Context
+    fun getState(): State
 
     fun setClickable(b: Boolean)
     fun setCompoundDrawables(left: Drawable?, top: Drawable?, right: Drawable?, bottom: Drawable?)
