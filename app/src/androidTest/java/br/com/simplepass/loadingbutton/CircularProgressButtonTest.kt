@@ -1,15 +1,13 @@
 package br.com.simplepass.loadingbutton
 
-import android.view.View
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.isClickable
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.isEnabled
-import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.rule.ActivityTestRule
+import br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+import br.com.simplepass.loadingbutton.presentation.State
 import br.com.simplepass.loadingbuttonsample.MainActivity
 import br.com.simplepass.loadingbuttonsample.R
 import org.hamcrest.Matchers.not
@@ -29,28 +27,30 @@ class CircularProgressButtonTest {
     @Test
     fun testTextVisibleBeforeSpinnerAnimation() {
         onView(withId(R.id.buttonTest1))
-                .check(matches(allOf<View>(isDisplayed(), isEnabled(), isClickable(), withText(R.string.send))))
+                .check(matches(allOf(isDisplayed(), isEnabled(), isClickable(), withText(R.string.send))))
                 .perform(click())
                 .check(matches(not(withText(R.string.send))))
     }
 
     @Test
     fun testTextVisibleBeforeAndAfterSpinnerAnimation() {
-        onView(withId(R.id.buttonTest2))
-                .check(matches(allOf<View>(isDisplayed(), isEnabled(), isClickable(), withText(R.string.send))))
-                .perform(click())
-                .check(matches(not(withText(R.string.send)))) // verify spinner is showing immediately after click...
+        val circularProgressButton = activityTestRule.activity.findViewById<CircularProgressButton>(R.id.buttonTest2)
 
-        Wait.onView(withId(R.id.buttonTest2))
-                .duration(5000)
-                .delay(50)
-                .until(matches(withText(R.string.send)))
+        onView(withId(R.id.buttonTest2))
+                .check(matches(allOf(isDisplayed(), isEnabled(), isClickable(), withText(R.string.send))))
+                .perform(click())
+
+        val progressButtonIdlingResource = ProgressButtonStateIdlingResource(circularProgressButton)
+        IdlingRegistry.getInstance().register(progressButtonIdlingResource)
+
+        onView(withId(R.id.buttonTest2)).check(matches(withText(R.string.send)))
+        IdlingRegistry.getInstance().unregister(progressButtonIdlingResource)
     }
 
     @Test
     fun testTextReShownImmediatelyAfterClick() {
         onView(withId(R.id.buttonTest3))
-                .check(matches(allOf<View>(isDisplayed(), isEnabled(), isClickable(), withText(R.string.send))))
+                .check(matches(allOf(isDisplayed(), isEnabled(), isClickable(), withText(R.string.send))))
                 .perform(click())
                 .check(matches(withText(R.string.send)))
     }

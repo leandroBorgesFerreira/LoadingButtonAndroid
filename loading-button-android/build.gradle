@@ -5,7 +5,7 @@ apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'org.jmailen.kotlinter'
 
 //Bintray depends on this global variable to set the library version!
-version = "3.0.0"
+version = "2.0.2"
 group = 'br.com.simplepass'
 
 android {
@@ -20,7 +20,7 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 31
+        versionCode 21
         versionName version
     }
     buildTypes {
