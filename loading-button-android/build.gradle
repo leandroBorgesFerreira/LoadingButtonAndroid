@@ -21,7 +21,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 28
         versionCode 21
-        versionName "2.0.2"
+        versionName version
     }
     buildTypes {
         release {
@@ -76,7 +76,7 @@ install {
             packaging 'aar'
             groupId 'br.com.simplepass'
             artifactId 'loading-button-android'
-            version "2.0.2"
+            version version
 
             licenses {
                 license {
@@ -125,8 +125,6 @@ if (project.hasProperty('bintrayUser') && project.hasProperty('bintrayKey')) {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.0.2'
 
@@ -138,5 +136,6 @@ dependencies {
 
 }
 repositories {
+    mavenLocal()
     mavenCentral()
 }
