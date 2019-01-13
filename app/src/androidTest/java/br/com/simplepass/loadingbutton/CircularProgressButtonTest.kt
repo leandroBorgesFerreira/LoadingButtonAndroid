@@ -4,10 +4,13 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.isClickable
+import androidx.test.espresso.matcher.ViewMatchers.isEnabled
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.rule.ActivityTestRule
 import br.com.simplepass.loadingbutton.customViews.CircularProgressButton
-import br.com.simplepass.loadingbutton.presentation.State
 import br.com.simplepass.loadingbuttonsample.MainActivity
 import br.com.simplepass.loadingbuttonsample.R
 import org.hamcrest.Matchers.not

@@ -4,10 +4,7 @@ import androidx.test.espresso.IdlingResource
 import br.com.simplepass.loadingbutton.customViews.ProgressButton
 import br.com.simplepass.loadingbutton.presentation.State
 
-class ProgressButtonStateIdlingResource(
-        private val progressButton: ProgressButton,
-        private val expectedState: State = State.IDLE
-) : IdlingResource {
+class ProgressButtonStateIdlingResource(private val progressButton: ProgressButton, private val expectedState: State = State.IDLE) : IdlingResource {
 
     private var idle: Boolean = false
     private var resourceCallback: IdlingResource.ResourceCallback? = null
