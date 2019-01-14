@@ -28,7 +28,7 @@ class CircularProgressButtonTest {
     @Rule
     val activityTestRule = ActivityTestRule(MainActivity::class.java, true, true)
 
-    //Buttons that doesn't revert the animation very fast
+    // Buttons that doesn't revert the animation very fast
     private val slowProgressButtons = arrayOf(
         R.id.buttonTest1,
         R.id.buttonTest2,
