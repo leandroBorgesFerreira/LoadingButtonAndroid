@@ -76,20 +76,14 @@ When the loading animation is running, call:
 
 ### - Revert the loading animation with different text or image
 
-    circularProgressButton.revertAnimation(new OnAnimationEndListener() {
-                    @Override
-                    public void onAnimationEnd() {
-                        circularProgressButton.setText("Seu texto aqui!");
-                    }
-                });
+    progressButton.revertAnimation {
+        progressButton.text = "Some new text"
+    }
 or
 
-    circularProgressImageButton.revertAnimation(new OnAnimationEndListener() {
-            @Override
-            public void onAnimationEnd() {
-                progressButton.setImageDrawable(R.drawable.image);
-            }
-        });
+    progressImageButton.revertAnimation {
+        progressImageButton.setImageResource(R.drawable.image)
+    }
 
 ## Configure XML
 
