@@ -84,6 +84,39 @@ or
     progressImageButton.revertAnimation {
         progressImageButton.setImageResource(R.drawable.image)
     }
+### - Button State
+
+This button is a state machine and it changes its state during the animation process. The states are:
+
+#### Before Draw
+This state is the initial one, the button is in this state before the View is draw on the screen. This is the state when the button is accesed in the `onCreate()` of an Activity. 
+
+#### Idle
+After the button is drawn in the screen, it gets in the `Idle` state. It is basically waiting for an animation. Call `startAnimation()` to start animations with this button.
+
+#### WAITING_PROGRESS
+If the `startAnimation()` is called before the `Idle` state, the button goes to this state. The button waits for the button to be drawn in the screen before start the morph animation.
+
+#### MORPHING
+The button stays in this state during the morphing animation.
+
+#### PROGRESS
+After the morph animation, the button start the progress animation. From this state the `done` and `revert` animations can happen.
+
+#### MORPHING_REVERT
+The button stays in this state during the morphing animation reversal. 
+
+#### WAITING_DONE
+If the `doneLoadingAnimation(fillColor: Int, bitmap: Bitmap)` is called when the button is still morphing, it enter in this state. The button waits for the morph animation to complete and then start the done animation.
+
+#### DONE
+The button enters this state when the `doneLoadingAnimation` finishes.
+
+#### WAITING\_TO\_STOP
+The button enters this state when the `stopAnimation()` is called before the morph state is completed. The button waits for the morph animation to complete and the stops further animations. 
+
+#### STOPPED
+The button enters this state after `stopAnimation()` when the button is not morphing. 
 
 ## Configure XML
 
