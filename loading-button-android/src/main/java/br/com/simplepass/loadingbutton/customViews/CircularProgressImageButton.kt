@@ -157,7 +157,12 @@ open class CircularProgressImageButton : AppCompatImageButton, ProgressButton {
     }
 
     override fun setProgress(value: Float) {
-        progressAnimatedDrawable.progress = value
+        if (presenter.validateSetProgress()) {
+            progressAnimatedDrawable.progress = value
+        } else {
+            throw IllegalStateException("Set progress in being called in the wrong state: ${presenter.state}." +
+                " Allowed states: ${State.PROGRESS}, ${State.MORPHING}, ${State.WAITING_PROGRESS}")
+        }
     }
 
     override fun setCompoundDrawables(left: Drawable?, top: Drawable?, right: Drawable?, bottom: Drawable?) {}

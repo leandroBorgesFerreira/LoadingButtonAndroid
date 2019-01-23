@@ -167,7 +167,12 @@ open class CircularProgressButton : AppCompatButton, ProgressButton {
     }
 
     override fun setProgress(value: Float) {
-        progressAnimatedDrawable.progress = value
+        if (presenter.validateSetProgress()) {
+            progressAnimatedDrawable.progress = value
+        } else {
+            throw IllegalStateException("Set progress in being called in the wrong state: ${presenter.state}." +
+                " Allowed states: ${State.PROGRESS}, ${State.MORPHING}, ${State.WAITING_PROGRESS}")
+        }
     }
 
     data class InitialState(
