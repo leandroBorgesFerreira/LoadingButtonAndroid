@@ -126,4 +126,7 @@ internal class ProgressButtonPresenter(private val view: ProgressButton) {
             else -> State.DONE
         }
     }
+
+    internal fun validateSetProgress(): Boolean =
+        state == State.PROGRESS || state == State.MORPHING || state == State.WAITING_PROGRESS
 }
