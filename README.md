@@ -28,7 +28,7 @@ You can check how this library was implemented here (Old version): https://mediu
 
 ## Installation 
 
-    implementation 'br.com.simplepass:loading-button-android:2.0.6
+    implementation 'br.com.simplepass:loading-button-android:2.0.7
 
 ## How to use
 
