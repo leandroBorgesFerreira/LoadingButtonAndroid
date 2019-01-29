@@ -126,7 +126,13 @@ The button enters this state after `stopAnimation()` when the button is not morp
  - app:initialCornerAngle: The initial corner angle of the animation. Insert 0 if you have a square button.
  - app:finalCornerAngle: The final corner angle of the animation.
 
-## Avoid Memory Leaks
+## Problems and troubleshooting
+
+### Manifest merge
+
+This library only supports androidx since prior the version 2.0.0. So don't try to use it with the old Support Library. Use androidx instead.
+
+### Avoid Memory Leaks
 To avoid memory leaks is your code, you must dispose the buttons in the onDestroy method. Example:
 
     override fun onDestroy() {
