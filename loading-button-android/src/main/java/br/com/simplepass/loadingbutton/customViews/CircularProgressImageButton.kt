@@ -127,7 +127,9 @@ open class CircularProgressImageButton : AppCompatImageButton, ProgressButton {
         morphAnimator.end()
     }
 
-    override fun startAnimation() {
+    override fun startAnimation(onAnimationEndListener: () -> Unit) {
+        applyAnimationEndListener(morphAnimator, onAnimationEndListener)
+
         presenter.startAnimation()
     }
 

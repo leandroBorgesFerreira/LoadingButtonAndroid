@@ -219,5 +219,28 @@
             app:spinning_bar_padding="5dp"
             app:spinning_bar_width="5dp" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="Test 9 - Start Animation with listener, then Revert with listener" />
+
+        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+            android:id="@+id/buttonTest9"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/button_shape_default"
+            android:text="@string/send"
+            android:textColor="@android:color/white"
+            android:theme="@style/BluePrimaryButton"
+            app:finalCornerAngle="50dp"
+            app:initialCornerAngle="0dp"
+            app:spinning_bar_color="#FFFFFFFF"
+            app:spinning_bar_padding="5dp"
+            app:spinning_bar_width="5dp" />
+
     </LinearLayout>
 </ScrollView>

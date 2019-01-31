@@ -57,6 +57,12 @@ Then, instanciate the button
 		[or just revert de animation]
 		btn.revertAnimation();
 
+You can also add a callback to trigger an action after the startAnimation has finished resizing the button :
+
+    btn.startAnimation {
+        <start async task>
+    }
+
 ### Switch to determinant progress
 You can switch between indeterminant and determinant progress:
 

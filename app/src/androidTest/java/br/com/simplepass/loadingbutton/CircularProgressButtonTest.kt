@@ -18,6 +18,9 @@ import org.hamcrest.Matchers.not
 import org.hamcrest.core.AllOf.allOf
 import org.junit.Rule
 import org.junit.Test
+import androidx.test.espresso.matcher.RootMatchers.withDecorView
+import org.hamcrest.Matchers.`is`
+
 
 /**
  * [Testing Fundamentals](http://d.android.com/tools/testing/testing_android.html)
@@ -30,39 +33,40 @@ class CircularProgressButtonTest {
 
     // Buttons that doesn't revert the animation very fast
     private val slowProgressButtons = arrayOf(
-        R.id.buttonTest1,
-        R.id.buttonTest2,
-        R.id.buttonTest6,
-        R.id.buttonTest7,
-        R.id.buttonTest8
+            R.id.buttonTest1,
+            R.id.buttonTest2,
+            R.id.buttonTest6,
+            R.id.buttonTest7,
+            R.id.buttonTest8,
+            R.id.buttonTest9
     )
 
     private val allProgressButtons = arrayOf(
-        R.id.buttonTest1,
-        R.id.buttonTest2,
-        R.id.buttonTest3,
-        R.id.buttonTest4,
-        R.id.buttonTest5,
-        R.id.buttonTest6,
-        R.id.buttonTest7,
-        R.id.buttonTest8
+            R.id.buttonTest1,
+            R.id.buttonTest2,
+            R.id.buttonTest3,
+            R.id.buttonTest4,
+            R.id.buttonTest5,
+            R.id.buttonTest6,
+            R.id.buttonTest7,
+            R.id.buttonTest8
     )
 
     private fun testButtonTextVisibilityBeforeAnimation(id: Int) {
         onView(withId(id))
-            .perform(scrollTo())
-            .check(matches(allOf(isDisplayed(), isEnabled(), isClickable(), withText(R.string.send))))
-            .perform(click())
-            .check(matches(not(withText(R.string.send))))
+                .perform(scrollTo())
+                .check(matches(allOf(isDisplayed(), isEnabled(), isClickable(), withText(R.string.send))))
+                .perform(click())
+                .check(matches(not(withText(R.string.send))))
     }
 
     private fun testButtonTextVisibilityBeforeAndAfterAnimation(id: Int) {
         val progressButton: CircularProgressButton = activityTestRule.activity.findViewById(id)
 
         onView(withId(id))
-            .perform(scrollTo())
-            .check(matches(allOf(isDisplayed(), isEnabled(), isClickable(), withText(R.string.send))))
-            .perform(click())
+                .perform(scrollTo())
+                .check(matches(allOf(isDisplayed(), isEnabled(), isClickable(), withText(R.string.send))))
+                .perform(click())
 
         val progressButtonIdlingResource = ProgressButtonStateIdlingResource(progressButton)
         IdlingRegistry.getInstance().register(progressButtonIdlingResource)
@@ -87,5 +91,23 @@ class CircularProgressButtonTest {
                 .check(matches(allOf(isDisplayed(), isEnabled(), isClickable(), withText(R.string.send))))
                 .perform(click())
                 .check(matches(withText(R.string.send)))
+    }
+
+    @Test
+    fun testToastShowAfterStartAnimationFinished() {
+        val id = R.id.buttonTest9
+        val progressButton: CircularProgressButton = activityTestRule.activity.findViewById(id)
+        val progressButtonIdlingResource = ProgressButtonStateIdlingResource(progressButton).apply {
+            IdlingRegistry.getInstance().register(this)
+        }
+
+        onView(withId(id))
+                .perform(scrollTo())
+                .check(matches(allOf(isDisplayed(), isEnabled(), isClickable(), withText(R.string.send))))
+                .perform(click())
+
+
+        onView(withText(R.string.start_done)).inRoot(withDecorView(not(`is`(activityTestRule.activity.window.decorView)))).check(matches(isDisplayed()))
+        IdlingRegistry.getInstance().unregister(progressButtonIdlingResource)
     }
 }

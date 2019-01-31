@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">LoadingButton</string>
     <string name="send">Send</string>
+    <string name="start_done">Start Animation Done</string>
 </resources>

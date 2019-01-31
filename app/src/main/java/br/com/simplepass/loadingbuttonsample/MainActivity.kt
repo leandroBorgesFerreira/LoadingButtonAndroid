@@ -12,6 +12,9 @@ import androidx.core.content.ContextCompat
 import br.com.simplepass.loadingbutton.animatedDrawables.ProgressType
 import br.com.simplepass.loadingbutton.customViews.ProgressButton
 import kotlinx.android.synthetic.main.activity_main.*
+import android.widget.Toast
+
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -54,6 +57,15 @@ class MainActivity : AppCompatActivity() {
 
         buttonTest7.run { setOnClickListener { morphStopRevert() } }
         buttonTest8.run { setOnClickListener { morphStopRevert(100, 1000) } }
+
+        buttonTest9.run {
+            setOnClickListener {
+             morphAndRevert {
+                Toast.makeText(this@MainActivity, getString(R.string.start_done),
+                        Toast.LENGTH_SHORT).show()
+            }
+        }
+        }
     }
 }
 
@@ -77,8 +89,8 @@ private fun ProgressButton.morphDoneAndRevert(
     }
 }
 
-private fun ProgressButton.morphAndRevert(revertTime: Long = 3000) {
-    startAnimation()
+private fun ProgressButton.morphAndRevert(revertTime: Long = 3000, startAnimationCallback : () -> Unit = {}) {
+    startAnimation(startAnimationCallback)
     Handler().postDelayed({ revertAnimation() }, revertTime)
 }
 
