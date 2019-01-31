@@ -58,11 +58,11 @@ class MainActivity : AppCompatActivity() {
 
         buttonTest9.run {
             setOnClickListener {
-             morphAndRevert {
-                Toast.makeText(this@MainActivity, getString(R.string.start_done),
-                        Toast.LENGTH_SHORT).show()
+                morphAndRevert {
+                    Toast.makeText(this@MainActivity, getString(R.string.start_done),
+                            Toast.LENGTH_SHORT).show()
+                }
             }
-        }
         }
     }
 }
@@ -70,14 +70,14 @@ class MainActivity : AppCompatActivity() {
 private fun defaultColor(context: Context) = ContextCompat.getColor(context, android.R.color.black)
 
 private fun defaultDoneImage(resources: Resources) =
-    BitmapFactory.decodeResource(resources, R.drawable.ic_pregnant_woman_white_48dp)
+        BitmapFactory.decodeResource(resources, R.drawable.ic_pregnant_woman_white_48dp)
 
 private fun ProgressButton.morphDoneAndRevert(
-    context: Context,
-    fillColor: Int = defaultColor(context),
-    bitmap: Bitmap = defaultDoneImage(context.resources),
-    doneTime: Long = 3000,
-    revertTime: Long = 4000
+        context: Context,
+        fillColor: Int = defaultColor(context),
+        bitmap: Bitmap = defaultDoneImage(context.resources),
+        doneTime: Long = 3000,
+        revertTime: Long = 4000
 ) {
     progressType = ProgressType.INDETERMINATE
     startAnimation()
@@ -87,7 +87,7 @@ private fun ProgressButton.morphDoneAndRevert(
     }
 }
 
-private fun ProgressButton.morphAndRevert(revertTime: Long = 3000, startAnimationCallback : () -> Unit = {}) {
+private fun ProgressButton.morphAndRevert(revertTime: Long = 3000, startAnimationCallback: () -> Unit = {}) {
     startAnimation(startAnimationCallback)
     Handler().postDelayed({ revertAnimation() }, revertTime)
 }
