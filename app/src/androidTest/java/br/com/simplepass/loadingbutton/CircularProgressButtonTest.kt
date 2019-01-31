@@ -21,7 +21,6 @@ import org.junit.Test
 import androidx.test.espresso.matcher.RootMatchers.withDecorView
 import org.hamcrest.Matchers.`is`
 
-
 /**
  * [Testing Fundamentals](http://d.android.com/tools/testing/testing_android.html)
  */
@@ -105,7 +104,6 @@ class CircularProgressButtonTest {
                 .perform(scrollTo())
                 .check(matches(allOf(isDisplayed(), isEnabled(), isClickable(), withText(R.string.send))))
                 .perform(click())
-
 
         onView(withText(R.string.start_done)).inRoot(withDecorView(not(`is`(activityTestRule.activity.window.decorView)))).check(matches(isDisplayed()))
         IdlingRegistry.getInstance().unregister(progressButtonIdlingResource)

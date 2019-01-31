@@ -14,8 +14,6 @@ import br.com.simplepass.loadingbutton.customViews.ProgressButton
 import kotlinx.android.synthetic.main.activity_main.*
 import android.widget.Toast
 
-
-
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
