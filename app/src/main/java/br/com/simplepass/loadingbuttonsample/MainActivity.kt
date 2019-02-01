@@ -73,11 +73,11 @@ private fun defaultDoneImage(resources: Resources) =
         BitmapFactory.decodeResource(resources, R.drawable.ic_pregnant_woman_white_48dp)
 
 private fun ProgressButton.morphDoneAndRevert(
-        context: Context,
-        fillColor: Int = defaultColor(context),
-        bitmap: Bitmap = defaultDoneImage(context.resources),
-        doneTime: Long = 3000,
-        revertTime: Long = 4000
+    context: Context,
+    fillColor: Int = defaultColor(context),
+    bitmap: Bitmap = defaultDoneImage(context.resources),
+    doneTime: Long = 3000,
+    revertTime: Long = 4000
 ) {
     progressType = ProgressType.INDETERMINATE
     startAnimation()
