@@ -54,7 +54,7 @@ interface ProgressButton : Drawable.Callback {
     fun recoverInitialState()
     fun hideInitialState()
 
-    fun startAnimation()
+    fun startAnimation(onAnimationEndListener: () -> Unit = {})
     fun startMorphAnimation()
     fun startMorphRevertAnimation()
     fun stopMorphAnimation()
@@ -164,5 +164,6 @@ internal fun applyAnimationEndListener(animator: Animator, onAnimationEndListene
     animator.addListener(object : AnimatorListenerAdapter() {
         override fun onAnimationEnd(animation: Animator?) {
             onAnimationEndListener()
+            animator.removeListener(this)
         }
     })
