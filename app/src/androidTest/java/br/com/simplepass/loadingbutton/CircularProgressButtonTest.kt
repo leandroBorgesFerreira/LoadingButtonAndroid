@@ -48,7 +48,8 @@ class CircularProgressButtonTest {
             R.id.buttonTest5,
             R.id.buttonTest6,
             R.id.buttonTest7,
-            R.id.buttonTest8
+            R.id.buttonTest8,
+            R.id.buttonTest9
     )
 
     private fun testButtonTextVisibilityBeforeAnimation(id: Int) {
