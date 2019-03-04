@@ -85,9 +85,7 @@ open class CircularProgressImageButton : AppCompatImageButton, ProgressButton {
         createProgressDrawable()
     }
 
-    private val revealAnimatedDrawable: CircularRevealAnimatedDrawable by lazy {
-        createRevealAnimatedDrawable()
-    }
+    private lateinit var revealAnimatedDrawable: CircularRevealAnimatedDrawable
 
     override fun getState(): State = presenter.state
 
@@ -145,6 +143,10 @@ open class CircularProgressImageButton : AppCompatImageButton, ProgressButton {
 
     override fun doneLoadingAnimation(fillColor: Int, bitmap: Bitmap) {
         presenter.doneLoadingAnimation(fillColor, bitmap)
+    }
+
+    override fun initRevealAnimation() {
+        revealAnimatedDrawable = createRevealAnimatedDrawable()
     }
 
     fun dispose() {

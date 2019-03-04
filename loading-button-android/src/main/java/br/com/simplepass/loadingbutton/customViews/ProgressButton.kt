@@ -70,6 +70,7 @@ interface ProgressButton : Drawable.Callback {
     fun drawDoneAnimation(canvas: Canvas)
 
     fun setProgress(value: Float)
+    fun initRevealAnimation()
 }
 
 internal fun ProgressButton.init(attrs: AttributeSet? = null, defStyleAttr: Int = 0) {
