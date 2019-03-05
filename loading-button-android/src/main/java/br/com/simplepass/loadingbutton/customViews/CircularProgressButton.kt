@@ -4,8 +4,8 @@ import android.animation.AnimatorSet
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.Rect
 import android.graphics.drawable.Drawable
-import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
@@ -43,7 +43,11 @@ open class CircularProgressButton : AppCompatButton, ProgressButton {
 
     private lateinit var initialState: InitialState
 
-    override val finalWidth: Int by lazy { finalHeight }
+    override val finalWidth: Int by lazy {
+        val padding = Rect()
+        drawableBackground.getPadding(padding)
+        finalHeight - (Math.abs(padding.top - padding.left) * 2)
+    }
     override val finalHeight: Int by lazy { height }
     private val initialHeight: Int by lazy { height }
 
@@ -53,14 +57,14 @@ open class CircularProgressButton : AppCompatButton, ProgressButton {
             progressAnimatedDrawable.progressType = value
         }
 
-    override lateinit var drawable: GradientDrawable
+    override lateinit var drawableBackground: Drawable
 
     private val presenter = ProgressButtonPresenter(this)
 
     private val morphAnimator by lazy {
         AnimatorSet().apply {
             playTogether(
-                cornerAnimator(drawable, initialCorner, finalCorner),
+                cornerAnimator(drawableBackground, initialCorner, finalCorner),
                 widthAnimator(this@CircularProgressButton, initialState.initialWidth, finalWidth),
                 heightAnimator(this@CircularProgressButton, initialHeight, finalHeight)
             )
@@ -72,7 +76,7 @@ open class CircularProgressButton : AppCompatButton, ProgressButton {
     private val morphRevertAnimator by lazy {
         AnimatorSet().apply {
             playTogether(
-                cornerAnimator(drawable, finalCorner, initialCorner),
+                cornerAnimator(drawableBackground, finalCorner, initialCorner),
                 widthAnimator(this@CircularProgressButton, finalWidth, initialState.initialWidth),
                 heightAnimator(this@CircularProgressButton, finalHeight, initialHeight)
             )

@@ -1,16 +1,7 @@
 package br.com.simplepass.loadingbutton.animatedDrawables
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
-import android.animation.AnimatorSet
-import android.animation.TimeInterpolator
-import android.animation.ValueAnimator
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.ColorFilter
-import android.graphics.Paint
-import android.graphics.PixelFormat
+import android.animation.*
+import android.graphics.*
 import android.graphics.drawable.Animatable
 import android.graphics.drawable.Drawable
 import android.view.animation.DecelerateInterpolator
@@ -39,11 +30,11 @@ internal class CircularRevealAnimatedDrawable(
     }
 
     private val bitMapXOffset: Float by lazy {
-        ((bounds.right - bounds.left - bitMapWidth()) / 2).toFloat()
+        (centerWidth - bitMapWidth() / 2).toFloat()
     }
 
     private val bitMapYOffset: Float by lazy {
-        ((bounds.bottom - bounds.top - bitMapHeight()) / 2).toFloat()
+        ((centerHeight - bitMapHeight() / 2)).toFloat()
     }
 
     private val conclusionAnimation: AnimatorSet by lazy {
