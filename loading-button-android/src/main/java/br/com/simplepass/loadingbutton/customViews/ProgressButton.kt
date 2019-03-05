@@ -9,6 +9,7 @@ import android.content.res.TypedArray
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Rect
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
@@ -84,8 +85,18 @@ internal fun ProgressButton.init(attrs: AttributeSet? = null, defStyleAttr: Int 
         getContext().obtainStyledAttributes(this, attrsArray, defStyleAttr, 0)
     }
 
-    drawableBackground = typedArrayBg?.getDrawable(0)
+    val tempDrawable = typedArrayBg?.getDrawable(0)
             ?: ContextCompat.getDrawable(getContext(), R.drawable.shape_default)!!
+    drawableBackground = tempDrawable.let {
+        when (it) {
+            is ColorDrawable -> GradientDrawable().apply { setColor(it.color) }
+            else -> it
+        }
+    }
+    if (typedArray?.getBoolean(R.styleable.CircularProgressButton_use_drawable_cache, false) == false) {
+        drawableBackground = drawableBackground.constantState?.newDrawable()?.mutate()
+                ?: drawableBackground
+    }
 
     setBackground(drawableBackground)
 

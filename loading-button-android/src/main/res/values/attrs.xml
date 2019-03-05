@@ -6,5 +6,6 @@
         <attr name="spinning_bar_padding" format="dimension"/>
         <attr name="initialCornerAngle" format="dimension"/>
         <attr name="finalCornerAngle" format="dimension"/>
+        <attr name="use_drawable_cache" format="boolean"/>
     </declare-styleable>
 </resources>
