@@ -13,6 +13,7 @@ import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.LifecycleObserver
 import br.com.simplepass.loadingbutton.R
 import br.com.simplepass.loadingbutton.animatedDrawables.CircularProgressAnimatedDrawable
 import br.com.simplepass.loadingbutton.animatedDrawables.CircularRevealAnimatedDrawable
@@ -20,9 +21,10 @@ import br.com.simplepass.loadingbutton.animatedDrawables.ProgressType
 import br.com.simplepass.loadingbutton.presentation.State
 import br.com.simplepass.loadingbutton.updateHeight
 import br.com.simplepass.loadingbutton.updateWidth
+import br.com.simplepass.loadingbutton.utils.addLifecycleObserver
 import br.com.simplepass.loadingbutton.utils.parseGradientDrawable
 
-interface ProgressButton : Drawable.Callback {
+interface ProgressButton : Drawable.Callback, LifecycleObserver {
     var paddingProgress: Float
     var spinningBarWidth: Float
     var spinningBarColor: Int
@@ -93,6 +95,10 @@ internal fun ProgressButton.init(attrs: AttributeSet? = null, defStyleAttr: Int 
 
     typedArray?.recycle()
     typedArrayBg?.recycle()
+
+    // all ProgressButton instances implement LifecycleObserver, so we can
+    // auto-register each instance on initialization
+    getContext().addLifecycleObserver(this)
 }
 
 internal fun ProgressButton.config(tArray: TypedArray) {

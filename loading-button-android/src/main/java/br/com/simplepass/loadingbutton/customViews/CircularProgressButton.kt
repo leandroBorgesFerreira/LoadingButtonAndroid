@@ -9,6 +9,8 @@ import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.OnLifecycleEvent
 import br.com.simplepass.loadingbutton.animatedDrawables.CircularProgressAnimatedDrawable
 import br.com.simplepass.loadingbutton.animatedDrawables.CircularRevealAnimatedDrawable
 import br.com.simplepass.loadingbutton.animatedDrawables.ProgressType
@@ -157,6 +159,7 @@ open class CircularProgressButton : AppCompatButton, ProgressButton {
         presenter.doneLoadingAnimation(fillColor, bitmap)
     }
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun dispose() {
         morphAnimator.disposeAnimator()
         morphRevertAnimator.disposeAnimator()
