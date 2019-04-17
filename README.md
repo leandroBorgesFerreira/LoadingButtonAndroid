@@ -28,7 +28,7 @@ You can check how this library was implemented here (Old version): https://mediu
 
 ## Installation 
 
-    implementation 'br.com.simplepass:loading-button-android:2.0.7'
+    implementation 'br.com.simplepass:loading-button-android:2.1.0'
 
 ## How to use
 
@@ -139,15 +139,18 @@ The button enters this state after `stopAnimation()` when the button is not morp
 This library only supports androidx since prior the version 2.0.0. So don't try to use it with the old Support Library. Use androidx instead.
 
 ### Avoid Memory Leaks
-To avoid memory leaks is your code, you must dispose the buttons in the onDestroy method. Example:
+Prior to version 2.1.0, to avoid memory leaks is your code, you must dispose the buttons in the onDestroy method. Example:
 
     override fun onDestroy() {
             super.onDestroy()
 
             progressButton.dispose()
      }
-     
-     
+
+
+In version 2.1.0, `ProgressButton` was updated to be a `LifecycleObserver` and will automatically
+call `dispose()` when an `onDestroy()` event is observed by the lifecycle owner.
+
 ## Contributing
 ###Setup Git Pre-commit hook script (Optional)
 
