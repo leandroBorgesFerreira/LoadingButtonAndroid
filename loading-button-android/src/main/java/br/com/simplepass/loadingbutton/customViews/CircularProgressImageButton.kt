@@ -38,9 +38,6 @@ open class CircularProgressImageButton : AppCompatImageButton, ProgressButton {
     override var finalCorner = 0F
     override var initialCorner = 0F
 
-    override var doneFillColor: Int = ContextCompat.getColor(context, android.R.color.black)
-    override lateinit var doneImage: Bitmap
-
     private lateinit var initialState: InitialState
 
     override val finalHeight: Int by lazy { height }
@@ -149,8 +146,8 @@ open class CircularProgressImageButton : AppCompatImageButton, ProgressButton {
         presenter.doneLoadingAnimation(fillColor, bitmap)
     }
 
-    override fun initRevealAnimation() {
-        revealAnimatedDrawable = createRevealAnimatedDrawable()
+    override fun initRevealAnimation(fillColor: Int, bitmap: Bitmap) {
+        revealAnimatedDrawable = createRevealAnimatedDrawable(fillColor, bitmap)
     }
 
     fun dispose() {

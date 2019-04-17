@@ -109,9 +109,7 @@ internal class ProgressButtonPresenter(private val view: ProgressButton) {
     }
 
     fun doneLoadingAnimation(fillColor: Int, bitmap: Bitmap) {
-        view.doneFillColor = fillColor
-        view.doneImage = bitmap
-        view.initRevealAnimation()
+        view.initRevealAnimation(fillColor, bitmap)
 
         state = when (state) {
             State.PROGRESS -> {

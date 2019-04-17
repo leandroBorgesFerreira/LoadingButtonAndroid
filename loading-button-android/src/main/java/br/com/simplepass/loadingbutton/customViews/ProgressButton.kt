@@ -35,9 +35,6 @@ interface ProgressButton : Drawable.Callback {
     val finalWidth: Int
     val finalHeight: Int
 
-    var doneFillColor: Int
-    var doneImage: Bitmap
-
     var drawableBackground: Drawable
     var progressType: ProgressType
 
@@ -72,7 +69,7 @@ interface ProgressButton : Drawable.Callback {
     fun drawDoneAnimation(canvas: Canvas)
 
     fun setProgress(value: Float)
-    fun initRevealAnimation()
+    fun initRevealAnimation(fillColor: Int, bitmap: Bitmap)
 }
 
 internal fun ProgressButton.init(attrs: AttributeSet? = null, defStyleAttr: Int = 0) {
@@ -85,18 +82,15 @@ internal fun ProgressButton.init(attrs: AttributeSet? = null, defStyleAttr: Int 
         getContext().obtainStyledAttributes(this, attrsArray, defStyleAttr, 0)
     }
 
-    val tempDrawable = typedArrayBg?.getDrawable(0)
-            ?: ContextCompat.getDrawable(getContext(), R.drawable.shape_default)!!
-    drawableBackground = tempDrawable.let {
+    drawableBackground = typedArrayBg?.getDrawable(0)
+        ?: ContextCompat.getDrawable(getContext(), R.drawable.shape_default)!!.let {
         when (it) {
             is ColorDrawable -> GradientDrawable().apply { setColor(it.color) }
             else -> it
         }
-    }
-    if (typedArray?.getBoolean(R.styleable.CircularProgressButton_use_drawable_cache, false) == false) {
-        drawableBackground = drawableBackground.constantState?.newDrawable()?.mutate()
-                ?: drawableBackground
-    }
+        }.let {
+            drawableBackground.constantState?.newDrawable()?.mutate() ?: it
+        }
 
     setBackground(drawableBackground)
 
@@ -132,8 +126,8 @@ internal fun ProgressButton.createProgressDrawable(): CircularProgressAnimatedDr
         callback = this@createProgressDrawable
     }
 
-internal fun ProgressButton.createRevealAnimatedDrawable(): CircularRevealAnimatedDrawable =
-    CircularRevealAnimatedDrawable(this, doneFillColor, doneImage).apply {
+internal fun ProgressButton.createRevealAnimatedDrawable(fillColor: Int, bitmap: Bitmap): CircularRevealAnimatedDrawable =
+    CircularRevealAnimatedDrawable(this, fillColor, bitmap).apply {
         val padding = Rect()
         drawableBackground.getPadding(padding)
         val paddingSides = (Math.abs(padding.top - padding.left))
