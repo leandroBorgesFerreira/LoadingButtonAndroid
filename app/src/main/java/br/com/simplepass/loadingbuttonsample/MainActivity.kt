@@ -64,6 +64,12 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+        buttonTest10.run {
+            setOnClickListener {
+                morphDoneAndRevert(this@MainActivity)
+            }
+        }
     }
 }
 

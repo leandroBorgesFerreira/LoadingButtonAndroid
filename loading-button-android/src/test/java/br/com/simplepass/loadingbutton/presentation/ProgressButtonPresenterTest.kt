@@ -6,7 +6,6 @@ import br.com.simplepass.loadingbutton.customViews.ProgressButton
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.never
-import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import org.junit.Assert.assertEquals
@@ -263,11 +262,6 @@ class ProgressButtonPresenterTest {
                     this.state = state
                     doneLoadingAnimation(0, bitmapMock)
                 }
-        }
-
-        verify(view, times(9)).run {
-            doneFillColor = 0
-            doneImage = bitmapMock
         }
 
         verify(view, never()).run {

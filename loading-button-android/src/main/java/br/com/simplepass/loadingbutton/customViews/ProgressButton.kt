@@ -8,6 +8,8 @@ import android.content.Context
 import android.content.res.TypedArray
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.Rect
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
@@ -35,10 +37,7 @@ interface ProgressButton : Drawable.Callback, LifecycleObserver {
     val finalWidth: Int
     val finalHeight: Int
 
-    var doneFillColor: Int
-    var doneImage: Bitmap
-
-    var drawable: GradientDrawable
+    var drawableBackground: Drawable
     var progressType: ProgressType
 
     fun invalidate()
@@ -72,6 +71,7 @@ interface ProgressButton : Drawable.Callback, LifecycleObserver {
     fun drawDoneAnimation(canvas: Canvas)
 
     fun setProgress(value: Float)
+    fun initRevealAnimation(fillColor: Int, bitmap: Bitmap)
 }
 
 internal fun ProgressButton.init(attrs: AttributeSet? = null, defStyleAttr: Int = 0) {
@@ -84,12 +84,18 @@ internal fun ProgressButton.init(attrs: AttributeSet? = null, defStyleAttr: Int 
         getContext().obtainStyledAttributes(this, attrsArray, defStyleAttr, 0)
     }
 
-    drawable = parseGradientDrawable(
-        typedArrayBg?.getDrawable(0)
-            ?: ContextCompat.getDrawable(getContext(), R.drawable.shape_default)!!
-    )
+    val tempDrawable = typedArrayBg?.getDrawable(0)
+        ?: ContextCompat.getDrawable(getContext(), R.drawable.shape_default)!!.let {
+        when (it) {
+            is ColorDrawable -> GradientDrawable().apply { setColor(it.color) }
+            else -> it
+        }
+        }
+    drawableBackground = tempDrawable.let {
+        it.constantState?.newDrawable()?.mutate() ?: it
+    }
 
-    setBackground(drawable)
+    setBackground(drawableBackground)
 
     typedArray?.let { tArray -> config(tArray) }
 
@@ -115,23 +121,32 @@ internal fun ProgressButton.createProgressDrawable(): CircularProgressAnimatedDr
     CircularProgressAnimatedDrawable(this, spinningBarWidth, spinningBarColor).apply {
         val offset = (finalWidth - finalHeight) / 2
 
-        val left = offset + paddingProgress.toInt()
-        val right = finalWidth - offset - paddingProgress.toInt()
-        val bottom = finalHeight - paddingProgress.toInt()
-        val top = paddingProgress.toInt()
+        val padding = Rect()
+        drawableBackground.getPadding(padding)
+
+        val left = offset + paddingProgress.toInt() + padding.bottom
+        val right = finalWidth - offset - paddingProgress.toInt() - padding.bottom
+        val bottom = finalHeight - paddingProgress.toInt() - padding.bottom
+        val top = paddingProgress.toInt() + padding.top
 
         setBounds(left, top, right, bottom)
         callback = this@createProgressDrawable
     }
 
-internal fun ProgressButton.createRevealAnimatedDrawable(): CircularRevealAnimatedDrawable =
-    CircularRevealAnimatedDrawable(this, doneFillColor, doneImage).apply {
-        setBounds(0, 0, finalWidth, finalHeight)
+internal fun ProgressButton.createRevealAnimatedDrawable(fillColor: Int, bitmap: Bitmap): CircularRevealAnimatedDrawable =
+    CircularRevealAnimatedDrawable(this, fillColor, bitmap).apply {
+        val padding = Rect()
+        drawableBackground.getPadding(padding)
+        val paddingSides = (Math.abs(padding.top - padding.left))
+        setBounds(paddingSides, padding.top, finalWidth - paddingSides, finalHeight - padding.bottom)
         callback = this@createRevealAnimatedDrawable
     }
 
-internal fun cornerAnimator(drawable: GradientDrawable, initial: Float, final: Float) =
-    ObjectAnimator.ofFloat(drawable, "cornerRadius", initial, final)
+internal fun cornerAnimator(drawable: Drawable, initial: Float, final: Float) =
+    when (drawable) {
+        is GradientDrawable -> ObjectAnimator.ofFloat(drawable, "cornerRadius", initial, final)
+        else -> ObjectAnimator.ofFloat(parseGradientDrawable(drawable), "cornerRadius", initial, final)
+    }
 
 internal fun widthAnimator(view: View, initial: Int, final: Int) =
     ValueAnimator.ofInt(initial, final).apply {

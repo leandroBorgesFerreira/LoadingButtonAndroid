@@ -39,11 +39,11 @@ internal class CircularRevealAnimatedDrawable(
     }
 
     private val bitMapXOffset: Float by lazy {
-        ((bounds.right - bounds.left - bitMapWidth()) / 2).toFloat()
+        (centerWidth - bitMapWidth() / 2).toFloat()
     }
 
     private val bitMapYOffset: Float by lazy {
-        ((bounds.bottom - bounds.top - bitMapHeight()) / 2).toFloat()
+        ((centerHeight - bitMapHeight() / 2)).toFloat()
     }
 
     private val conclusionAnimation: AnimatorSet by lazy {

@@ -5,6 +5,7 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.InsetDrawable
+import android.graphics.drawable.RippleDrawable
 import android.graphics.drawable.StateListDrawable
 import android.os.Build
 import android.view.ContextThemeWrapper
@@ -18,7 +19,16 @@ internal fun parseGradientDrawable(drawable: Drawable): GradientDrawable =
         is InsetDrawable -> {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 drawable.drawable?.let { innerDrawable ->
-                    parseGradientDrawable(innerDrawable)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        when (innerDrawable) {
+                            is RippleDrawable -> {
+                                parseGradientDrawable(innerDrawable.getDrawable(0))
+                            }
+                            else -> parseGradientDrawable(innerDrawable)
+                        }
+                    } else {
+                        parseGradientDrawable(innerDrawable)
+                    }
                 }
                     ?: throw RuntimeException("Error reading background... Use a shape or a color in xml!")
             } else {
