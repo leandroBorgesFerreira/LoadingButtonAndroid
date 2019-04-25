@@ -36,60 +36,75 @@ You can check how this library was implemented here (Old version): https://mediu
 
 Add the button in your layout file and customize it the way you like it.
 
-      <br.com.simplepass.loadingbutton.customViews.CircularProgressImageButton
-        	    android:id="@+id/btn_id"
-        	    android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/circular_border_shape"
-                app:spinning_bar_width="4dp" <!-- Optional -->
-                app:spinning_bar_color="#FFF" <!-- Optional -->
-                app:spinning_bar_padding="6dp" <!-- Optional -->
+```xml
+<br.com.simplepass.loadingbutton.customViews.CircularProgressImageButton
+	android:id="@+id/btn_id"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:background="@drawable/circular_border_shape" />
+	app:spinning_bar_width="4dp" <!-- Optional -->
+	app:spinning_bar_color="#FFF" <!-- Optional -->
+	app:spinning_bar_padding="6dp" <!-- Optional -->
+```
 
 Then, instanciate the button
 
-        CircularProgressButton btn = (CircularProgressButton) findViewById(R.id.btn_id)
+```java
+CircularProgressButton btn = (CircularProgressButton) findViewById(R.id.btn_id)
+btn.startAnimation();
 
-        btn.startAnimation();
+//[do some async task. When it finishes]
+//You can choose the color and the image after the loading is finished
+btn.doneLoadingAnimation(fillColor, bitmap);
 
-    [do some async task. When it finishes]
-    //You can choose the color and the image after the loading is finished
-		btn.doneLoadingAnimation(fillColor, bitmap);
-		[or just revert de animation]
-		btn.revertAnimation();
+//[or just revert de animation]
+btn.revertAnimation();
+```
 
 You can also add a callback to trigger an action after the startAnimation has finished resizing the button :
 
-    btn.startAnimation {
-        <start async task>
-    }
+```kotlin
+btn.startAnimation {
+	<start async task>
+}
+```
 
 ### Switch to determinant progress
 You can switch between indeterminant and determinant progress:
 
-    circularProgressButton.setProgress(10)
-    ...
-    circularProgressButton.setProgress(50)
-    ...
-    circularProgressButton.setProgress(100)
-    ...
+```java
+circularProgressButton.setProgress(10)
+...
+circularProgressButton.setProgress(50)
+...
+circularProgressButton.setProgress(100)
+```
 
 ### - Show 'done' animation
 
 When the loading animation is running, call:
 
-    //Choose the color and the image that will be show
-    circularProgressButton.doneLoadingAnimation(fillColor, bitmap);
+```java
+//Choose the color and the image that will be show
+circularProgressButton.doneLoadingAnimation(fillColor, bitmap);
+```
 
 ### - Revert the loading animation with different text or image
 
-    progressButton.revertAnimation {
-        progressButton.text = "Some new text"
-    }
+```kotlin
+progressButton.revertAnimation {
+	progressButton.text = "Some new text"
+}
+```
+
 or
 
-    progressImageButton.revertAnimation {
-        progressImageButton.setImageResource(R.drawable.image)
-    }
+```kotlin
+progressImageButton.revertAnimation {
+	progressImageButton.setImageResource(R.drawable.image)
+}
+```
+
 ### - Button State
 
 This button is a state machine and it changes its state during the animation process. The states are:
@@ -126,11 +141,11 @@ The button enters this state after `stopAnimation()` when the button is not morp
 
 ## Configure XML
 
- - app:spinning_bar_width : Changes the width of the spinning bar inside the button
- - app:spinning_bar_color: Changes the color of the spinning bar inside the button
- - app:spinning_bar_padding: Changes the padding of the spinning bar in relation of the button bounds.
- - app:initialCornerAngle: The initial corner angle of the animation. Insert 0 if you have a square button.
- - app:finalCornerAngle: The final corner angle of the animation.
+ - `app:spinning_bar_width` : Changes the width of the spinning bar inside the button
+ - `app:spinning_bar_color`: Changes the color of the spinning bar inside the button
+ - `app:spinning_bar_padding`: Changes the padding of the spinning bar in relation of the button bounds.
+ - `app:initialCornerAngle`: The initial corner angle of the animation. Insert 0 if you have a square button.
+ - `app:finalCornerAngle`: The final corner angle of the animation.
 
 ## Problems and troubleshooting
 
@@ -141,12 +156,12 @@ This library only supports androidx since prior the version 2.0.0. So don't try 
 ### Avoid Memory Leaks
 Prior to version 2.1.0, to avoid memory leaks is your code, you must dispose the buttons in the onDestroy method. Example:
 
-    override fun onDestroy() {
-            super.onDestroy()
-
-            progressButton.dispose()
-     }
-
+```java
+override fun onDestroy() {
+        super.onDestroy()
+	progressButton.dispose()
+}
+```
 
 In version 2.1.0, `ProgressButton` was updated to be a `LifecycleObserver` and will automatically
 call `dispose()` when an `onDestroy()` event is observed by the lifecycle owner.
