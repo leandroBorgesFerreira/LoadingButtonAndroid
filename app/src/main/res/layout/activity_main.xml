@@ -20,6 +20,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
+            android:text="Test 0" />
+
+        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:id="@+id/imgBtnTest0"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:layout_marginBottom="10dp"
+            android:text="Test 0"
+            app:finalCornerAngle="50dp"
+            app:initialCornerAngle="0dp"
+            app:spinning_bar_color="#FFFFFF"
+            app:spinning_bar_padding="0dp"
+            app:spinning_bar_width="3dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
             android:text="Test 1 - Morph, loading, done and revert" />
 
         <br.com.simplepass.loadingbutton.customViews.CircularProgressImageButton

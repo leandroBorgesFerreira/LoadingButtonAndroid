@@ -20,6 +20,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        imgBtnTest0.run { setOnClickListener { morphDoneAndRevert(this@MainActivity) } }
+
         imgBtnTest1.run { setOnClickListener { morphDoneAndRevert(this@MainActivity) } }
         buttonTest1.run { setOnClickListener { morphDoneAndRevert(this@MainActivity) } }
 
