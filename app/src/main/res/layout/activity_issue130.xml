@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/PayDialogTheme">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingTop="40dp"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        tools:context="br.com.simplepass.loadingbuttonsample.Issue130Activity">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="Test 1 - Issue 130 test" />
+
+        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+            android:theme="@style/PayDialogTheme"
+            style="@style/Widget.MaterialComponents.Button"
+            android:id="@+id/imgBtnTestIssue130"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:layout_marginBottom="10dp"
+            android:scaleType="fitCenter"
+            android:text="Test issue 130"
+            android:background="@drawable/button_shape_default"
+            app:finalCornerAngle="50dp"
+            app:initialCornerAngle="20dp"
+            app:spinning_bar_color="#FFFFFF"
+            app:spinning_bar_padding="0dp"
+            app:spinning_bar_width="3dp" />
+
+    </LinearLayout>
+</ScrollView>

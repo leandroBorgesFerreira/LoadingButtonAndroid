@@ -13,4 +13,6 @@
     <style name="BluePrimaryButton" parent="Theme.AppCompat.Light">
         <item name="android:colorBackground">@android:color/black</item>
     </style>
+
+    <style name="PayDialogTheme" parent="Theme.MaterialComponents.Light.BottomSheetDialog"/>
 </resources>

@@ -16,6 +16,7 @@
             </intent-filter>
         </activity>
         <activity android:name="br.com.simplepass.loadingbuttonsample.SecondActivity" />
+        <activity android:name="br.com.simplepass.loadingbuttonsample.Issue130Activity"/>
 
         <meta-data
             android:name="preloaded_fonts"

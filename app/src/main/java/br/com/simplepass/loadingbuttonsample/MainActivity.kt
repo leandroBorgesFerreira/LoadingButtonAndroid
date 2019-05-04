@@ -78,7 +78,7 @@ private fun defaultColor(context: Context) = ContextCompat.getColor(context, and
 private fun defaultDoneImage(resources: Resources) =
         BitmapFactory.decodeResource(resources, R.drawable.ic_pregnant_woman_white_48dp)
 
-private fun ProgressButton.morphDoneAndRevert(
+internal fun ProgressButton.morphDoneAndRevert(
     context: Context,
     fillColor: Int = defaultColor(context),
     bitmap: Bitmap = defaultDoneImage(context.resources),
