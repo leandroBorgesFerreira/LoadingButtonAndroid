@@ -47,11 +47,8 @@ internal fun parseGradientDrawable(drawable: Drawable): GradientDrawable =
 
 internal fun Context.addLifecycleObserver(observer: LifecycleObserver) {
     when {
-        this is LifecycleOwner ->
-            (this as LifecycleOwner).lifecycle.addObserver(observer)
-        this is ContextThemeWrapper ->
-            (this.baseContext as LifecycleOwner).lifecycle.addObserver(observer)
-        this is androidx.appcompat.view.ContextThemeWrapper ->
-            (this.baseContext as LifecycleOwner).lifecycle.addObserver(observer)
+        this is LifecycleOwner -> this.lifecycle.addObserver(observer)
+        this is ContextThemeWrapper -> this.baseContext.addLifecycleObserver(observer)
+        this is androidx.appcompat.view.ContextThemeWrapper -> this.baseContext.addLifecycleObserver(observer)
     }
 }
