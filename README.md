@@ -37,7 +37,7 @@ You can check how this library was implemented here (Old version): https://mediu
 Add the button in your layout file and customize it the way you like it.
 
 ```xml
-<br.com.simplepass.loadingbutton.customViews.CircularProgressImageButton
+<br.com.simplepass.loadingbutton.customViews.CircularProgressButton
 	android:id="@+id/btn_id"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
