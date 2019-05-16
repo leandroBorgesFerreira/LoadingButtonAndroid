@@ -54,13 +54,15 @@ internal class ProgressButtonPresenter(private val view: ProgressButton) {
     }
 
     fun onDraw(canvas: Canvas) {
-        if (state == State.BEFORE_DRAW) {
-            state = State.IDLE
-            view.saveInitialState()
-        }
-
         when (state) {
-            State.WAITING_PROGRESS -> view.startMorphAnimation()
+            State.BEFORE_DRAW -> {
+                state = State.IDLE
+                view.saveInitialState()
+            }
+            State.WAITING_PROGRESS -> {
+                view.saveInitialState()
+                view.startMorphAnimation()
+            }
             State.PROGRESS -> view.drawProgress(canvas)
             State.DONE -> view.drawDoneAnimation(canvas)
             else -> return
