@@ -59,6 +59,8 @@ open class CircularProgressButton : AppCompatButton, ProgressButton {
 
     override lateinit var drawableBackground: Drawable
 
+    private var savedAnimationEndListener: () -> Unit = {}
+
     private val presenter = ProgressButtonPresenter(this)
 
     private val morphAnimator by lazy {
@@ -124,10 +126,12 @@ open class CircularProgressButton : AppCompatButton, ProgressButton {
     }
 
     override fun startMorphAnimation() {
+        applyAnimationEndListener(morphAnimator, savedAnimationEndListener)
         morphAnimator.start()
     }
 
     override fun startMorphRevertAnimation() {
+        applyAnimationEndListener(morphAnimator, savedAnimationEndListener)
         morphRevertAnimator.start()
     }
 
@@ -140,14 +144,12 @@ open class CircularProgressButton : AppCompatButton, ProgressButton {
     }
 
     override fun startAnimation(onAnimationEndListener: () -> Unit) {
-        applyAnimationEndListener(morphAnimator, onAnimationEndListener)
-
+        savedAnimationEndListener = onAnimationEndListener
         presenter.startAnimation()
     }
 
     override fun revertAnimation(onAnimationEndListener: () -> Unit) {
-        applyAnimationEndListener(morphRevertAnimator, onAnimationEndListener)
-
+        savedAnimationEndListener = onAnimationEndListener
         presenter.revertAnimation()
     }
 
