@@ -131,7 +131,7 @@ open class CircularProgressButton : AppCompatButton, ProgressButton {
     }
 
     override fun startMorphRevertAnimation() {
-        applyAnimationEndListener(morphAnimator, savedAnimationEndListener)
+        applyAnimationEndListener(morphRevertAnimator, savedAnimationEndListener)
         morphRevertAnimator.start()
     }
 
