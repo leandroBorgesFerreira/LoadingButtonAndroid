@@ -91,19 +91,19 @@ private fun ProgressButton.morphDoneAndRevert(
     startAnimation()
     Handler().run {
         postDelayed({ doneLoadingAnimation(fillColor, bitmap) }, doneTime)
-        postDelayed({ revertAnimation() }, revertTime)
+        postDelayed(::revertAnimation, revertTime)
     }
 }
 
 private fun ProgressButton.morphAndRevert(revertTime: Long = 3000, startAnimationCallback: () -> Unit = {}) {
     startAnimation(startAnimationCallback)
-    Handler().postDelayed({ revertAnimation() }, revertTime)
+    Handler().postDelayed(::revertAnimation, revertTime)
 }
 
 private fun ProgressButton.morphStopRevert(stopTime: Long = 1000, revertTime: Long = 2000) {
     startAnimation()
-    Handler().postDelayed({ stopAnimation() }, stopTime)
-    Handler().postDelayed({ revertAnimation() }, revertTime)
+    Handler().postDelayed(::stopAnimation, stopTime)
+    Handler().postDelayed(::revertAnimation, revertTime)
 }
 
 private fun progressAnimator(progressButton: ProgressButton) = ValueAnimator.ofFloat(0F, 100F).apply {

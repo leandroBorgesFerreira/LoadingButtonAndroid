@@ -55,7 +55,17 @@ interface ProgressButton : Drawable.Callback, LifecycleObserver {
     fun recoverInitialState()
     fun hideInitialState()
 
-    fun startAnimation(onAnimationEndListener: () -> Unit = {})
+
+    fun startAnimation(onAnimationEndListener: () -> Unit)
+
+    fun startAnimation(onAnimationEndListener: OnAnimationEndListener) {
+        startAnimation(onAnimationEndListener as () -> Unit)
+    }
+
+    fun startAnimation() {
+        startAnimation { }
+    }
+
     fun startMorphAnimation()
     fun startMorphRevertAnimation()
     fun stopMorphAnimation()
@@ -63,6 +73,14 @@ interface ProgressButton : Drawable.Callback, LifecycleObserver {
     fun stopProgressAnimation()
 
     fun revertAnimation(onAnimationEndListener: () -> Unit = {})
+    fun revertAnimation(onAnimationEndListener: OnAnimationEndListener) {
+        this.revertAnimation(onAnimationEndListener as (() -> Unit))
+    }
+
+    fun revertAnimation() {
+        revertAnimation { }
+    }
+
 
     fun doneLoadingAnimation(fillColor: Int, bitmap: Bitmap)
 
@@ -86,10 +104,10 @@ internal fun ProgressButton.init(attrs: AttributeSet? = null, defStyleAttr: Int 
 
     val tempDrawable = typedArrayBg?.getDrawable(0)
         ?: ContextCompat.getDrawable(getContext(), R.drawable.shape_default)!!.let {
-        when (it) {
-            is ColorDrawable -> GradientDrawable().apply { setColor(it.color) }
-            else -> it
-        }
+            when (it) {
+                is ColorDrawable -> GradientDrawable().apply { setColor(it.color) }
+                else -> it
+            }
         }
     drawableBackground = tempDrawable.let {
         it.constantState?.newDrawable()?.mutate() ?: it
@@ -133,7 +151,10 @@ internal fun ProgressButton.createProgressDrawable(): CircularProgressAnimatedDr
         callback = this@createProgressDrawable
     }
 
-internal fun ProgressButton.createRevealAnimatedDrawable(fillColor: Int, bitmap: Bitmap): CircularRevealAnimatedDrawable =
+internal fun ProgressButton.createRevealAnimatedDrawable(
+    fillColor: Int,
+    bitmap: Bitmap
+): CircularRevealAnimatedDrawable =
     CircularRevealAnimatedDrawable(this, fillColor, bitmap).apply {
         val padding = Rect()
         drawableBackground.getPadding(padding)
