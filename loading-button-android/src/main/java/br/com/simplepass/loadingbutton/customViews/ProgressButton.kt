@@ -55,7 +55,6 @@ interface ProgressButton : Drawable.Callback, LifecycleObserver {
     fun recoverInitialState()
     fun hideInitialState()
 
-
     fun startAnimation(onAnimationEndListener: () -> Unit)
 
     fun startAnimation(onAnimationEndListener: OnAnimationEndListener) {
@@ -80,8 +79,7 @@ interface ProgressButton : Drawable.Callback, LifecycleObserver {
     fun revertAnimation() {
         revertAnimation { }
     }
-
-
+    
     fun doneLoadingAnimation(fillColor: Int, bitmap: Bitmap)
 
     fun startRevealAnimation()
