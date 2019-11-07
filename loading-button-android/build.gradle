@@ -5,11 +5,11 @@ apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'org.jmailen.kotlinter'
 
 // Bintray depends on this global variable to set the library version!
-version = "2.1.4"
+version = "2.2.0"
 group = 'br.com.simplepass'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
 
     testOptions {
         unitTests {
@@ -19,7 +19,7 @@ android {
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 21
         versionName version
     }
@@ -126,7 +126,7 @@ if (project.hasProperty('bintrayUser') && project.hasProperty('bintrayKey')) {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
 
     testImplementation 'org.mockito:mockito-core:2.23.4'
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0"
