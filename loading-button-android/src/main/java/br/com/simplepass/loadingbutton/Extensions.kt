@@ -2,6 +2,7 @@ package br.com.simplepass.loadingbutton
 
 import android.animation.Animator
 import android.view.View
+import android.view.ViewGroup
 
 internal fun Animator.disposeAnimator() {
     end()
@@ -10,13 +11,13 @@ internal fun Animator.disposeAnimator() {
 }
 
 internal fun View.updateWidth(width: Int) {
-    val layoutParams = this.layoutParams
-    layoutParams.width = width
-    this.layoutParams = layoutParams
+    this.changeProperty { this.width = width }
 }
 
 internal fun View.updateHeight(height: Int) {
-    val layoutParams = this.layoutParams
-    layoutParams.height = height
-    this.layoutParams = layoutParams
+    this.changeProperty { this.height = height }
+}
+
+private fun View.changeProperty(func: ViewGroup.LayoutParams.() -> Unit) {
+    this.layoutParams = this.layoutParams.apply(func)
 }
