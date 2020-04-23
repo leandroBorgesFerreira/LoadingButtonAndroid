@@ -128,11 +128,11 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
 
-    testImplementation 'org.mockito:mockito-core:2.23.4'
-    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0"
-    testImplementation 'org.robolectric:robolectric:4.1'
-    testImplementation 'androidx.test:core:1.1.0'
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:3.0.0'
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0"
+    testImplementation 'org.robolectric:robolectric:4.3.1'
+    testImplementation 'androidx.test:core:1.2.0'
+    testImplementation 'junit:junit:4.13'
 
 }
 repositories {
