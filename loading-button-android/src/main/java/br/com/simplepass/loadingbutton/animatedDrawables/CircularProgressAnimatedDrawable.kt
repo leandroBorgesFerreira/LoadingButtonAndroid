@@ -126,17 +126,15 @@ internal class CircularProgressAnimatedDrawable(
 
     private fun getAngles(): Pair<Float, Float> =
         when (progressType) {
-            ProgressType.DETERMINATE -> {
-                -90F to progress * 3.6F
-            }
-            ProgressType.INDETERMINATE -> {
+            ProgressType.DETERMINATE ->  -90F to progress * 3.6F
+
+            ProgressType.INDETERMINATE -> 
                 if (modeAppearing) {
                     (currentGlobalAngle - currentGlobalAngleOffset) to currentSweepAngle + MIN_SWEEP_ANGLE
                 } else {
                     (currentGlobalAngle - currentGlobalAngleOffset + currentSweepAngle) to
                         360F - currentSweepAngle - MIN_SWEEP_ANGLE
                 }
-            }
         }
 
     fun setLoadingBarColor(color: Int) {

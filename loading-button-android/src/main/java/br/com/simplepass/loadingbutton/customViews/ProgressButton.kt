@@ -96,20 +96,19 @@ internal fun ProgressButton.init(attrs: AttributeSet? = null, defStyleAttr: Int 
     }
 
     val typedArrayBg: TypedArray? = attrs?.run {
-        val attrsArray = intArrayOf(android.R.attr.background)
+        val attrsArray: IntArray = intArrayOf(android.R.attr.background)
         getContext().obtainStyledAttributes(this, attrsArray, defStyleAttr, 0)
     }
 
-    val tempDrawable = typedArrayBg?.getDrawable(0)
-        ?: ContextCompat.getDrawable(getContext(), R.drawable.shape_default)!!.let {
-            when (it) {
-                is ColorDrawable -> GradientDrawable().apply { setColor(it.color) }
-                else -> it
+    drawableBackground = typedArrayBg?.getDrawable(0)
+        ?: ContextCompat.getDrawable(getContext(), R.drawable.shape_default)!!.let { drawable ->
+            when (drawable) {
+                is ColorDrawable -> GradientDrawable().apply { setColor(drawable.color) }
+                else -> drawable
             }
+        }.let { drawable ->
+            drawable.constantState?.newDrawable()?.mutate() ?: drawable
         }
-    drawableBackground = tempDrawable.let {
-        it.constantState?.newDrawable()?.mutate() ?: it
-    }
 
     setBackground(drawableBackground)
 

@@ -17,6 +17,7 @@ import br.com.simplepass.loadingbutton.animatedDrawables.ProgressType
 import br.com.simplepass.loadingbutton.disposeAnimator
 import br.com.simplepass.loadingbutton.presentation.ProgressButtonPresenter
 import br.com.simplepass.loadingbutton.presentation.State
+import kotlin.math.abs
 
 open class CircularProgressButton : AppCompatButton, ProgressButton {
 
@@ -45,7 +46,7 @@ open class CircularProgressButton : AppCompatButton, ProgressButton {
     override val finalWidth: Int by lazy {
         val padding = Rect()
         drawableBackground.getPadding(padding)
-        finalHeight - (Math.abs(padding.top - padding.left) * 2)
+        finalHeight - (abs(padding.top - padding.left) * 2)
     }
 
     override val finalHeight: Int by lazy { height }
