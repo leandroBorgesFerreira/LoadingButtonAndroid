@@ -25,6 +25,7 @@ import br.com.simplepass.loadingbutton.updateHeight
 import br.com.simplepass.loadingbutton.updateWidth
 import br.com.simplepass.loadingbutton.utils.addLifecycleObserver
 import br.com.simplepass.loadingbutton.utils.parseGradientDrawable
+import kotlin.math.abs
 
 interface ProgressButton : Drawable.Callback, LifecycleObserver {
     var paddingProgress: Float
@@ -155,7 +156,7 @@ internal fun ProgressButton.createRevealAnimatedDrawable(
     CircularRevealAnimatedDrawable(this, fillColor, bitmap).apply {
         val padding = Rect()
         drawableBackground.getPadding(padding)
-        val paddingSides = (Math.abs(padding.top - padding.left))
+        val paddingSides = (abs(padding.top - padding.left))
         setBounds(paddingSides, padding.top, finalWidth - paddingSides, finalHeight - padding.bottom)
         callback = this@createRevealAnimatedDrawable
     }
