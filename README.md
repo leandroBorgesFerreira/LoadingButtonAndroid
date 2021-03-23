@@ -153,7 +153,7 @@ The button enters this state after `stopAnimation()` when the button is not morp
 ## Problems and troubleshooting
 
 ### Animation
-This library only works selector as the background, but not with shape as the root tag. Please put your shape inside a selector, like this:
+This library only works with selector as the background, but not with shape as the root tag. Please put your shape inside a selector, like this:
 
 ```
 <?xml version="1.0" encoding="utf-8"?>
