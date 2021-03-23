@@ -152,6 +152,25 @@ The button enters this state after `stopAnimation()` when the button is not morp
 
 ## Problems and troubleshooting
 
+### Animation
+This library only works selector as the background, but not with shape as the root tag. Please put your shape inside a selector, like this:
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:state_pressed="false" android:state_selected="false">
+    <shape android:shape="rectangle">
+        <corners android:radius="10dp" />
+        <solid android:color="@android:color/transparent" />
+        <stroke android:width="3dp"
+            android:color="@color/black"/>
+    </shape>
+</item>
+</selector>
+```
+*I still need to debug this problem.*
+  
+
 ### Manifest merge
 
 This library only supports androidx since prior the version 2.0.0. So don't try to use it with the old Support Library. Use androidx instead.
@@ -188,3 +207,4 @@ For bugs, feature requests, and discussion please use [GitHub Issues](https://gi
 This library was inspired in this repo: https://github.com/dmytrodanylyk/android-morphing-button
 
 ### And that's it! Enjoy!
+****
