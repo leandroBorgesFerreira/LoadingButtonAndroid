@@ -10,6 +10,7 @@ import android.graphics.drawable.RippleDrawable
 import android.graphics.drawable.StateListDrawable
 import android.os.Build
 import android.view.ContextThemeWrapper
+import androidx.core.graphics.drawable.WrappedDrawable
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 
@@ -45,6 +46,9 @@ internal fun parseGradientDrawable(drawable: Drawable): GradientDrawable =
         }
         is LayerDrawable -> {
             parseGradientDrawable(drawable.getDrawable(0))
+        }
+        is WrappedDrawable -> {
+            parseGradientDrawable(drawable.wrappedDrawable)
         }
         else -> throw RuntimeException("Error reading background... Use a shape or a color in xml!")
     }
