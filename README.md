@@ -1,5 +1,5 @@
 
-[ ![Download](https://api.bintray.com/packages/lehen01/maven/loading-button/images/download.svg) ](https://bintray.com/lehen01/maven/loading-button/_latestVersion)[![Build Status](https://travis-ci.org/leandroBorgesFerreira/LoadingButtonAndroid.svg?branch=master)](https://travis-ci.org/leandroBorgesFerreira/LoadingButtonAndroid)
+[![](https://jitpack.io/v/codegamez/LoadingButtonAndroid.svg)](https://jitpack.io/#codegamez/LoadingButtonAndroid)
 
 Hey, if you think this (or other of my projects) help you some how, please consider giving me some sponsorship: https://github.com/sponsors/leandroBorgesFerreira
 (Open source software can be quite a work haha)
@@ -31,7 +31,19 @@ You can check how this library was implemented here (Old version): https://mediu
 
 ## Installation 
 
-    implementation 'br.com.simplepass:loading-button-android:2.2.0'
+```gradle
+allprojects {
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+
+```gradle
+dependencies {
+    implementation 'com.github.codegamez:LoadingButtonAndroid:2.2.1'
+}
+```
 
 ## How to use
 
