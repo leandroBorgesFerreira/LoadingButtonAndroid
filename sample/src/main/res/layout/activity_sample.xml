@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SampleActivity">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        >
+
+    <io.github.leandroborgesferreira.loadingbutton.customViews.CircularProgressButton
+        android:id="@+id/buttonTest"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/button_shape_no_fill"
+        android:text="Send"
+        android:textColor="@android:color/black"
+        app:finalCornerAngle="50dp"
+        app:initialCornerAngle="10dp"
+        app:spinning_bar_color="#FF000000"
+        app:spinning_bar_padding="8dp"
+        app:spinning_bar_width="4dp"
+        />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
