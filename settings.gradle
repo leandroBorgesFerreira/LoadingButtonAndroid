@@ -1,1 +1,2 @@
-include ':app', ':loading-button-android'
+include ':loading-button-android'
+include ':sample'
