@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SampleActivity">
+    tools:context="com.github.leandroborgesferreira.sample.SampleActivity">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
         android:layout_marginTop="10dp"
         >
 
-    <io.github.leandroborgesferreira.loadingbutton.customViews.CircularProgressButton
+    <com.github.leandroborgesferreira.loadingbutton.customViews.CircularProgressButton
         android:id="@+id/buttonTest"
         android:layout_width="match_parent"
         android:layout_height="50dp"

@@ -3,9 +3,9 @@ import java.io.FileInputStream
 
 plugins {
     id("com.android.library")
-    id("org.jetbrains.kotlin.android")
     signing
     `maven-publish`
+    kotlin("android")
 }
 
 
@@ -75,7 +75,7 @@ signing {
 }
 
 android {
-    namespace = "io.github.leandroborgesferreira.loadingbutton"
+    namespace = "com.github.leandroborgesferreira.loadingbutton"
     compileSdk = 33
 
     defaultConfig {
