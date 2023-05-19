@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace 'io.github.leandroborgesferreira.loadingbutton'
+    namespace = "io.github.leandroborgesferreira.loadingbutton"
     compileSdk = 33
 
     defaultConfig {
@@ -29,12 +29,6 @@ android {
     }
     kotlinOptions {
         jvmTarget = "11"
-    }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.7"
     }
 }
 
