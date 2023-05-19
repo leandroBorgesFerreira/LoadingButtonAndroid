@@ -31,7 +31,7 @@ afterEvaluate {
             release(MavenPublication) {
                 groupId "com.github.leandroborgesferreira"
                 artifactId "loading-button-android"
-                version "2.3.0-SNAP2"
+                version "2.3.0"
 
                 from components.release
 
