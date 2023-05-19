@@ -11,7 +11,7 @@ import androidx.core.content.ContextCompat
 import com.github.leandroborgesferreira.loadingbutton.animatedDrawables.ProgressType
 import com.github.leandroborgesferreira.loadingbutton.customViews.CircularProgressButton
 import com.github.leandroborgesferreira.loadingbutton.customViews.ProgressButton
-import io.github.leandroborgesferreira.sample.R
+import com.github.leandroborgesferreira.sample.R
 
 class SampleActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,0 +1,77 @@
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+apply plugin: 'org.jetbrains.dokka'
+
+task androidSourcesJar(type: Jar) {
+    archiveClassifier.set('sources')
+
+    from android.sourceSets.main.java.srcDirs
+    from android.sourceSets.main.kotlin.srcDirs
+}
+
+tasks.withType(dokkaHtmlPartial.getClass()).configureEach {
+    pluginsMapConfiguration.set(
+            ["org.jetbrains.dokka.base.DokkaBase": """{ "separateInheritedMembers": true}"""]
+    )
+}
+
+task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
+    archiveClassifier.set('javadoc')
+    from dokkaJavadoc.outputDirectory
+}
+
+artifacts {
+    archives androidSourcesJar
+    archives javadocJar
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                groupId "com.github.leandroborgesferreira"
+                artifactId "loading-button-android"
+                version "2.3.0-SNAP2"
+
+                from components.release
+
+                artifact androidSourcesJar
+                artifact javadocJar
+
+                pom {
+                    name = "loading-button-android"
+                    description = "A button that animates into a loading spinner"
+                    url = 'https://https://github.com/leandroBorgesFerreira/LoadingButtonAndroid'
+                    licenses {
+                        license {
+                            name = 'The Apache Software License, Version 2.0'
+                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'leandroBorgesFerreira'
+                            name = 'Leandro Borges Ferreira'
+                            email = "lehen01@gmail.com"
+                            url = "https://github.com/leandroBorgesFerreira"
+                        }
+                    }
+                    scm {
+                        connection = "scm:git:git://github.com/leandroBorgesFerreira/LoadingButtonAndroid.git"
+                        developerConnection = "scm:git:ssh://github.com/leandroBorgesFerreira/LoadingButtonAndroid.git"
+                        url = "https://github.com/leandroBorgesFerreira/LoadingButtonAndroid"
+                    }
+                }
+            }
+        }
+    }
+}
+
+signing {
+    useInMemoryPgpKeys(
+            rootProject.ext["signing.keyId"],
+            rootProject.ext["signing.key"],
+            rootProject.ext["signing.password"],
+    )
+    sign publishing.publications
+}

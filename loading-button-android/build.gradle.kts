@@ -3,76 +3,10 @@ import java.io.FileInputStream
 
 plugins {
     id("com.android.library")
-    signing
-    `maven-publish`
     kotlin("android")
 }
 
-
-val artifactIdVal = "loading-button-android"
-val versionVal = "2.3.0"
-val publicationName = "loadingButton"
-
-group = "io.github.leandroborgesferreira"
-version = versionVal
-
-publishing {
-    publications {
-        create<MavenPublication>(publicationName) {
-            groupId = group.toString()
-            artifactId = artifactIdVal
-            version = versionVal
-
-            pom {
-                name.set("loading-button-android")
-                description.set("A button that animates into a loading spinner")
-                url.set("https://https://github.com/leandroBorgesFerreira/LoadingButtonAndroid")
-                packaging = "jar"
-                licenses {
-                    license {
-                        name.set("The Apache License, Version 2.0")
-                        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
-                    }
-                }
-                developers {
-                    developer {
-                        id.set("leandroBorgesFerreira")
-                        name.set("Leandro Borges Ferreira")
-                        email.set("lehen01@gmail.com")
-                    }
-                }
-                scm {
-                    connection.set("scm:git:git://github.com/leandroBorgesFerreira/LoadingButtonAndroid.git")
-                    developerConnection.set("scm:git:ssh://github.com/leandroBorgesFerreira/LoadingButtonAndroid.git")
-                    url.set("https://github.com/leandroBorgesFerreira/LoadingButtonAndroid")
-                }
-            }
-        }
-    }
-}
-
-signing {
-    val secretPropsFile: File = project.rootProject.file("local.properties")
-
-    if (secretPropsFile.exists()) {
-        val prop = Properties().apply {
-            load(FileInputStream(secretPropsFile))
-        }
-        useInMemoryPgpKeys(
-            prop.getProperty("signing.keyId"),
-            prop.getProperty("signing.key"),
-            prop.getProperty("signing.password"),
-        )
-    } else {
-        useInMemoryPgpKeys(
-            System.getenv("SIGNING_KEY_ID"),
-            System.getenv("SIGNING_KEY"),
-            System.getenv("SIGNING_PASSWORD"),
-        )
-    }
-
-    sign(publishing.publications[publicationName])
-}
+apply(from = "${rootDir}/scripts/publish-module.gradle")
 
 android {
     namespace = "com.github.leandroborgesferreira.loadingbutton"

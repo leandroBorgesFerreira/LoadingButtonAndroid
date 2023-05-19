@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "io.github.leandroborgesferreira.sample"
+    namespace = "com.github.leandroborgesferreira.sample"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "io.github.leandroborgesferreira.sample"
+        applicationId = "com.github.leandroborgesferreira.sample"
         minSdk = 21
         targetSdk = 33
         versionCode = 1

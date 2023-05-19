@@ -15,11 +15,11 @@ jobs:
         uses: actions/setup-java@v3.5.1
         with:
           distribution: adopt
-          java-version: 17
+          java-version: 11
       - name: Release build
-        run: ./gradlew assemble --scan
+        run: ./gradlew assembleRelease --scan
       - name: Publish to MavenCentral
-        run: ./gradlew publishLoadingButtonPublicationToSonatypeRepository --max-workers 1 --scan
+        run: ./gradlew publishReleasePublicationToSonatypeRepository --max-workers 1 --scan
         env:
           SONATYPE_NEXUS_USERNAME: ${{ secrets.SONATYPE_NEXUS_USERNAME }}
           SONATYPE_NEXUS_PASSWORD: ${{ secrets.SONATYPE_NEXUS_PASSWORD }}
