@@ -39,7 +39,7 @@ implementation("com.github.leandroborgesferreira:loading-button-android:2.3.0")
 Add the button in your layout file and customize it the way you like it.
 
 ```xml
-<br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+<com.github.leandroborgesferreira.loadingbutton.customViews.CircularProgressButton
 	android:id="@+id/btn_id"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
