@@ -1,4 +1,4 @@
-https://github.com/leandroBorgesFerreira/LoadingButtonAndroid/actions/workflows/assemble.yml/badge.svg
+![CI passing](https://github.com/leandroBorgesFerreira/LoadingButtonAndroid/actions/workflows/assemble.yml/badge.svg)
 
 
 # Progress Button Android
