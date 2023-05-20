@@ -1,8 +1,5 @@
+https://github.com/leandroBorgesFerreira/LoadingButtonAndroid/actions/workflows/assemble.yml/badge.svg
 
-[ ![Download](https://api.bintray.com/packages/lehen01/maven/loading-button/images/download.svg) ](https://bintray.com/lehen01/maven/loading-button/_latestVersion)[![Build Status](https://travis-ci.org/leandroBorgesFerreira/LoadingButtonAndroid.svg?branch=master)](https://travis-ci.org/leandroBorgesFerreira/LoadingButtonAndroid)
-
-Hey, if you think this (or other of my projects) help you some how, please consider giving me some sponsorship: https://github.com/sponsors/leandroBorgesFerreira
-(Open source software can be quite a work haha)
 
 # Progress Button Android
 
@@ -31,7 +28,9 @@ You can check how this library was implemented here (Old version): https://mediu
 
 ## Installation 
 
-    implementation 'br.com.simplepass:loading-button-android:2.2.0'
+```
+implementation("com.github.leandroborgesferreira:loading-button-android:2.3.0")
+```
 
 ## How to use
 
