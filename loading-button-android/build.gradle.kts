@@ -10,7 +10,7 @@ apply(from = "${rootDir}/scripts/publish-module.gradle")
 
 android {
     namespace = "com.github.leandroborgesferreira.loadingbutton"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 21
@@ -38,7 +38,7 @@ android {
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.10.1")
+    implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
 
     testImplementation("org.mockito:mockito-core:5.3.1")
