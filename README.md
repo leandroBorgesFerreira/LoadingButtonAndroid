@@ -28,7 +28,7 @@ You can check how this library was implemented here (Old version): https://mediu
 ## Installation 
 
 ```
-implementation("com.github.leandroborgesferreira:loading-button-android:2.3.0")
+implementation("com.github.leandroborgesferreira:loading-button-android:2.4.0")
 ```
 
 ## How to use
