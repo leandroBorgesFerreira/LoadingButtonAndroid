@@ -29,6 +29,9 @@ afterEvaluate {
     publishing {
         publications {
             release(MavenPublication) {
+                withJavadocJar()
+                withSourcesJar()
+
                 groupId "com.github.leandroborgesferreira"
                 artifactId "loading-button-android"
                 version "2.4.0"
