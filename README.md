@@ -42,10 +42,10 @@ Add the button in your layout file and customize it the way you like it.
 	android:id="@+id/btn_id"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:background="@drawable/circular_border_shape" />
+	android:background="@drawable/circular_border_shape"
 	app:spinning_bar_width="4dp" <!-- Optional -->
 	app:spinning_bar_color="#FFF" <!-- Optional -->
-	app:spinning_bar_padding="6dp" <!-- Optional -->
+	app:spinning_bar_padding="6dp" /> <!-- Optional -->
 ```
 
 Then, instanciate the button
