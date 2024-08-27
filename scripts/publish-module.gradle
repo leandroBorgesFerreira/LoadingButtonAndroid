@@ -2,17 +2,16 @@ apply plugin: 'maven-publish'
 apply plugin: 'signing'
 apply plugin: 'org.jetbrains.dokka'
 
-task androidSourcesJar(type: Jar) {
-    archiveClassifier.set('sources')
-
-    from android.sourceSets.main.java.srcDirs
-    from android.sourceSets.main.kotlin.srcDirs
-}
-
 tasks.withType(dokkaHtmlPartial.getClass()).configureEach {
     pluginsMapConfiguration.set(
             ["org.jetbrains.dokka.base.DokkaBase": """{ "separateInheritedMembers": true}"""]
     )
+}
+
+task sourcesJar(type: Jar) {
+    archiveClassifier.set('sources')
+    from android.sourceSets.main.java.srcDirs
+    from android.sourceSets.main.kotlin.srcDirs
 }
 
 task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
@@ -21,7 +20,7 @@ task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
 }
 
 artifacts {
-    archives androidSourcesJar
+    archives sourcesJar
     archives javadocJar
 }
 
@@ -29,8 +28,7 @@ afterEvaluate {
     publishing {
         publications {
             release(MavenPublication) {
-                withJavadocJar()
-                withSourcesJar()
+
 
                 groupId "com.github.leandroborgesferreira"
                 artifactId "loading-button-android"
@@ -38,8 +36,11 @@ afterEvaluate {
 
                 from components.release
 
-                artifact androidSourcesJar
+                artifact sourcesJar
                 artifact javadocJar
+
+                artifact(sourcesJar)
+                artifact(javadocJar)
 
                 pom {
                     name = "loading-button-android"
