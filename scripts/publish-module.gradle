@@ -8,39 +8,21 @@ tasks.withType(dokkaHtmlPartial.getClass()).configureEach {
     )
 }
 
-task sourcesJar(type: Jar) {
-    archiveClassifier.set('sources')
-    from android.sourceSets.main.java.srcDirs
-    from android.sourceSets.main.kotlin.srcDirs
-}
-
 task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
     archiveClassifier.set('javadoc')
     from dokkaJavadoc.outputDirectory
-}
-
-artifacts {
-    archives sourcesJar
-    archives javadocJar
 }
 
 afterEvaluate {
     publishing {
         publications {
             release(MavenPublication) {
-
-
                 groupId "com.github.leandroborgesferreira"
                 artifactId "loading-button-android"
                 version "2.4.0"
 
                 from components.release
-
-                artifact sourcesJar
                 artifact javadocJar
-
-                artifact(sourcesJar)
-                artifact(javadocJar)
 
                 pom {
                     name = "loading-button-android"
