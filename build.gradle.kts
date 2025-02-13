@@ -7,4 +7,4 @@ plugins {
     alias(libs.plugins.kotlin.compose) apply false
 }
 
-extra["libraryVersion"] = "0.7.0"
+extra["libraryVersion"] = "3.0.0"
