@@ -3,7 +3,6 @@ plugins {
     kotlin("android")
 }
 
-apply(from = "${rootDir}/scripts/publish-module.gradle")
 
 android {
     namespace = "com.github.leandroborgesferreira.loadingbutton"
