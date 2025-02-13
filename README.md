@@ -30,7 +30,7 @@ You can check how this library was implemented here (Old version): https://mediu
 ## Installation 
 
 ```
-implementation("com.github.leandroborgesferreira:loading-button-android:2.3.0")
+implementation("io.writeopia:loading-button:3.0.0")
 ```
 
 ## How to use
