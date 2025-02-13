@@ -22,4 +22,4 @@ jobs:
         distribution: adopt
         java-version: '21'
     - name: Build with Gradle
-      run: ./gradlew assemble
+      run: ./gradlew assembleRelease

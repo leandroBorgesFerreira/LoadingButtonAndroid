@@ -16,7 +16,7 @@ jobs:
           distribution: adopt
           java-version: '21'
       - name: Release build
-        run: ./gradlew :loading-button-android:assemble
+        run: ./gradlew :loading-button-android:assembleRelease
       - name: Publish to MavenCentral
         run: ./gradlew publishAllPublicationsToMavenCentralRepository --no-configuration-cache
         env:
