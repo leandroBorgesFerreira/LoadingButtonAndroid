@@ -1,4 +1,6 @@
-![Java CI with Gradle](https://github.com/leandroBorgesFerreira/dag-command/workflows/Java%20CI%20with%20Gradle/badge.svg)![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.leandroborgesferreira/loading-button-android/badge.png?&gav=true)
+<p align="center" width="100%">
+  <a href="https://search.maven.org/artifact/io.writeopia/loading-button"><img src="https://img.shields.io/maven-central/v/io.writeopia/loading-button" alt="Maven Central"/></a>
+</p>
 
 # Progress Button Android
 
