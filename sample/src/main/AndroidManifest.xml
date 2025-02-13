@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LoadingButtonAndroid">
         <activity
-            android:name="com.github.leandroborgesferreira.sample.SampleActivity"
+            android:name=".SampleActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.LoadingButtonAndroid">

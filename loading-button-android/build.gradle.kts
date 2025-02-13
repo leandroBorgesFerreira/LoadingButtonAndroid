@@ -1,13 +1,58 @@
+import com.vanniktech.maven.publish.SonatypeHost
+
+val libraryVersion: String by rootProject.extra
+
 plugins {
-    id("com.android.library")
-    kotlin("android")
+    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.sonatype.publish)
 }
 
-apply(from = "${rootDir}/scripts/publish-module.gradle")
+
+mavenPublishing {
+    val artifactId = "loading-button"
+
+    coordinates(
+        groupId = "io.writeopia",
+        artifactId = artifactId,
+        version = libraryVersion
+    )
+
+    pom {
+        name = artifactId
+        description = "Core module of Writeopia"
+        url = "https://github.com/leandroBorgesFerreira/LoadingButtonAndroid"
+
+        developers {
+            developer {
+                id = "leandroBorgesFerreira"
+                name = "Leandro Borges Ferreira"
+                url = "https://github.com/leandroBorgesFerreira"
+            }
+        }
+
+        licenses {
+            license {
+                name = "The Apache Software License, Version 2.0"
+                url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+            }
+        }
+
+        scm {
+            connection = "scm:git@github.com:leandroBorgesFerreira/LoadingButtonAndroid.git"
+            developerConnection = "scm:git:ssh://github.com/leandroBorgesFerreira/LoadingButtonAndroid.git"
+            url = "https://github.com/leandroBorgesFerreira/LoadingButtonAndroid"
+        }
+    }
+
+    signAllPublications()
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL, automaticRelease = false)
+}
+
 
 android {
-    namespace = "com.github.leandroborgesferreira.loadingbutton"
-    compileSdk = 34
+    namespace = "io.writeopia.loadingbutton"
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 21
@@ -35,12 +80,12 @@ android {
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
 
-    testImplementation("org.mockito:mockito-core:5.3.1")
-    testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
-    testImplementation("org.robolectric:robolectric:4.10")
-    testImplementation("androidx.test:core:1.5.0")
-    testImplementation("junit:junit:4.13.2")
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.robolectric)
+    testImplementation(libs.androidx.core)
+    testImplementation(libs.junit)
 }
